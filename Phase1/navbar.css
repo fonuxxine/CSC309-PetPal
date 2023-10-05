@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+}
+.nav-bar {
+    background-color: #d4b0da;
+}
+
+.logo {
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.links {
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.links:hover {
+    color: white;
+}
