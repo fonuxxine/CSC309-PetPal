@@ -32,9 +32,20 @@ body {
 }
 
 .detail-btn {
-    background-color: #FFFFFF !important;
+    background-color: #FFFFFF;
 }
 
 .detail-btn:hover {
-    color: black !important;
+    color: black;
+    color: white;
+}
+
+.submit {
+    background-color: black;
+    color: white;
+}
+
+.submit:hover {
+    background-color: white;
+    color: black;
 }
