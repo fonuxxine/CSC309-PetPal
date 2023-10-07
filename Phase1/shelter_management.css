@@ -1,0 +1,34 @@
+.shelter-h1-container {
+    background-color: #EDE2F0;
+}
+
+.shelter-h1 {
+    font-size: 26px;
+}
+
+.shelter-search-container {
+    background-color: #EDE2F0;
+    height: 10vh;
+}
+
+.add-but, .manage-but {
+    border-radius: 100px;
+    background-color: white;
+    border-width: 1px;
+    border-color:#EDE2F0;
+    font-size: 16px;
+    line-height: 16px;
+    font-family: sans-serif;
+    height: 30px;
+}
+.manage-but {
+    color: rgb(241, 118, 118);
+}
+.add-but:hover {
+    background-color: #B575BF;
+    color: white;
+}
+.manage-but:hover {
+    background-color: rgb(241, 118, 118);
+    color: white;
+}
