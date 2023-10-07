@@ -32,11 +32,11 @@ body {
 }
 
 .search-btn {
-    background-color: #FFFFFF !important;
+    background-color: #FFFFFF;
 }
 
 .search-btn:hover {
-    color: black !important;
+    background-color: black;
 }
 
 .pet-detail-img {
@@ -45,3 +45,17 @@ body {
     object-fit: cover;
 }
 
+/* .btn:hover {
+    background-color: #FFFFFF;
+    color: black;
+} */
+
+.adoption-btn {
+    background-color: black;
+    color: #FFFFFF;
+}
+
+.adoption-btn:hover {
+    background-color: #FFFFFF;
+    color: black;
+}
