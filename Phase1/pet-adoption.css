@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+.nav-bar {
+    background-color: #B575BF;
+}
+
+.logo {
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.links {
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+.links:hover {
+    color: white;
+}
+
+.nav-link {
+    color: black;
+}
+
+.return-to-bar {
+    background-color: #EDE2F0;
+}
+
+.detail-btn {
+    background-color: #FFFFFF !important;
+}
+
+.detail-btn:hover {
+    color: black !important;
+}
