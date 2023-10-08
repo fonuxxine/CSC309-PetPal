@@ -5,11 +5,73 @@
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Application</title> 
+  <link rel="stylesheet" type="text/css" href="navbar.css">
+  <link rel="stylesheet" type="text/css" href="pet_creation.css">
 </head>
 <body> 
-  <header></header> 
-  <main> 
-  </main> 
-  <footer></footer> 
-</body> 
+  <body>
+    <header>
+      <nav class="navbar nav-bar p-3 px-4">
+        <div class="container-fluid">
+          <a class="navbar-brand logo" href="index.html">PetPal</a>
+          <ul class="nav justify-content-end">
+            <a class="navbar-nav links" href="index.html">Search</a>
+            <a class="navbar-nav links" href="notifications.html">Notifications</a>
+          </ul>
+        </div>
+      </nav>
+    </header> 
+    <div class="container">
+        <h1>Application</h1>
+    </div>
+    <div class="application-form">
+        <div class="profile-picture">
+            <div class="picture">
+            </div>
+            <div class="message">
+                Message
+            </div>
+        </div>
+        <div class="col1">
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="field phone-number">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <h3>Adoption Preference</h3>
+            <div class="field">
+                <label for="1st-choice">1st choice</label>
+                <input type="text" id="1st-choice" name="1st-choice">
+            </div>
+            <div class="field">
+                <label for="2nd-choice">2nd choice</label>
+                <input type="text" id="2nd-choice" name="2nd-choice">
+            </div>
+            <div class="field">
+                <label for="3rd-choice">3rd choice</label>
+                <input type="text" id="3rd-choice" name="3rd-choice">
+            </div>
+        </div>
+        <div class="col2">
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+            </div>
+            <div class="field" id="location-field">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location">
+            </div>
+            <div class="field" id="other-field">
+                <label for="other">Other</label>
+                <textarea rows="8" type="text" id="other" name="other" placeholder="Enter your feedback here" required></textarea>
+            </div>
+            <div class="view-only">
+                View Only
+            </div>
+        </div>
+    </div>
+</body>
 </html>

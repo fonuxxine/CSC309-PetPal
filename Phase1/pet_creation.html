@@ -1,15 +1,100 @@
 <!-- PetPal Pet Creation Page --> 
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet Creation</title> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pet Creation</title>
+    <link rel="stylesheet" type="text/css" href="navbar.css">
+    <link rel="stylesheet" type="text/css" href="pet_creation.css">
 </head>
-<body> 
-  <header></header> 
-  <main> 
-  </main> 
-  <footer></footer> 
-</body> 
+<body>
+  <header>
+    <nav class="navbar nav-bar p-3 px-4">
+      <div class="container-fluid">
+        <a class="navbar-brand logo" href="index.html">PetPal</a>
+        <ul class="nav justify-content-end">
+          <a class="navbar-nav links" href="index.html">Search</a>
+          <a class="navbar-nav links" href="notifications.html">Notifications</a>
+        </ul>
+      </div>
+    </nav>
+  </header> 
+    <div class="container" id="return">
+        <div class="return-btn">
+            Return to home
+        </div>
+    </div>
+    <div class="application-form">
+        <div class="pet-picture">
+            <div class="picture">
+            </div>
+            <div class="message">
+                Edit
+            </div>
+            <div class="col1">
+                <p>Contact</p>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div class="field">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone">
+                </div>
+            </div>
+        </div>
+        <div class="create-profile-title">
+            <h1>Create Pet Profile</h1>
+            <div class="create-profile">
+                <div class="col1">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="field">
+                        <label for="breed">Breed</label>
+                        <input type="text" id="breed" name="breed">
+                    </div>
+                    <div class="field">
+                        <label for="weight">Weight</label>
+                        <input type="text" id="weight" name="weight">
+                    </div>
+                    <div class="field">
+                        <label for="animal-id">Animal ID</label>
+                        <input type="text" id="2nd-choice" name="animal-id">
+                    </div>
+                </div>
+                <div class="col2">
+                    <div class="field">
+                        <label for="sex">Sex</label>
+                        <input type="text" id="sex" name="sex">
+                    </div>
+                    <div class="field" id="color">
+                        <label for="color">Color</label>
+                        <input type="text" id="color" name="color">
+                    </div>
+                    <div class="field" id="age">
+                        <label for="age">Age</label>
+                        <input type="text" id="age" name="age">
+                    </div>
+                    <div class="field" id="location-field">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location">
+                    </div>
+                </div>
+            </div>
+            <div class="create-btn">
+                <div class="save-btn">
+                    Save
+                </div>
+                <div class="cancel-btn">
+                    Cancel
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
