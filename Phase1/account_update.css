@@ -1,0 +1,36 @@
+.profile {
+  display: grid;
+  justify-content: center;
+  max-height: 360px;
+}
+
+.profile-pic {
+  width: 220px;
+  border-radius: 50%;
+}
+
+.delete-account {
+  margin-top: 100px;
+  color: rgb(224, 25, 25);
+}
+
+.title {
+  text-align: center;
+}
+
+.sort-select {
+  display: block;
+}
+
+.update-btns {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+textarea,
+select,
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  background-color: #ede2f0;
+}
