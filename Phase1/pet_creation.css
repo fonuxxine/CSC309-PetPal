@@ -52,6 +52,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 4rem;
+    margin-top: 5rem;
 }
 
 .picture {
@@ -62,9 +63,28 @@
     margin-bottom: 1rem;
 }
 
+.upload-picture {
+    border-radius: 260px;
+    background: #EDE2F0;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 1rem;
+}
+
 .message button {
     background: #B575BF;
     border: none;
+}
+
+.cancel button {
+    background: #000;
+    border: none;
+    color: #FFF;
+}
+
+.cancel button:hover {
+    background-color: white;
+    color: black;
 }
 
 #location-field {
@@ -182,14 +202,16 @@
     align-items: center;
 }
 
-.noti-container {
-    background-color: #EDE2F0;
-    width: 100;
-    text-align: left;
-    padding: 1rem 2rem;
+.noti-picture {
+    border-radius: 260px;
+    background: #EDE2F0;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    margin-right: 2rem;
 }
 
-.noti-picture {
+.noti-picture img{
     border-radius: 260px;
     background: #EDE2F0;
     width: 100px;
@@ -236,6 +258,19 @@
     }
     .profile-picture {
         margin-right: 0;
+        margin-top: 0;
     }
+    .notification {
+        flex-direction: column;
+    }
+}
 
+
+@media only screen and (max-width: 960px) {
+    .notification {
+        display: block;
+    }
+    .info-and-pic {
+        display: block;
+    }
 }
