@@ -7,6 +7,7 @@
   <title>Application</title> 
   <link rel="stylesheet" type="text/css" href="navbar.css">
   <link rel="stylesheet" type="text/css" href="pet_creation.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body> 
   <body>
@@ -21,57 +22,79 @@
         </div>
       </nav>
     </header> 
-    <div class="container">
-        <h1>Application</h1>
+    <div class="container-fluid p-4 return-to-bar">
+      <h1 class="text-center fw-bold">Application</h1>
     </div>
     <div class="application-form">
         <div class="profile-picture">
-            <div class="picture">
-            </div>
-            <div class="message">
-                Message
-            </div>
-        </div>
-        <div class="col1">
-            <div class="field">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name">
-            </div>
-            <div class="field phone-number">
-                <label for="phone">Phone Number</label>
-                <input type="text" id="phone" name="phone">
-            </div>
-            <h3>Adoption Preference</h3>
-            <div class="field">
-                <label for="1st-choice">1st choice</label>
-                <input type="text" id="1st-choice" name="1st-choice">
-            </div>
-            <div class="field">
-                <label for="2nd-choice">2nd choice</label>
-                <input type="text" id="2nd-choice" name="2nd-choice">
-            </div>
-            <div class="field">
-                <label for="3rd-choice">3rd choice</label>
-                <input type="text" id="3rd-choice" name="3rd-choice">
+            <img src="/images/portrait.jpg" class="media-object picture" alt="">
+            <div class="container-fluid d-flex justify-content-center p-4 message">
+             <a href="message.html">
+              <button type="submit" class="btn btn-outline-dark submit">Message</button>
+             </a>
             </div>
         </div>
-        <div class="col2">
-            <div class="field">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email">
+        <div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="field">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" value="Hana Kham">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input type="text" id="email" name="email" value="hana.kham@hmail.com">
+                </div>
+              </div>
             </div>
-            <div class="field" id="location-field">
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="field">
+                  <label for="phone">Phone Number</label>
+                  <input type="text" id="phone" name="phone" value="(425)528-257">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="field" id="location-field">
+                  <label for="location">Location</label>
+                  <input type="text" id="location" name="location" value="London, ON">
+                </div>
+              </div>
             </div>
-            <div class="field" id="other-field">
-                <label for="other">Other</label>
-                <textarea rows="8" type="text" id="other" name="other" placeholder="Enter your feedback here" required></textarea>
+          </div>
+          <div class="container-fluid">
+            <p>Adoption Preference</p>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="field">
+                  <label for="1st-choice">1st choice</label>
+                  <input type="text" id="1st-choice" name="1st-choice" value="Pet 1 - Breed">
+                </div>
+                <div class="field">
+                  <label for="2nd-choice">2nd choice</label>
+                  <input type="text" id="2nd-choice" name="2nd-choice" value="Pet 2 - Breed">
+                </div>
+                <div class="field">
+                    <label for="3rd-choice">3rd choice</label>
+                    <input type="text" id="3rd-choice" name="3rd-choice" value="Pet 3 - Breed">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="field">
+                  <label for="other">Other</label>
+                  <textarea rows="8" type="text" id="other" name="other" placeholder="Enter your feedback here" required></textarea>
+                </div>
+              </div>
             </div>
-            <div class="view-only">
-                View Only
-            </div>
+          </div>
+          <div class="container-fluid d-flex justify-content-center p-4 message">
+            <button type="submit" class="btn btn-outline-dark submit">View only</button>
+          </div>
         </div>
     </div>
+  </div>
 </body>
 </html>

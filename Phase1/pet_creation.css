@@ -3,6 +3,35 @@
     margin: 0;
 }
 
+.links {
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+.links:hover {
+    color: white;
+}
+
+.nav-link {
+    color: black;
+}
+
+.return-to-bar {
+    background-color: #EDE2F0;
+}
+
+.return-to-bar button {
+    background-color: #FFFFFF;
+}
+
+.return-to-bar button:hover {
+    background-color: black;
+    color: white;
+}
+
 .container {
     background-color: #EDE2F0;
     width: 100;
@@ -28,16 +57,14 @@
 .picture {
     border-radius: 260px;
     background: #EDE2F0;
-    width: 200px;
-    height: 200px;
-    text-align: center;
+    max-width: 200px;
+    max-height: 200px;
     margin-bottom: 1rem;
 }
 
-.message {
-    border-radius: 100px;
+.message button {
     background: #B575BF;
-    padding: 0.5rem 1.5rem;
+    border: none;
 }
 
 #location-field {
@@ -63,8 +90,6 @@
     border-radius: 10px;
     background: #EDE2F0;
     padding: .5rem;
-    height: 28px;
-    width: 20vw;
     border: none;
 }
 
@@ -72,7 +97,6 @@
     border-radius: 10px;
     background: #EDE2F0;
     padding: .5rem;
-    width: 30vw;
     border: none;
 }
 
@@ -127,12 +151,6 @@
     margin-right: 4rem;
 }
 
-.pet-picture .message {
-    margin-top: -50px;
-    margin-bottom: 1rem;
-
-}
-
 .save-btn {
     border-radius: 100px;
     background: #B575BF;
@@ -183,4 +201,40 @@
 .info-and-pic {
     display: flex;
     align-items: center;
+}
+
+.user-pic {
+    border-radius: 260px;
+    background: #EDE2F0;
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 1rem;
+}
+
+.active-chat {
+    background-color: #EDE2F0;
+}
+
+.user-chat {
+    border-radius: 28px;
+    background: #EDE2F0;
+    width: fit-content;
+}
+
+.text-box {
+    border-radius: 28px;
+    border: 1px solid #9C9293;
+    background: #FFF;
+    width: 40vw;
+    height: 40px;
+}
+
+@media only screen and (max-width: 740px) {
+    .application-form {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-picture {
+        margin-right: 0;
+    }
 }
