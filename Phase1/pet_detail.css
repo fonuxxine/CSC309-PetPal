@@ -63,3 +63,7 @@ body {
 .indent {
     text-indent: 20px;
 }
+
+.adoption-link {
+    color: black;
+}
