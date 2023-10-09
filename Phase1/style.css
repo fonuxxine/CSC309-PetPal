@@ -1,303 +1,300 @@
 /* Nav Bar */
 body {
-    margin: 0;
+  margin: 0;
 }
 .nav-bar {
-    background-color: #d4b0da;
+  background-color: #d4b0da;
 }
 
 .logo {
-    color: black;
-    font-weight: 700;
-    text-decoration: none;
+  color: black;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .links {
-    color: black;
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none;
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
 }
 
 .links:hover {
-    color: white;
+  color: white;
 }
 
 /* Signup Page */
 .signup-h1 {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .login-error {
-    color: red;
-    font-size: 16px;
+  color: red;
+  font-size: 16px;
 }
 
 .login-but {
-    border-radius: 100px;
-    background-color: white;
-    border-width: 1px;
-    border-color:#EDE2F0;
-    font-size: 14px;
-    line-height: 14px;
+  border-radius: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-color: #ede2f0;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 .login-but:hover {
-    background-color: #B575BF;
-    color: white;
+  background-color: #b575bf;
+  color: white;
 }
 
 /* Login Page */
 .login-h1 {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .login-error {
-    color: red;
-    font-size: 16px;
+  color: red;
+  font-size: 16px;
 }
 
 .login-but {
-    border-radius: 100px;
-    background-color: white;
-    border-width: 1px;
-    border-color:#EDE2F0;
-    font-size: 14px;
-    line-height: 14px;
+  border-radius: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-color: #ede2f0;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 .login-but:hover {
-    background-color: #B575BF;
-    color: white;
+  background-color: #b575bf;
+  color: white;
 }
 
 .signup-link {
-    color:#B575BF;
+  color: #b575bf;
 }
 
 .signup-link:hover {
-    color:black;
+  color: black;
 }
 
 /* Search/Home Page */
 .search-container {
-    background-color: #EDE2F0;
-    height: 20vh;
+  background-color: #ede2f0;
+  height: 20vh;
 }
 
-.search-bar, .search-but {
-    border-radius: 100px;
-    background-color: white;
-    border-width: 1px;
-    border-color:#EDE2F0;
-    font-size: 16px;
-    line-height: 16px;
-    font-family: sans-serif;
-    height: 40px;
+.search-bar,
+.search-but {
+  border-radius: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-color: #ede2f0;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: sans-serif;
+  height: 40px;
 }
 
 .search-bar {
-    width: 50vw;
+  width: 50vw;
 }
 
 .search-but:hover {
-    background-color: #B575BF;
-    color: white;
+  background-color: #b575bf;
+  color: white;
 }
 
-.filter-h1, .pets-h1 {
-    font-size: 28px;
+.filter-h1,
+.pets-h1 {
+  font-size: 28px;
 }
 
 .sort-h1 {
-    font-weight: bold;
-    font-size: 18px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .sort-select {
-    width: 70px;
-    background-color: #EDE2F0;
-    border-width: 1px;
-    border-color:#EDE2F0
+  width: 70px;
+  background-color: #ede2f0;
+  border-width: 1px;
+  border-color: #ede2f0;
 }
 
 .pets-img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 .pet-description {
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .pet-description:hover {
-    color: #B575BF;
+  color: #b575bf;
 }
 
 /* Pet Details Page */
 .return-to-bar {
-    background-color: #EDE2F0;
+  background-color: #ede2f0;
 }
 
 .search-btn {
-    background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .search-btn:hover {
-    background-color: black;
+  background-color: black;
 }
 
 .pet-detail-img {
-    width: 500px;
-    height: 300px;
-    object-fit: cover;
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
 }
 
 .adoption-btn {
-    background-color: black;
-    color: #FFFFFF;
+  background-color: black;
+  color: #ffffff;
 }
 
 .adoption-btn:hover {
-    background-color: #FFFFFF;
-    color: black;
+  background-color: #ffffff;
+  color: black;
 }
 
 .indent {
-    text-indent: 20px;
+  text-indent: 20px;
 }
 
 .adoption-link {
-    color: black;
+  color: black;
 }
 
 /* Pet Adoption Page */
 .detail-btn {
-    background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .detail-btn:hover {
-    color: black;
-    color: white;
+  color: black;
+  color: white;
 }
 
 .submit {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 .submit:hover {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
 
 .form-bg {
-    background-color: #EDE2F0;
+  background-color: #ede2f0;
 }
 
 /* Pet Shelter Details Page */
 .shelter-name-banner {
-    background-color: #ede2f0;
-    height: 20vh;
-    align-items: center;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  
-  .shelter-name {
-    font-size: max(calc(1.375rem + 2vw), 2.25em);
-  }
-  
-  .shelter-logo {
-    border-radius: 50%;
-  }
-  
-  .profile-pic,
-  .profile-pic-xs {
-    border-radius: 50%;
-  }
-  
-  .card-pet-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .profile-pic-xs {
-    max-width: 80%;
-  }
-  
-  .separator {
-    width: 100%;
-    border-bottom: solid rgb(59, 59, 59) 1px;
-  }
-  
-  .card {
-    width: 30rem;
-  }
-  
-  .d-flex {
-    gap: 1.5rem;
-  }
-  
-  .glyphicon {
-    font-size: min(6vw, 6rem);
-  }
-  
-  .selected {
-    color: #b575bf;
-  }
-  
-  .review {
-    border: solid rgb(138, 134, 134) 1px;
-    background-color: #ede2f0;
-    border-radius: 10px;
-  }
-  
-  .card {
-    background-color: #ede2f0;
-    border: solid black 1px;
-  }
-  
-  .card-body {
-    border-top: solid black 1px;
-  }
-  
+  background-color: #ede2f0;
+  height: 20vh;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.shelter-name {
+  font-size: max(calc(1.375rem + 2vw), 2.25em);
+}
+
+.shelter-logo {
+  border-radius: 50%;
+}
+
+.profile-pic,
+.profile-pic-xs {
+  border-radius: 50%;
+}
+
+.profile-pic-xs {
+  max-width: 80%;
+}
+
+.separator {
+  width: 100%;
+  border-bottom: solid rgb(59, 59, 59) 1px;
+}
+
+.glyphicon-star {
+  font-size: min(6vw, 5rem);
+}
+
+.selected {
+  color: #b575bf;
+}
+
+.review {
+  border: solid rgb(138, 134, 134) 1px;
+  background-color: #ede2f0;
+  border-radius: 10px;
+}
+
+.card-pet {
+  width: 30rem;
+  background-color: #ede2f0;
+  border: solid black 1px;
+}
+
+.card-pet:hover,
+.card-pet:focus {
+  text-decoration: none;
+  color: #000;
+  transform: scale(1.03);
+}
+
+.card-pet-body {
+  border-top: solid black 1px;
+}
+
 /* Shelter Management Page */
-  .shelter-h1-container {
-    background-color: #EDE2F0;
+.shelter-h1-container {
+  background-color: #ede2f0;
 }
 
 .shelter-h1 {
-    font-size: 26px;
+  font-size: 26px;
 }
 
 .shelter-search-container {
-    background-color: #EDE2F0;
-    height: 10vh;
+  background-color: #ede2f0;
+  height: 10vh;
 }
 
-.add-but, .manage-but {
-    border-radius: 100px;
-    background-color: white;
-    border-width: 1px;
-    border-color:#EDE2F0;
-    font-size: 16px;
-    line-height: 16px;
-    font-family: sans-serif;
-    height: 30px;
+.add-but,
+.manage-but {
+  border-radius: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-color: #ede2f0;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: sans-serif;
+  height: 30px;
 }
 .manage-but {
-    color: rgb(241, 118, 118);
+  color: rgb(241, 118, 118);
 }
 .add-but:hover {
-    background-color: #B575BF;
-    color: white;
+  background-color: #b575bf;
+  color: white;
 }
 .manage-but:hover {
-    background-color: rgb(241, 118, 118);
-    color: white;
+  background-color: rgb(241, 118, 118);
+  color: white;
 }
