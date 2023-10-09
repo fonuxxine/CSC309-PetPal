@@ -43,3 +43,19 @@ input[type="tel"] {
   --bs-btn-disabled-bg: #b575bf;
   --bs-btn-disabled-border-color: #b575bf;
 }
+
+.btn-primary:hover {
+  background-color: black;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: black;
+}
+
+.cancel-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+
