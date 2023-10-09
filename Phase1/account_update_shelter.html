@@ -15,89 +15,90 @@
 <body>
   <header>
     <nav class="navbar nav-bar p-3 px-4">
-      <div class="container-fluid"></div>
-      <a class="navbar-brand logo" href="index.html">PetPal</a>
-      <div class="d-flex justify-content-end">
-        <a class="navbar-nav links" href="login.html">Sign In</a>
-      </div>
+      <div class="container-fluid">
+        <a class="navbar-brand logo" href="index.html">PetPal</a>
+        <div class="d-flex justify-content-end">
+          <a class="navbar-nav links pe-4" href="notifications.html">Notifications</a>
+          <a class="navbar-nav links" href="account_update_shelter.html">Account</a>
+        </div>
       </div>
     </nav>
   </header>
   <main>
+    <form class="needs-validation" novalidate></form>
     <div class="row container-fluid">
-      <div class="col-sm-4 ps-4 pe-5 pb-0 pt-5 profile">
-        <div class="position-relative">
+      <div class="col-md-5 col-lg-4 ps-4 pe-5 pb-0 pt-5 profile h-50">
+        <div class="position-relative row-sm-5">
           <img class="img-thumbnail profile-pic"
             src="https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
             alt="Profile Picture">
-          <label for="profile" class="btn btn-primary position-absolute bottom-0 start-0 btn-lg">
+          <label for="profile" class="btn btn-primary position-absolute bottom-0 start-0">
             <input type="file" id="profile" class="d-none">
             Edit
           </label>
         </div>
-        <button type="button" class="btn btn-dark delete-account btn-lg">Delete Account</button>
+        <button type="button" class="btn btn-dark delete-account mt-5">Delete Account</button>
       </div>
-      <div class="col-sm-6 p-5 pb-0">
-        <h1 class="title">Update Shelter Information</h1>
-        <form class="needs-validation" novalidate>
-          <div class="mb-3">
-            <label for="shelter-name" class="form-label">Shelter Name</label>
-            <input class="form-control" type="text" name="shelter-name" id="shelter-name" required>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-site" class="form-label">Shelter Website</label>
-            <input class="form-control" type="text" name="shelter-site" id="shelter-site">
-          </div>
-          <div class="mb-3">
-            <label for="shelter-email" class="form-label">Email</label>
-            <input class="form-control" type="email" name="shelter-email" id="shelter-email" required>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-phone" class="form-label">Phone Number</label>
-            <input class="form-control" type="tel" name="shelter-phone" id="shelter-phone" required>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-address" class="form-label">Street Address</label>
-            <input class="form-control" type="text" name="shelter-address" id="shelter-address" required>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-city" class="form-label">City</label>
-            <input class="form-control" type="text" name="shelter-city" id="shelter-city" required>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-province" class="form-label">Province</label>
-            <select class="sort-select" id="shelter-province" class="form-select" required>
-              <option selected>---Select---</option>
-              <option value="NL">Newfoundland and Labrador</option>
-              <option value="PE">Prince Edward Island</option>
-              <option value="NS">Nova Scotia</option>
-              <option value="NB">New Brunswick</option>
-              <option value="QC">Quebec</option>
-              <option value="ON">Ontario</option>
-              <option value="MB">Manitoba</option>
-              <option value="SK">Saskatchewan</option>
-              <option value="AB">Alberta</option>
-              <option value="BC">British Columbia</option>
-              <option value="YT">Yukon</option>
-              <option value="NT">Northwest Territories</option>
-              <option value="NU">Nunavut</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-postal-code" class="form-label">Postal Code</label>
-            <input class="form-control" type="text" name="shelter-postal-code" id="shelter-postal-code" required>
-          </div>
-          <div class="mb-3">
-            <label for="shelter-mission" class="form-label">Mission Statement</label>
-            <textarea class="form-control" type="text" name="shelter-mission" id="shelter-mission" required></textarea>
-          </div>
-          <div class="update-btns">
-            <input class="btn btn-primary btn-lg" type="submit" value="Submit">
-            <button type="button" class="btn btn-dark btn-lg">Cancel</button>
-          </div>
-        </form>
+      <div class="col-md-7 col-lg-6 p-5 pb-0">
+        <h1 class="text-center">Update Shelter Information</h1>
+        <div class="mb-3">
+          <label for="shelter-name" class="form-label">Shelter Name</label>
+          <input class="form-control" type="text" name="shelter-name" id="shelter-name" required>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-site" class="form-label">Shelter Website</label>
+          <input class="form-control" type="text" name="shelter-site" id="shelter-site">
+        </div>
+        <div class="mb-3">
+          <label for="shelter-email" class="form-label">Email</label>
+          <input class="form-control" type="email" name="shelter-email" id="shelter-email" required>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-phone" class="form-label">Phone Number</label>
+          <input class="form-control" type="tel" name="shelter-phone" id="shelter-phone" required>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-address" class="form-label">Street Address</label>
+          <input class="form-control" type="text" name="shelter-address" id="shelter-address" required>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-city" class="form-label">City</label>
+          <input class="form-control" type="text" name="shelter-city" id="shelter-city" required>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-province" class="form-label">Province</label>
+          <select class="sort-select" id="shelter-province" class="form-select" required>
+            <option selected>---Select---</option>
+            <option value="NL">Newfoundland and Labrador</option>
+            <option value="PE">Prince Edward Island</option>
+            <option value="NS">Nova Scotia</option>
+            <option value="NB">New Brunswick</option>
+            <option value="QC">Quebec</option>
+            <option value="ON">Ontario</option>
+            <option value="MB">Manitoba</option>
+            <option value="SK">Saskatchewan</option>
+            <option value="AB">Alberta</option>
+            <option value="BC">British Columbia</option>
+            <option value="YT">Yukon</option>
+            <option value="NT">Northwest Territories</option>
+            <option value="NU">Nunavut</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-postal-code" class="form-label">Postal Code</label>
+          <input class="form-control" type="text" name="shelter-postal-code" id="shelter-postal-code" required>
+        </div>
+        <div class="mb-3">
+          <label for="shelter-mission" class="form-label">Mission Statement</label>
+          <textarea class="form-control" type="text" name="shelter-mission" id="shelter-mission" required></textarea>
+        </div>
+        <div class="update-btns d-grid gap-2 d-md-flex justify-content-md-evenly">
+          <input class="btn btn-primary" type="submit" value="Submit">
+          <button type="button" class="btn btn-dark">Cancel</button>
+        </div>
       </div>
     </div>
+    </form>
   </main>
   <footer></footer>
 </body>
