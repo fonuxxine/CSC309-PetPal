@@ -73,12 +73,22 @@
 
 .message button {
     background: #B575BF;
-    border: none;
+    /* border: none; */
+}
+
+.edit-button {
+    background: #B575BF;
+    color: black;
+}
+
+.edit-button:hover {
+    background-color: black;
+    color: white;
 }
 
 .cancel button {
     background: #000;
-    border: none;
+    /* border: none; */
     color: #FFF;
 }
 

@@ -2,13 +2,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet Update</title> 
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pet Update</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="navbar.css">
+    <link rel="stylesheet" type="text/css" href="pet_creation.css">
+    
 </head>
 <body> 
-  <header></header> 
-  <main> 
+  <header>
+    <nav class="navbar nav-bar p-3 px-4">
+      <div class="container-fluid"></div>
+      <a class="navbar-brand logo" href="index.html">PetPal</a>
+      <div class="d-flex justify-content-end">
+          <a class="navbar-nav links pe-4" href="notifications.html">Notifications</a>
+          <a class="navbar-nav links" href="account_update_shelter.html">Account</a>
+      </div>
+      </div>
+    </nav>
+  </header> 
+  <main>
+    <div class="container-fluid return-to-bar d-flex justify-content-start p-3 return-to-app">
+      <a href="index.html">
+          <button class="btn btn-default btn-outline-dark detail-btn">Return to Home</button>
+      </a>
+    </div>
+    <div class="application-form">
+      <div class="profile-picture">
+          <div class="upload-picture"></div>
+          <div class="container-fluid d-flex justify-content-center p-4 message">
+            <label for="profile" class="edit-button btn btn-primary">
+              <input type="file" id="profile" class="d-none">
+              Edit
+            </label>
+          </div>
+      </div>
+      <div>
+        <div class="container-fluid">
+          <h1 class="text-center fw-bold mb-5">Update Pet Profile</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="field">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="field">
+                  <label for="sex">Sex</label>
+                  <input type="text" id="sex" name="sex">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="field">
+                  <label for="breed">Breed</label>
+                  <input type="text" id="breed" name="breed">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="field" id="color">
+                  <label for="color">Color</label>
+                  <input type="text" id="color" name="color">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="field">
+                      <label for="weight">Weight</label>
+                      <input type="text" id="weight" name="weight">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="field" id="age">
+                      <label for="age">Age</label>
+                      <input type="text" id="age" name="age">
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="field">
+                      <label for="animal-id">Animal ID</label>
+                      <input type="text" id="2nd-choice" name="animal-id">
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="field">
+                      <label for="location">Location</label>
+                      <input type="text" id="location" name="location">
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="field">
+                      <label for="medical">Medical History</label>
+                      <textarea rows=4 type="text" id="medical" name="medical"></textarea>
+                  </div>
+              </div>
+            </div>
+            <p>Contact</p>
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="field">
+                      <label for="email">Email</label>
+                      <input type="text" id="email" name="email">
+                    </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="field">
+                      <label for="phone">Phone Number</label>
+                      <input type="text" id="phone" name="phone">
+                    </div>
+              </div>
+            </div>
+        
+        <div class="d-flex">
+          <div class="container-fluid d-flex justify-content-center p-4 message">
+              <button type="submit" class="btn submit btn-outline-dark">Save</button>
+            </div>
+            <div class="container-fluid d-flex justify-content-center p-4 cancel">
+              <button type="submit" class="btn btn-outline-dark submit">Cancel</button>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
+
   </main> 
   <footer></footer> 
 </body> 
