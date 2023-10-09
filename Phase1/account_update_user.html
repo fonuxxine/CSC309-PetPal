@@ -25,7 +25,7 @@
     </nav>
   </header>
   <main>
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation">
       <div class="row container-fluid">
         <div class="col-md-5 col-lg-4 ps-4 pe-5 pb-0 pt-5 profile h-50">
           <div class="position-relative row-sm-5">
@@ -43,15 +43,17 @@
           <h1 class="text-center">Update Account Information</h1>
           <div class="mb-3">
             <label for="account-name" class="form-label">Username</label>
-            <input class="form-control" type="text" name="account-name" id="account-name" required>
+            <input class="form-control" type="text" name="account-name" id="account-name" value="current value"
+              required>
           </div>
           <div class="mb-3">
             <label for="account-email" class="form-label">Email</label>
-            <input class="form-control" type="email" name="account-email" id="account-email" required>
+            <input class="form-control" type="email" name="account-email" id="account-email" value="current value"
+              required>
           </div>
           <div class="mb-3">
             <label for="account-phone" class="form-label">Phone Number</label>
-            <input class="form-control" type="tel" name="account-phone" id="account-phone" required>
+            <input class="form-control" type="tel" name="account-phone" id="account-phone">
           </div>
           <div class="mb-3">
             <label for="account-preference" class="form-label">Pet Preference</label>
@@ -64,15 +66,15 @@
           </div>
           <div class="mb-3">
             <label for="account-address" class="form-label">Street Address</label>
-            <input class="form-control" type="text" name="account-address" id="account-address" required>
+            <input class="form-control" type="text" name="account-address" id="account-address">
           </div>
           <div class="mb-3">
             <label for="account-city" class="form-label">City</label>
-            <input class="form-control" type="text" name="account-city" id="account-city" required>
+            <input class="form-control" type="text" name="account-city" id="account-city">
           </div>
           <div class="mb-3">
             <label for="account-province" class="form-label">Province</label>
-            <select class="sort-select" id="account-province" class="form-select" required>
+            <select class="sort-select" id="account-province" class="form-select">
               <option selected>---Select---</option>
               <option value="NL">Newfoundland and Labrador</option>
               <option value="PE">Prince Edward Island</option>
@@ -91,11 +93,11 @@
           </div>
           <div class="mb-3">
             <label for="account-postal-code" class="form-label">Postal Code</label>
-            <input class="form-control" type="text" name="account-postal-code" id="account-postal-code" required>
+            <input class="form-control" type="text" name="account-postal-code" id="account-postal-code">
           </div>
           <div class="update-btns d-grid gap-2 d-md-flex justify-content-md-evenly pb-4">
             <input class="btn btn-primary btn-outline-dark" type="submit" value="Submit">
-            <button type="button" class="btn btn-dark cancel-btn">Cancel</button>
+            <a href="account_update_user.html" class="btn btn-dark cancel-btn">Cancel</a>
           </div>
         </div>
       </div>
