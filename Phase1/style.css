@@ -245,6 +245,12 @@ body {
   border-radius: 10px;
 }
 
+.card-pet-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
 .card-pet {
   width: 30rem;
   background-color: #ede2f0;
