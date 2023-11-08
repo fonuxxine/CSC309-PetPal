@@ -1,5 +1,6 @@
 from django.db import models
 from .pet import Pet
+from accounts.models import PetUser
 
 
 class Applications(models.Model):
@@ -12,3 +13,4 @@ class Applications(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     creation_time = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=50, default="In progress")
+    applicant = models.ForeignKey(PetUser, on_delete=models.CASCADE)
