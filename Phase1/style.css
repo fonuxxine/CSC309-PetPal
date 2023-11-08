@@ -245,6 +245,18 @@ body {
   border-radius: 10px;
 }
 
+.reply {
+  border: none;
+}
+
+.replies-dropdown {
+  font-weight: bold;
+}
+
+#writen-review {
+  border-radius: 10px;
+}
+
 .card-pet-img-top {
   width: 100%;
   height: 300px;
@@ -266,6 +278,35 @@ body {
 
 .card-pet-body {
   border-top: solid black 1px;
+}
+
+.btn-review {
+  color: #000;
+  background-color: hsl(292, 37%, 60%);
+  border-color: #b573bf;
+  font-size: 1.5rem;
+}
+
+.btn-review:hover,
+.btn-review:focus {
+  color: #000;
+  background-color: #9f61a8;
+  border-color: #9c59a6;
+}
+
+.btn-review:focus {
+  box-shadow: 0 0 0 0.25rem rgba(194, 140, 202, 0.5);
+}
+
+.btn-review:active {
+  color: #000;
+  background-color: #9c59a6;
+  border-color: #91559b;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-review-sm {
+  font-size: 1rem;
 }
 
 /* Shelter Management Page */
