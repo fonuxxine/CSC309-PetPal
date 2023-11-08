@@ -11,3 +11,4 @@ class Applications(models.Model):
     reason = models.TextField(max_length=200)
     last_modified = models.DateTimeField(auto_now=True)
     creation_time = models.DateTimeField(auto_now=True)
+    status = models.CharField(default="In progress")
