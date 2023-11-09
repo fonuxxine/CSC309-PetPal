@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
-from models import Pet
-from serializers import PetSerializer
+from pets.models import *
+from ..serializers.pet_serializers import *
 from accounts.models import ShelterUser
 
 class ShelterPetsList(ListAPIView):
