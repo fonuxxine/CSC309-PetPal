@@ -9,4 +9,6 @@ urlpatterns = [
     path("pet-listings/", pets_views.UserPetsList.as_view()),
     path('comments/reviews/<int:pk>/review/', comments_views.ShelterCommentCreateView.as_view()),
     path('comments/reviews/<int:pk>/', comments_views.ShelterCommentListView.as_view()),
+    path('comments/application/<int:pk>/message/', comments_views.ApplicationCommentCreateView.as_view()),
+    path('comments/application/<int:pk>/', comments_views.ApplicationCommentListView.as_view()),
 ]

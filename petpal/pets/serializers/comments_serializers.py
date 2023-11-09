@@ -6,6 +6,11 @@ from ..models import ShelterComment, ApplicationComment
 class AppCommentSerializer(ModelSerializer):
     class Meta:
         model = ApplicationComment
+        fields = '__all__'
+        
+class AppCommentCreateSerializer(ModelSerializer):
+    class Meta:
+        model = ApplicationComment
         fields = ['message']
 
 class ShelterCommentSerializer(ModelSerializer):
