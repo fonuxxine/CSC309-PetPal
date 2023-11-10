@@ -15,7 +15,7 @@ class ShelterCommentReplyCreateView(CreateAPIView):
         review = get_object_or_404(ShelterComment, id=self.kwargs['pk'])
         serializer.save(review=review, user_from=self.request.user)
 
-class ShelterCommentView(ListCreateAPIView):
+class ShelterCommentListCreateView(ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = PageNumberPagination
 
@@ -38,7 +38,7 @@ class ApplicationPermission(permissions.BasePermission):
             return True
         return False
 
-class ApplicationCommentView(ListCreateAPIView):
+class ApplicationCommentListCreateView(ListCreateAPIView):
     serializer_class = AppCommentCreateSerializer
     permission_classes = [ApplicationPermission]
 
