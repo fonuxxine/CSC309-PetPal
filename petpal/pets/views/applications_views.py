@@ -25,7 +25,7 @@ class PetUserPermission(BasePermission):
             return False
 
 
-class ApplicationCreateView(CreateAPIView):
+class ApplicationCreateListView(CreateAPIView):
     serializer_class = ApplicationCreateSerializer
     permission_classes = [IsAuthenticated]
 
@@ -35,7 +35,7 @@ class ApplicationCreateView(CreateAPIView):
             serializer.save(applicant=self.request.user)
 
 
-class ApplicationUpdateView(UpdateAPIView):
+class ApplicationGetUpdateView(UpdateAPIView):
     serializer_class = ApplicationUpdateSerializer
     permission_classes = [IsAuthenticated, ShelterPermission, PetUserPermission]
 
