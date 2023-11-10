@@ -1,5 +1,6 @@
 from django.utils import timezone
-from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, RetrieveAPIView, get_object_or_404
+from rest_framework.generics import UpdateAPIView, ListAPIView, RetrieveAPIView, get_object_or_404, \
+    ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission, IsAuthenticated
 
@@ -25,17 +26,27 @@ class PetUserPermission(BasePermission):
             return False
 
 
-class ApplicationCreateListView(CreateAPIView):
-    serializer_class = ApplicationCreateSerializer
-    permission_classes = [IsAuthenticated]
+class ApplicationCreateListView(ListCreateAPIView):
+    serializer_class = ApplicationSerializer
+    permission_classes = [IsAuthenticated, ShelterPermission]
+    pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
         pet_listing = serializer.validated_data['pet_listing']
         if pet_listing.status == 'available':
             serializer.save(applicant=self.request.user)
 
+    def get_queryset(self):
+        if isinstance(self.request.user, ShelterUser):
+            pet_listing = Pet.objects.filter(shelter=self.request.user)
+            return (Applications.objects.filter(pet_listing=pet_listing).order_by('creation_time')
+                    .order_by('last_modified'))
+        else:
+            return (Applications.objects.filter(applicant=self.request.user).order_by('creation_time')
+                    .order_by('last_modified'))
 
-class ApplicationGetUpdateView(UpdateAPIView):
+
+class ApplicationGetUpdateView(RetrieveUpdateAPIView):
     serializer_class = ApplicationUpdateSerializer
     permission_classes = [IsAuthenticated, ShelterPermission, PetUserPermission]
 
@@ -49,25 +60,6 @@ class ApplicationGetUpdateView(UpdateAPIView):
                     serializer.validated_data['status'] == 'withdrawn'):
                 serializer.save(status=serializer.validated_data['status'], last_modified=timezone.now())
 
-
-class ApplicationListView(ListAPIView):
-    serializer_class = ApplicationUpdateSerializer
-    permission_classes = [IsAuthenticated, ShelterPermission, PetUserPermission]
-    pagination_class = PageNumberPagination
-
-    def get_queryset(self):
-        if isinstance(self.request.user, ShelterUser):
-            pet_listing = Pet.objects.filter(shelter=self.request.user)
-            return (Applications.objects.filter(pet_listing=pet_listing).order_by('creation_time')
-                    .order_by('last_modified'))
-        else:
-            return (Applications.objects.filter(applicant=self.request.user).order_by('creation_time')
-                    .order_by('last_modified'))
-
-
-class ApplicationGetView(RetrieveAPIView):
-    serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ShelterPermission, PetUserPermission]
-
     def get_object(self):
         return get_object_or_404(Applications, id=self.kwargs['pk'])
+
