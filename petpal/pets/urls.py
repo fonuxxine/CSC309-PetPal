@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import comments_views
+from .views import comments_views, notifications_views
 from .views import pets_views
 urlpatterns = [ 
     path("pet-listings/manage/<int:shelter_id>/pet/<int:pet_id>", pets_views.ShelterPetsRetrieveUpdateDestroy.as_view()),
@@ -11,4 +11,7 @@ urlpatterns = [
     path('comments/reviews/<int:pk>/', comments_views.ShelterCommentListView.as_view()),
     path('comments/application/<int:pk>/message/', comments_views.ApplicationCommentCreateView.as_view()),
     path('comments/application/<int:pk>/', comments_views.ApplicationCommentListView.as_view()),
+    path('notifications/user/<int:pk>/', notifications_views.NotificationListView.as_view()),
+    path('notifications/user/<int:pk>/notification/', notifications_views.NotificationCreateView.as_view()),
+    path('notifications/<int:pk>/', notifications_views.NotificationGetDeleteView.as_view()),
 ]
