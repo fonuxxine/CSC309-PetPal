@@ -25,7 +25,7 @@ class Pet(models.Model):
     size= models.CharField(max_length=120)
     description= models.CharField(max_length=120)
     status= models.CharField(max_length=2, choices=STATUS_CHOICES)
-    publication_date = models.DateField(auto_now_add=True)
+    publication_date = models.DateTimeField(auto_now_add=True)
     medical_history = models.CharField(max_length=120, null=True, blank=True)
     special_requirements = models.CharField(max_length=120, null=True, blank=True)
     behaviour = models.CharField(max_length=120, null=True, blank=True)

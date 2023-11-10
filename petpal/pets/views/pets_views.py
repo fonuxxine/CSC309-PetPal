@@ -52,7 +52,11 @@ class UserPetsList(ListAPIView):
         type = self.request.query_params.get("type")
         breed = self.request.query_params.get("breed")
         age = self.request.query_params.get("age")
+        sort = self.request.query_params.get("sort")
 
+        if sort == '' or sort is None:
+            sort = "name"
+        
         if shelter is not None:
             queryset = queryset.filter(shelter=shelter)
         if status is not None:
@@ -63,7 +67,7 @@ class UserPetsList(ListAPIView):
             queryset = queryset.filter(breed=breed)
         if age is not None:
             queryset = queryset.filter(age=age)
-        return queryset
+        return queryset.order_by(sort)
 
 
 class UserPetsRetrieve(RetrieveAPIView):
