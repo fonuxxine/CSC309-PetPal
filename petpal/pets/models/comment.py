@@ -10,6 +10,11 @@ class ShelterComment(models.Model):
     rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     time_created = models.DateTimeField(auto_now=True)
     
+class ShelterCommentResponse(models.Model):
+    message = models.TextField()
+    review = models.ForeignKey(ShelterComment, on_delete=models.CASCADE)
+    user_from = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='review_response')
+    time_created = models.DateTimeField(auto_now=True)
 
 class ApplicationComment(models.Model):
     message = models.TextField()

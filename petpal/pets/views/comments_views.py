@@ -15,6 +15,14 @@ class ShelterCommentCreateView(CreateAPIView):
         shelter = get_object_or_404(ShelterUser, id=self.kwargs['pk'])
         serializer.save(shelter=shelter, user_from=self.request.user)
 
+class ShelterCommentReplyCreateView(CreateAPIView):
+    serializer_class = ShelterCommentResponseCreateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def perform_create(self, serializer):
+        review = get_object_or_404(ShelterComment, id=self.kwargs['pk'])
+        serializer.save(review=review, user_from=self.request.user)
+
 class ShelterCommentListView(ListAPIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = ShelterCommentSerializer

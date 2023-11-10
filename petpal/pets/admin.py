@@ -4,5 +4,6 @@ from .models import *
 admin.site.register(Pet)
 admin.site.register(Applications)
 admin.site.register(ShelterComment)
+admin.site.register(ShelterCommentResponse)
 admin.site.register(ApplicationComment)
 admin.site.register(Notification)

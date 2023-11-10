@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
-from ..models import ShelterComment, ApplicationComment
+from ..models import ShelterComment, ApplicationComment, ShelterCommentResponse
 
 # might need more than one serializer if you need different fields for different views
 
@@ -13,12 +13,24 @@ class AppCommentCreateSerializer(ModelSerializer):
         model = ApplicationComment
         fields = ['message']
 
-class ShelterCommentSerializer(ModelSerializer):
-    class Meta:
-        model = ShelterComment
-        fields = '__all__'
-
 class ShelterCommentCreateSerializer(ModelSerializer):
     class Meta:
         model = ShelterComment
         fields = ['rating', 'message']
+
+class ShelterCommentResponseCreateSerializer(ModelSerializer):
+    class Meta:
+        model = ShelterCommentResponse
+        fields = ['message']
+
+class ShelterCommentResponseSerializer(ModelSerializer):
+    class Meta:
+        model = ShelterCommentResponse
+        fields = '__all__'
+
+class ShelterCommentSerializer(ModelSerializer):
+    replies = ShelterCommentResponseSerializer(source='sheltercommentresponse_set', many=True)
+    
+    class Meta:
+        model = ShelterComment
+        fields = ['shelter', 'user_from', 'message', 'rating', 'replies', 'time_created']
