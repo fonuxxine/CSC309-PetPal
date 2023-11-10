@@ -15,8 +15,6 @@ urlpatterns = [
     path('notifications/user/<int:pk>/', notifications_views.NotificationListView.as_view()),
     path('notifications/user/<int:pk>/notification/', notifications_views.NotificationCreateView.as_view()),
     path('notifications/<int:pk>/', notifications_views.NotificationGetDeleteView.as_view()),
-    path('applications/signup/', applications_views.ApplicationCreateView.as_view()),
-    path('applications/<int:pk>/view/', applications_views.ApplicationGetView.as_view()),
-    path('applications/<int:pk>/update/', applications_views.ApplicationUpdateView.as_view()),
-    path('applications/list/', applications_views.ApplicationListView.as_view()),
+    path('applications/', applications_views.ApplicationCreateListView.as_view()),
+    path('applications/<int:pk>/', applications_views.ApplicationGetUpdateView.as_view()),
 ]
