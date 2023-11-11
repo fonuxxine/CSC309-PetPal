@@ -18,10 +18,7 @@ class NotificationViewPermission(permissions.BasePermission):
 class NotificationListCreateView(ListCreateAPIView):
     pagination_class = PageNumberPagination
     permission_classes = [NotificationViewPermission]
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return NotificationCreateSerializer
-        return NotificationSerializer
+    serializer_class = NotificationSerializer
     
     def perform_create(self, serializer):
         user = get_object_or_404(CustomUser, id=self.kwargs['pk'])

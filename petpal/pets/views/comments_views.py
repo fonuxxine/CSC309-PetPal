@@ -8,7 +8,7 @@ from accounts.models import ShelterUser
 from pets.models import *
 
 class ShelterCommentReplyCreateView(CreateAPIView):
-    serializer_class = ShelterCommentResponseCreateSerializer
+    serializer_class = ShelterCommentResponseSerializer
     permission_classes = [permissions.IsAuthenticated]
     
     def perform_create(self, serializer):
@@ -18,7 +18,7 @@ class ShelterCommentReplyCreateView(CreateAPIView):
 class ShelterCommentListCreateView(ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = PageNumberPagination
-
+    
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return ShelterCommentCreateSerializer
@@ -39,13 +39,9 @@ class ApplicationPermission(permissions.BasePermission):
         return False
 
 class ApplicationCommentListCreateView(ListCreateAPIView):
-    serializer_class = AppCommentCreateSerializer
+    serializer_class = AppCommentSerializer
     permission_classes = [ApplicationPermission]
-
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return AppCommentCreateSerializer
-        return AppCommentSerializer
+    pagination_class = PageNumberPagination
     
     def perform_create(self, serializer):
         application = get_object_or_404(Applications, id=self.kwargs['pk'])
