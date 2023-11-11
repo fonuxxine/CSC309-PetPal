@@ -38,7 +38,7 @@ class ShelterUpdateView(UpdateAPIView):
 
 class ShelterListView(ListAPIView):
     serializer_class = ShelterUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return ShelterUser.objects.all()
