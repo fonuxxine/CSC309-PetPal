@@ -3,6 +3,8 @@ from accounts.models import ShelterUser, PetUser
 from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404
 from . serializers import ShelterCreateSerializer, PetUserCreateSerializer, ShelterUpdateSerializer, PetUserUpdateSerializer, ShelterGetSerializer, PetUserGetSerializer, ShelterSerializer, PetSerializer
 from rest_framework import authentication, permissions
+from rest_framework import serializers
+from django.contrib.auth.hashers import make_password
 
 
 class ShelterUserPermissions(permissions.BasePermission):
@@ -15,6 +17,17 @@ class ShelterUserPermissions(permissions.BasePermission):
 
 class ShelterCreateView(CreateAPIView):
     serializer_class = ShelterCreateSerializer
+
+    def perform_create(self, serializer):
+        p1 = serializer.validated_data.get('password')
+        p2 = serializer.validated_data.get('repeat_password')
+
+        if p1 != p2:
+            raise serializers.ValidationError({"password": "Passwords do not match"})
+        else:
+            p2 = serializer.validated_data.pop('repeat_password')
+            serializer.validated_data['password'] = make_password(serializer.validated_data.get('password'))
+            serializer.save()
 
 class ShelterUpdateView(UpdateAPIView):
     serializer_class = ShelterUpdateSerializer
@@ -55,6 +68,17 @@ class PetUserPermissions(permissions.BasePermission):
 
 class PetUserCreateView(CreateAPIView):
     serializer_class = PetUserCreateSerializer
+
+    def perform_create(self, serializer):
+        p1 = serializer.validated_data.get('password')
+        p2 = serializer.validated_data.get('repeat_password')
+
+        if p1 != p2:
+            raise serializers.ValidationError({"password": "Passwords do not match"})
+        else:
+            p2 = serializer.validated_data.pop('repeat_password')
+            serializer.validated_data['password'] = make_password(serializer.validated_data.get('password'))
+            serializer.save()
 
 class PetUserUpdateView(UpdateAPIView):
     serializer_class = PetUserUpdateSerializer

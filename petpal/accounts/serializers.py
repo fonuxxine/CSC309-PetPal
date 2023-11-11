@@ -3,25 +3,24 @@ from .models import *
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
-# might need more than one serializer if you need different fields for different views
-# TO DO: combine serializers/remove some serializers bc i don't need this much
-
 class ShelterCreateSerializer(ModelSerializer):
+
+    password = serializers.CharField(style={'input_type': 'password'})
+    repeat_password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+
     class Meta:
         model = ShelterUser
-        fields = ['username', 'password', 'email', 'shelter_name', 'mission_statement']
-
-    def validate_password(self, value):
-        return make_password(value)
+        fields = ['username', 'password', 'repeat_password', 'email', 'shelter_name', 'mission_statement']
 
 
 class PetUserCreateSerializer(ModelSerializer):
+
+    password = serializers.CharField(style={'input_type': 'password'})
+    repeat_password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+
     class Meta:
         model = PetUser
-        fields = ['username', 'password', 'email', 'name', 'surname']
-
-    def validate_password(self, value: str) -> str:
-        return make_password(value)
+        fields = ['username', 'password', 'repeat_password', 'email', 'name', 'surname']
 
 
 class ShelterUpdateSerializer(ModelSerializer):
