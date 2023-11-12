@@ -1,9 +1,8 @@
 from django.utils import timezone
 from rest_framework.generics import UpdateAPIView, ListAPIView, RetrieveAPIView, get_object_or_404, \
-    ListCreateAPIView, RetrieveUpdateAPIView
+    ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission, IsAuthenticated
-
 from accounts.models import ShelterUser, PetUser
 from pets.models import Applications, Pet
 from pets.serializers.application_serializers import ApplicationSerializer
@@ -62,4 +61,3 @@ class ApplicationGetUpdateView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return get_object_or_404(Applications, id=self.kwargs['pk'])
-
