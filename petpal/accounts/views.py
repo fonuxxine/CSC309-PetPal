@@ -95,7 +95,7 @@ class PetProfilePermissions(permissions.BasePermission):
                 # go through every pet associated with the requesting shelter
                 for pet in all_pets:
                     # if the pet in the shelter is the same as the one on the application and status is active, return True
-                    if pet.id == application.pet_listing and (status=='pending' or status=='Pending'):
+                    if pet.id == application.pet_listing and (application.status=='pending' or application.status=='Pending'):
                         return True
 
         return False
