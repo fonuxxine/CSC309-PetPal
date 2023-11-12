@@ -2,13 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [ 
-    path("shelter/", views.ShelterCreateView.as_view()),
+    path("shelter/", views.ShelterListCreateView.as_view()),
     path("pet-user/", views.PetUserCreateView.as_view()),
-    path("shelter/<int:shelter_id>", views.ShelterUpdateView.as_view()),
-    path("pet-user/<int:pet_user_id>", views.PetUserUpdateView.as_view()),
-    path("shelter/all/", views.ShelterListView.as_view()),
+    path("shelter/<int:shelter_id>/", views.ShelterUpdateDestroyView.as_view()),
+    path("pet-user/<int:pet_user_id>/", views.PetUserDestoryUpdateView.as_view()),
     path("shelter/<int:shelter_id>/profile/", views.ShelterGetView.as_view()),
     path("pet-user/<int:pet_user_id>/profile/", views.PetUserGetView.as_view()),
-    path("shelter/<int:shelter_id>/remove/", views.ShelterDeleteView.as_view()),
-    path("pet-user/<int:pet_user_id>/remove/", views.PetUserDeleteView.as_view()),
 ]
