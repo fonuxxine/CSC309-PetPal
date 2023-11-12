@@ -5,12 +5,12 @@ from rest_framework import serializers
 
 class ShelterCreateSerializer(ModelSerializer):
 
-    password = serializers.CharField(style={'input_type': 'password'})
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     repeat_password = serializers.CharField(write_only=True, style={'input_type': 'password'})
 
     class Meta:
         model = ShelterUser
-        fields = ['username', 'password', 'repeat_password', 'email', 'shelter_name', 'mission_statement']
+        fields = ['username', 'password', 'repeat_password', 'email', 'shelter_name', 'mission_statement', 'location', 'profile_pic']
 
 
 class PetUserCreateSerializer(ModelSerializer):
@@ -24,6 +24,7 @@ class PetUserCreateSerializer(ModelSerializer):
 
 
 class ShelterUpdateSerializer(ModelSerializer):
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     class Meta:
         model = ShelterUser
         fields = ['username', 'password', 'email', 'shelter_name', 'mission_statement', 'location', 'profile_pic']
@@ -33,6 +34,7 @@ class ShelterUpdateSerializer(ModelSerializer):
 
 
 class PetUserUpdateSerializer(ModelSerializer):
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     class Meta:
         model = PetUser
         fields = ['username', 'password', 'email', 'name', 'surname', 'location', 'profile_pic']
@@ -51,15 +53,3 @@ class PetUserGetSerializer(ModelSerializer):
     class Meta:
         model = PetUser
         fields = ['username', 'name', 'surname', 'email', 'location', 'profile_pic']
-
-
-class ShelterSerializer(ModelSerializer):
-    class Meta:
-        model = ShelterUser
-        fields = '__all__'
-
-
-class PetSerializer(ModelSerializer):
-    class Meta:
-        model = PetUser
-        fields = '__all__'
