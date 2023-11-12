@@ -15,7 +15,7 @@ class ShelterCreateSerializer(ModelSerializer):
 
 class PetUserCreateSerializer(ModelSerializer):
 
-    password = serializers.CharField(style={'input_type': 'password'})
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     repeat_password = serializers.CharField(write_only=True, style={'input_type': 'password'})
 
     class Meta:
