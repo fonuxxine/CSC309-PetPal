@@ -1,4 +1,5 @@
-from rest_framework.serializers import ModelSerializer, DateTimeField, PrimaryKeyRelatedField, CharField
+from rest_framework.serializers import (ModelSerializer, DateTimeField, PrimaryKeyRelatedField,
+                                        CharField, EmailField)
 from ..models import Applications
 
 
@@ -13,15 +14,3 @@ class ApplicationSerializer(ModelSerializer):
     class Meta:
         model = Applications
         fields = '__all__'
-
-
-class ApplicationCreateSerializer(ModelSerializer):
-    class Meta:
-        model = Applications
-        fields = ['firstname', 'lastname', 'email', 'address', 'pet_listing', 'reason']
-
-
-class ApplicationUpdateSerializer(ModelSerializer):
-    class Meta:
-        model = Applications
-        fields = ['status']
