@@ -84,11 +84,11 @@ class PetProfilePermissions(permissions.BasePermission):
         if isinstance(request.user, ShelterUser):
             shelter_user = request.user
 
-            # get all the applications associated with 
+            # get all the applications associated with pet seeker
             all_applications = pet_seeker.applications_set.filter(pet_seeker.id==applicant)
 
             # get all the pets associated with the request shelter
-            all_pets = shelter_user.pets_set.all()
+            all_pets = shelter_user.pet_set.all()
 
             # go through every application associated with the pet seeker
             for application in all_applications:
