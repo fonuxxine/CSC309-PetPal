@@ -8,6 +8,21 @@ from pets.models import Applications, Pet
 from pets.serializers.application_serializers import ApplicationSerializer, ApplicationUpdateSerializer
 
 
+class ApplicationListPermission(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        pet_seeker = PetUser.objects.filter(username=request.user.username)
+        if request.method == "GET":
+            shelter = obj.pet_listing.shelter
+            applicant = obj.applicant
+            if request.user.username == shelter.username or request.user.username == applicant.username:
+                return True
+            return False
+        else:
+            if pet_seeker:
+                return True
+            return False
+
+
 class ApplicationPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         shelter = obj.pet_listing.shelter
@@ -19,7 +34,7 @@ class ApplicationPermission(BasePermission):
 
 class ApplicationCreateListView(ListCreateAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ApplicationPermission]
+    permission_classes = [IsAuthenticated, ApplicationListPermission]
     pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
@@ -32,7 +47,7 @@ class ApplicationCreateListView(ListCreateAPIView):
         if isinstance(self.request.user, ShelterUser):
             shelter = ShelterUser.objects.filter(username=self.request.user.username)[0]
             pet_listing = Pet.objects.filter(shelter=shelter)
-            return (Applications.objects.filter(pet_listing=pet_listing).order_by('creation_time')
+            return (Applications.objects.filter(pet_listing__in=pet_listing).order_by('creation_time')
                     .order_by('last_modified'))
         else:
             return (Applications.objects.filter(applicant=self.request.user).order_by('creation_time')
