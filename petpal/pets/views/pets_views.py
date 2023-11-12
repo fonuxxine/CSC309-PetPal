@@ -53,14 +53,11 @@ class ShelterPetsListCreate(ListCreateAPIView):
                 | Q(behaviour__icontains=query)
             )
 
-        query = params.getlist("status")
-        if query != []:
-            querylist = []
-            for q in query:
-                querylist = querylist + list(q.split(","))
-            queryset = queryset.filter(status__in=querylist)
-        else:
-            queryset = queryset.filter(status="AV")
+        query = params.getlist("status", "AV")
+        querylist = []
+        for q in query:
+            querylist = querylist + list(q.split(","))
+        queryset = queryset.filter(status__in=querylist)
 
         query = params.getlist("type")
         if query != []:
@@ -83,12 +80,21 @@ class ShelterPetsListCreate(ListCreateAPIView):
                 querylist = querylist + list(q.split(","))
             queryset = queryset.filter(age__in=querylist)
 
-        sort = params.get("sort", "name")
-        desc = params.get("desc")
-        if desc:
-            sort = "-" + sort
+        query = params.getlist("sort", "name")
+        sortList = []
+        for q in query:
+            sortList = sortList + list(q.split(","))
 
-        return queryset.order_by(sort)
+        query = params.getlist("order")
+        if query != []:
+            orderList = []
+            for q in query:
+                orderList = orderList + list(q.split(","))
+            for i in range(min(len(orderList), len(sortList))):
+                if orderList[i] == "DESC":
+                    sortList[i] = "-" + sortList[i]
+
+        return queryset.order_by(*sortList)
 
 
 class ShelterPetsRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
@@ -121,14 +127,11 @@ class UserPetsList(ListAPIView):
                 | Q(behaviour__icontains=query)
             )
 
-        query = params.getlist("status")
-        if query != []:
-            querylist = []
-            for q in query:
-                querylist = querylist + list(q.split(","))
-            queryset = queryset.filter(status__in=querylist)
-        else:
-            queryset = queryset.filter(status="AV")
+        query = params.getlist("status", "AV")
+        querylist = []
+        for q in query:
+            querylist = querylist + list(q.split(","))
+        queryset = queryset.filter(status__in=querylist)
 
         query = params.getlist("shelter")
         if query != []:
@@ -137,7 +140,9 @@ class UserPetsList(ListAPIView):
                 querylist = querylist + list(q.split(","))
             shelterList = []
             for name in querylist:
-                shelters = ShelterUser.objects.all().filter(Q(shelter_name=name) | Q(username=name))
+                shelters = ShelterUser.objects.all().filter(
+                    Q(shelter_name=name) | Q(username=name)
+                )
                 for shelter in shelters:
                     shelterList.append(shelter)
             queryset = queryset.filter(shelter__in=shelterList)
@@ -163,15 +168,21 @@ class UserPetsList(ListAPIView):
                 querylist = querylist + list(q.split(","))
             queryset = queryset.filter(age__in=querylist)
 
-        sort = params.get("sort")
-        desc = params.get("desc")
-        if sort and desc:
-            sort = "-" + sort
-        elif desc:
-            sort = "-name"
-        elif not sort:
-            sort = "name"
-        return queryset.order_by(sort)
+        query = params.getlist("sort", "name")
+        sortList = []
+        for q in query:
+            sortList = sortList + list(q.split(","))
+
+        query = params.getlist("order")
+        if query != []:
+            orderList = []
+            for q in query:
+                orderList = orderList + list(q.split(","))
+            for i in range(min(len(orderList), len(sortList))):
+                if orderList[i] == "DESC":
+                    sortList[i] = "-" + sortList[i]
+
+        return queryset.order_by(*sortList)
 
 
 class UserPetsRetrieve(RetrieveAPIView):
