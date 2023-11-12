@@ -55,21 +55,33 @@ class ShelterPetsListCreate(ListCreateAPIView):
 
         query = params.getlist("status")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(status__in=querylist)
         else:
             queryset = queryset.filter(status="AV")
 
         query = params.getlist("type")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(type__in=querylist)
 
         query = params.getlist("breed")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(breed__in=querylist)
 
         query = params.getlist("age")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(age__in=querylist)
 
         sort = params.get("sort", "name")
         desc = params.get("desc")
@@ -111,25 +123,45 @@ class UserPetsList(ListAPIView):
 
         query = params.getlist("status")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(status__in=querylist)
         else:
             queryset = queryset.filter(status="AV")
 
         query = params.getlist("shelter")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            shelterList = []
+            for name in querylist:
+                shelters = ShelterUser.objects.all().filter(Q(shelter_name=name) | Q(username=name))
+                for shelter in shelters:
+                    shelterList.append(shelter)
+            queryset = queryset.filter(shelter__in=shelterList)
 
         query = params.getlist("type")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(type__in=querylist)
 
         query = params.getlist("breed")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(breed__in=querylist)
 
         query = params.getlist("age")
         if query != []:
-            queryset = queryset.filter(status__in=query)
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(age__in=querylist)
 
         sort = params.get("sort")
         desc = params.get("desc")
