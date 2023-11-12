@@ -3,30 +3,23 @@ from rest_framework.generics import UpdateAPIView, ListAPIView, RetrieveAPIView,
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission, IsAuthenticated
-from accounts.models import ShelterUser, PetUser
+from accounts.models import ShelterUser, PetUser, CustomUser
 from pets.models import Applications, Pet
-from pets.serializers.application_serializers import ApplicationSerializer
+from pets.serializers.application_serializers import ApplicationSerializer, ApplicationUpdateSerializer
 
 
-class ShelterPermission(BasePermission):
+class ApplicationPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
-        if isinstance(request.user, ShelterUser):
-            return request.user == obj.pet_listing.shelter
-        else:
-            return False
-
-
-class PetUserPermission(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        if isinstance(request.user, PetUser):
-            return request.user == obj.applicant
-        else:
-            return False
+        shelter = obj.pet_listing.shelter
+        applicant = obj.applicant
+        if request.user.username == shelter.username or request.user.username == applicant.username:
+            return True
+        return False
 
 
 class ApplicationCreateListView(ListCreateAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ShelterPermission]
+    permission_classes = [IsAuthenticated, ApplicationPermission]
     pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
@@ -37,7 +30,8 @@ class ApplicationCreateListView(ListCreateAPIView):
 
     def get_queryset(self):
         if isinstance(self.request.user, ShelterUser):
-            pet_listing = Pet.objects.filter(shelter=self.request.user)
+            shelter = ShelterUser.objects.filter(username=self.request.user.username)[0]
+            pet_listing = Pet.objects.filter(shelter=shelter)
             return (Applications.objects.filter(pet_listing=pet_listing).order_by('creation_time')
                     .order_by('last_modified'))
         else:
@@ -46,11 +40,13 @@ class ApplicationCreateListView(ListCreateAPIView):
 
 
 class ApplicationGetUpdateView(RetrieveUpdateAPIView):
-    serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ShelterPermission, PetUserPermission]
+    serializer_class = ApplicationUpdateSerializer
+    permission_classes = [IsAuthenticated, ApplicationPermission]
 
     def perform_update(self, serializer):
-        if isinstance(self.request.user, ShelterUser):
+        shelter = ShelterUser.objects.filter(username=self.request.user.username)
+        current_shelter = serializer.instance.pet_listing.shelter
+        if current_shelter.username == shelter.username:
             if serializer.instance.status == 'pending' and serializer.validated_data['status'] in ['accepted',
                                                                                                    'denied']:
                 serializer.save(status=serializer.validated_data['status'], last_modified=timezone.now())
