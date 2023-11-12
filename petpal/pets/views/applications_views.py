@@ -32,8 +32,9 @@ class ApplicationCreateListView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         pet_listing = serializer.validated_data['pet_listing']
-        if pet_listing.status == 'available':
-            serializer.save(applicant=self.request.user)
+        if pet_listing.status == 'AV':
+            pet_seeker = PetUser.objects.filter(username=self.request.user.username)[0]
+            serializer.save(applicant=pet_seeker)
 
     def get_queryset(self):
         if isinstance(self.request.user, ShelterUser):
@@ -56,7 +57,7 @@ class ApplicationGetUpdateView(RetrieveUpdateAPIView):
                 serializer.save(status=serializer.validated_data['status'], last_modified=timezone.now())
         else:
             if (serializer.instance.status in ['pending', 'accepted'] and
-                    serializer.validated_data['status'] == 'withdrawn'):
+                    serializer.validated_data.get('status') == 'withdrawn'):
                 serializer.save(status=serializer.validated_data['status'], last_modified=timezone.now())
 
     def get_object(self):

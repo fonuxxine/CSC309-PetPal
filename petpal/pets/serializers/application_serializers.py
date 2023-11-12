@@ -9,7 +9,7 @@ class ApplicationSerializer(ModelSerializer):
     applicant = PrimaryKeyRelatedField(read_only=True)
     last_modified = DateTimeField(read_only=True)
     creation_time = DateTimeField(read_only=True)
-    status = CharField(read_only=True)
+    # status = CharField(read_only=True)
 
     class Meta:
         model = Applications
