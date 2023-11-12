@@ -40,8 +40,12 @@ class ApplicationCreateListView(ListCreateAPIView):
 
 
 class ApplicationGetUpdateView(RetrieveUpdateAPIView):
-    serializer_class = ApplicationUpdateSerializer
     permission_classes = [IsAuthenticated, ApplicationPermission]
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return ApplicationUpdateSerializer
+        return ApplicationSerializer
 
     def perform_update(self, serializer):
         shelter = ShelterUser.objects.filter(username=self.request.user.username)
