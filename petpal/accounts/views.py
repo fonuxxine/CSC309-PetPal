@@ -77,26 +77,16 @@ class PetProfilePermissions(permissions.BasePermission):
     # a shelter can only see the profile of a pet seeker if the pet seeker has an active application for one of the shelter's pets
 
     def has_permission(self, request, view):
-        # get the pet seeker you want to find applications for
         pet_seeker = get_object_or_404(PetUser, id=view.kwargs['pet_user_id'])
 
-        # if the request user is a shelter
-        if isinstance(request.user, ShelterUser):
-            shelter_user = request.user
+        if ShelterUser.objects.filter(username=request.user.username).exists() == True:
+            shelter_user = ShelterUser.objects.filter(username=request.user.username)[0]
 
-            # get all the applications associated with pet seeker
-            all_applications = pet_seeker.applications_set.filter(pet_seeker.id==applicant)
+            all_applications = pet_seeker.applications_set.all()
 
-            # get all the pets associated with the request shelter
-            all_pets = shelter_user.pet_set.all()
-
-            # go through every application associated with the pet seeker
             for application in all_applications:
-                # go through every pet associated with the requesting shelter
-                for pet in all_pets:
-                    # if the pet in the shelter is the same as the one on the application and status is active, return True
-                    if pet.id == application.pet_listing and (application.status=='pending' or application.status=='Pending'):
-                        return True
+                if application.pet_listing.shelter.username == shelter_user.username and (application.status == 'pending' or application.status == 'Pending'):
+                    return True
 
         return False
 
