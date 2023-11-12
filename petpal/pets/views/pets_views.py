@@ -127,11 +127,14 @@ class UserPetsList(ListAPIView):
                 | Q(behaviour__icontains=query)
             )
 
-        query = params.getlist("status", "AV")
-        querylist = []
-        for q in query:
-            querylist = querylist + list(q.split(","))
-        queryset = queryset.filter(status__in=querylist)
+        query = params.getlist("status")
+        if query != []:
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(status__in=querylist)
+        else:
+            queryset = queryset.filter(status="AV")
 
         query = params.getlist("shelter")
         if query != []:
@@ -168,10 +171,13 @@ class UserPetsList(ListAPIView):
                 querylist = querylist + list(q.split(","))
             queryset = queryset.filter(age__in=querylist)
 
-        query = params.getlist("sort", "name")
-        sortList = []
-        for q in query:
-            sortList = sortList + list(q.split(","))
+        query = params.getlist("sort")
+        if query != []:
+            sortList = []
+            for q in query:
+                sortList = sortList + list(q.split(","))
+        else:
+            sortList = ["name"]
 
         query = params.getlist("order")
         if query != []:
