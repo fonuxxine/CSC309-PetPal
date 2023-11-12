@@ -1,21 +1,21 @@
 from django.shortcuts import render
 from accounts.models import ShelterUser, PetUser
-from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404
-from . serializers import ShelterCreateSerializer, PetUserCreateSerializer, ShelterUpdateSerializer, PetUserUpdateSerializer, ShelterGetSerializer, PetUserGetSerializer, ShelterSerializer, PetSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, UpdateAPIView, ListAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404
+from . serializers import ShelterCreateSerializer, PetUserCreateSerializer, ShelterUpdateSerializer, PetUserUpdateSerializer, ShelterGetSerializer, PetUserGetSerializer
 from rest_framework import authentication, permissions
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
 
 class ShelterUserPermissions(permissions.BasePermission):
-    
     def has_permission(self, request, view):
         shelter_user = get_object_or_404(ShelterUser, id=view.kwargs['shelter_id'])
         if request.user.username == shelter_user.username:
             return True
         return False
 
-class ShelterCreateView(CreateAPIView):
+
+class ShelterListCreateView(ListCreateAPIView):
     serializer_class = ShelterCreateSerializer
 
     def perform_create(self, serializer):
@@ -28,20 +28,10 @@ class ShelterCreateView(CreateAPIView):
             p2 = serializer.validated_data.pop('repeat_password')
             serializer.validated_data['password'] = make_password(serializer.validated_data.get('password'))
             serializer.save()
-
-class ShelterUpdateView(UpdateAPIView):
-    serializer_class = ShelterUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated, ShelterUserPermissions]
-
-    def get_object(self):
-        return get_object_or_404(ShelterUser, id=self.kwargs['shelter_id'])
-
-class ShelterListView(ListAPIView):
-    serializer_class = ShelterUpdateSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
+    
     def get_queryset(self):
         return ShelterUser.objects.all()
+
 
 class ShelterGetView(RetrieveAPIView):
     serializer_class = ShelterGetSerializer
@@ -50,8 +40,9 @@ class ShelterGetView(RetrieveAPIView):
     def get_object(self):
         return get_object_or_404(ShelterUser, id=self.kwargs['shelter_id'])
 
-class ShelterDeleteView(DestroyAPIView):
-    serializer_class = ShelterSerializer
+
+class ShelterUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    serializer_class = ShelterUpdateSerializer
     permission_classes = [permissions.IsAuthenticated, ShelterUserPermissions]
 
     def get_object(self):
@@ -65,6 +56,7 @@ class PetUserPermissions(permissions.BasePermission):
         if request.user.username == pet_user.username:
             return True
         return False
+
 
 class PetUserCreateView(CreateAPIView):
     serializer_class = PetUserCreateSerializer
@@ -80,26 +72,34 @@ class PetUserCreateView(CreateAPIView):
             serializer.validated_data['password'] = make_password(serializer.validated_data.get('password'))
             serializer.save()
 
-class PetUserUpdateView(UpdateAPIView):
-    serializer_class = PetUserUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated, PetUserPermissions]
-
-    def get_object(self):
-        return get_object_or_404(PetUser, id=self.kwargs['pet_user_id'])
 
 class PetProfilePermissions(permissions.BasePermission):
+    # a shelter can only see the profile of a pet seeker if the pet seeker has an active application for one of the shelter's pets
 
     def has_permission(self, request, view):
+        # get the pet seeker you want to find applications for
         pet_seeker = get_object_or_404(PetUser, id=view.kwargs['pet_user_id'])
 
-        shelter_user = request.user
+        # if the request user is a shelter
+        if isinstance(request.user, ShelterUser):
+            shelter_user = request.user
 
-        all_applications = shelter_user.applications_set.all()
+            # get all the applications associated with 
+            all_applications = pet_seeker.applications_set.filter(pet_seeker.id==applicant)
 
-        if shelter_user.applications_set.filter(status=='pending', pet_seeker.id==applicant) or shelter_user.applications_set.filter(status=='Pending', pet_seeker.id==applicant):
-            return True
+            # get all the pets associated with the request shelter
+            all_pets = shelter_user.pets_set.all()
+
+            # go through every application associated with the pet seeker
+            for application in all_applications:
+                # go through every pet associated with the requesting shelter
+                for pet in all_pets:
+                    # if the pet in the shelter is the same as the one on the application and status is active, return True
+                    if pet.id == application.pet_listing and (status=='pending' or status=='Pending'):
+                        return True
 
         return False
+
 
 class PetUserGetView(RetrieveAPIView):
     serializer_class = PetUserGetSerializer
@@ -108,8 +108,9 @@ class PetUserGetView(RetrieveAPIView):
     def get_object(self):
         return get_object_or_404(PetUser, id=self.kwargs['pet_user_id'])
 
-class PetUserDeleteView(DestroyAPIView):
-    serializer_class = PetSerializer
+
+class PetUserDestoryUpdateView(RetrieveUpdateDestroyAPIView):
+    serializer_class = PetUserUpdateSerializer
     permission_classes = [permissions.IsAuthenticated, PetUserPermissions]
 
     def get_object(self):
