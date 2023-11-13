@@ -39,7 +39,7 @@ class ApplicationCreateListView(ListCreateAPIView):
         pet_seeker = PetUser.objects.filter(username=self.request.user.username)
         if pet_seeker:
             if pet_listing.status == 'AV':
-                serializer.save(applicant=pet_seeker[0])
+                serializer.save(applicant=pet_seeker[0], pet_listing=pet_listing)
 
     def get_queryset(self):
         shelter = ShelterUser.objects.filter(username=self.request.user.username)
