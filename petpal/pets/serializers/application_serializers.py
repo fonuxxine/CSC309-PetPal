@@ -20,4 +20,4 @@ class ApplicationUpdateSerializer(ModelSerializer):
 
     class Meta:
         model = Applications
-        fields = ['status']
+        fields = ['status', 'last_modified']

@@ -4,23 +4,16 @@ from rest_framework.generics import UpdateAPIView, ListAPIView, RetrieveAPIView,
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from accounts.models import ShelterUser, PetUser, CustomUser
-from pets.models import Applications, Pet
+from pets.models import Applications, Pet, ApplicationComment
 from pets.serializers.application_serializers import ApplicationSerializer, ApplicationUpdateSerializer
 
 
-class ApplicationListPermission(BasePermission):
-    def has_object_permission(self, request, view, obj):
+class ApplicationCreatePermission(BasePermission):
+    def has_permission(self, request, view):
         pet_seeker = PetUser.objects.filter(username=request.user.username)
-        if request.method == "GET":
-            shelter = obj.pet_listing.shelter
-            applicant = obj.applicant
-            if request.user.username == shelter.username or request.user.username == applicant.username:
-                return True
-            return False
-        else:
-            if pet_seeker:
-                return True
-            return False
+        if pet_seeker:
+            return True
+        return False
 
 
 class ApplicationPermission(BasePermission):
@@ -34,7 +27,7 @@ class ApplicationPermission(BasePermission):
 
 class ApplicationCreateListView(ListCreateAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ApplicationListPermission]
+    permission_classes = [IsAuthenticated, ApplicationCreatePermission, ApplicationPermission]
     pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
@@ -44,13 +37,14 @@ class ApplicationCreateListView(ListCreateAPIView):
             serializer.save(applicant=pet_seeker)
 
     def get_queryset(self):
-        if isinstance(self.request.user, ShelterUser):
-            shelter = ShelterUser.objects.filter(username=self.request.user.username)[0]
-            pet_listing = Pet.objects.filter(shelter=shelter)
+        shelter = ShelterUser.objects.filter(username=self.request.user.username)
+        if shelter:
+            pet_listing = Pet.objects.filter(shelter=shelter[0])
             return (Applications.objects.filter(pet_listing__in=pet_listing).order_by('creation_time')
                     .order_by('last_modified'))
         else:
-            return (Applications.objects.filter(applicant=self.request.user).order_by('creation_time')
+            pet_seeker = PetUser.objects.filter(username=self.request.user.username)[0]
+            return (Applications.objects.filter(applicant=pet_seeker).order_by('creation_time')
                     .order_by('last_modified'))
 
 
@@ -73,6 +67,12 @@ class ApplicationGetUpdateView(RetrieveUpdateAPIView):
             if (serializer.instance.status in ['pending', 'accepted'] and
                     serializer.validated_data.get('status') == 'withdrawn'):
                 serializer.save(status=serializer.validated_data['status'], last_modified=timezone.now())
+        comment = ApplicationComment.objects.filter(application=serializer.instance).order_by('-time_created')
+        if comment:
+            latest = comment[0]
+            if latest.time_created > serializer.instance.last_modified:
+                serializer.save(last_modified=latest.time_created)
+
 
     def get_object(self):
         return get_object_or_404(Applications, id=self.kwargs['pk'])
