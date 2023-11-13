@@ -8,14 +8,6 @@ from pets.models import Applications, Pet, ApplicationComment
 from pets.serializers.application_serializers import ApplicationSerializer, ApplicationUpdateSerializer
 
 
-class ApplicationCreatePermission(BasePermission):
-    def has_permission(self, request, view):
-        pet_seeker = PetUser.objects.filter(username=request.user.username)
-        if pet_seeker:
-            return True
-        return False
-
-
 class ApplicationPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         shelter = obj.pet_listing.shelter
@@ -27,14 +19,16 @@ class ApplicationPermission(BasePermission):
 
 class ApplicationCreateListView(ListCreateAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ApplicationCreatePermission, ApplicationPermission]
+    permission_classes = [IsAuthenticated, ApplicationPermission]
     pagination_class = PageNumberPagination
+    queryset = Applications.objects.all()
 
     def perform_create(self, serializer):
         pet_listing = serializer.validated_data['pet_listing']
-        if pet_listing.status == 'AV':
-            pet_seeker = PetUser.objects.filter(username=self.request.user.username)[0]
-            serializer.save(applicant=pet_seeker)
+        pet_seeker = PetUser.objects.filter(username=self.request.user.username)
+        if pet_seeker:
+            if pet_listing.status == 'AV':
+                serializer.save(applicant=pet_seeker[0])
 
     def get_queryset(self):
         shelter = ShelterUser.objects.filter(username=self.request.user.username)
@@ -72,7 +66,6 @@ class ApplicationGetUpdateView(RetrieveUpdateAPIView):
             latest = comment[0]
             if latest.time_created > serializer.instance.last_modified:
                 serializer.save(last_modified=latest.time_created)
-
 
     def get_object(self):
         return get_object_or_404(Applications, id=self.kwargs['pk'])
