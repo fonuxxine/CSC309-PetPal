@@ -9,6 +9,17 @@ from pets.serializers.application_serializers import ApplicationSerializer, Appl
 
 
 class ApplicationPermission(BasePermission):
+    def has_permission(self, request, view):
+        application = get_object_or_404(Applications, id=view.kwargs['pk'])
+        shelter = application.pet_listing.shelter
+        applicant = application.applicant
+        if request.user.username == shelter.username or request.user.username == applicant.username:
+            return True
+        return False
+
+
+class ApplicationListPermission(BasePermission):
+
     def has_object_permission(self, request, view, obj):
         shelter = obj.pet_listing.shelter
         applicant = obj.applicant
@@ -19,7 +30,7 @@ class ApplicationPermission(BasePermission):
 
 class ApplicationCreateListView(ListCreateAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsAuthenticated, ApplicationPermission]
+    permission_classes = [IsAuthenticated, ApplicationListPermission]
     pagination_class = PageNumberPagination
     queryset = Applications.objects.all()
 
@@ -46,14 +57,13 @@ class ApplicationGetUpdateView(RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated, ApplicationPermission]
 
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.request.method == 'PATCH':
             return ApplicationUpdateSerializer
         return ApplicationSerializer
 
     def perform_update(self, serializer):
         shelter = ShelterUser.objects.filter(username=self.request.user.username)
-        current_shelter = serializer.instance.pet_listing.shelter
-        if current_shelter.username == shelter.username:
+        if shelter:
             if serializer.instance.status == 'pending' and serializer.validated_data['status'] in ['accepted',
                                                                                                    'denied']:
                 serializer.save(status=serializer.validated_data['status'], last_modified=timezone.now())
