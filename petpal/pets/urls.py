@@ -11,6 +11,6 @@ urlpatterns = [
     path('comments/application/<int:pk>/', comments_views.ApplicationCommentListCreateView.as_view()),
     path('notifications/user/<int:pk>/', notifications_views.NotificationListCreateView.as_view()),
     path('notifications/<int:pk>/', notifications_views.NotificationGetDeleteView.as_view()),
-    path('applications/', applications_views.ApplicationCreateListView.as_view()),
+    path('pet-listing/<int:pk>/applications/', applications_views.ApplicationCreateListView.as_view()),
     path('applications/<int:pk>/', applications_views.ApplicationGetUpdateView.as_view()),
 ]

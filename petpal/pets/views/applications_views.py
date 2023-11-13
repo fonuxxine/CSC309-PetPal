@@ -35,7 +35,7 @@ class ApplicationCreateListView(ListCreateAPIView):
     queryset = Applications.objects.all()
 
     def perform_create(self, serializer):
-        pet_listing = serializer.validated_data['pet_listing']
+        pet_listing = get_object_or_404(Pet, id=self.kwargs['pk'])
         pet_seeker = PetUser.objects.filter(username=self.request.user.username)
         if pet_seeker:
             if pet_listing.status == 'AV':
@@ -43,9 +43,9 @@ class ApplicationCreateListView(ListCreateAPIView):
 
     def get_queryset(self):
         shelter = ShelterUser.objects.filter(username=self.request.user.username)
+        pet_listing = get_object_or_404(Pet, id=self.kwargs['pk'])
         if shelter:
-            pet_listing = Pet.objects.filter(shelter=shelter[0])
-            return (Applications.objects.filter(pet_listing__in=pet_listing).order_by('creation_time')
+            return (Applications.objects.filter(pet_listing=pet_listing).order_by('creation_time')
                     .order_by('last_modified'))
         else:
             pet_seeker = PetUser.objects.filter(username=self.request.user.username)[0]
