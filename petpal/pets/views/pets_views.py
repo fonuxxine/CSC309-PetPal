@@ -168,6 +168,13 @@ class UserPetsList(ListAPIView):
                 querylist = querylist + list(q.split(","))
             queryset = queryset.filter(type__in=querylist)
 
+        query = params.getlist("size")
+        if query != []:
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(size__in=querylist)
+
         query = params.getlist("breed")
         if query != []:
             querylist = []

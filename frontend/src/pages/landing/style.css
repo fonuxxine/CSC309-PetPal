@@ -42,3 +42,20 @@
   border-width: 1px;
   border-color: #ede2f0;
 }
+
+.page-but {
+  border-radius: 10px;
+  background-color: white;
+  border-width: 1px;
+  border-color: #ede2f0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 16px;
+  height: 40px;
+  width: 100px;
+}
+
+.page-but:hover {
+  background-color: #b575bf;
+  color: white;
+}

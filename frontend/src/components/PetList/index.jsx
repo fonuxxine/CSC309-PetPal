@@ -3,10 +3,7 @@ import "./style.css";
 const petDetailPage = "...";
 
 function PetList(pets) {
-  console.log(pets);
   return (
-    <div className="col-sm-8 p-5 pb-0 pt-4">
-      <div className="row">
         <div className="col">
           <h1 className="pets-h1">All Pets</h1>
           <div className="row p-1">
@@ -24,8 +21,6 @@ function PetList(pets) {
             ))}
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

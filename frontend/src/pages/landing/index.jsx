@@ -6,23 +6,27 @@ const petURL = "pet-listings/";
 
 function Landing() {
   const [pets, setPets] = useState([]);
+  const [curPage, setCurPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
   const [type, setType] = useState("");
   const [types, setTypes] = useState([]);
   const [breed, setBreed] = useState("");
   const [breeds, setBreeds] = useState([]);
   const [age, setAge] = useState("");
   const [ages, setAges] = useState([]);
-  const [status, setStatus] = useState("");
-  const [statuses, setStatuses] = useState([]);
+  const [size, setSize] = useState("");
+  const [sizes, setSizes] = useState([]);
 
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
 
   const statusValues = {
-    "AV": "available",
-    "AD": "adopted",
-    "PN": "pending",
-    "WD": "withdrawn",
-}
+    AV: "available",
+    AD: "adopted",
+    PN: "pending",
+    WD: "withdrawn",
+  };
 
   function getAllUnique(lst) {
     let unique = [];
@@ -33,58 +37,143 @@ function Landing() {
     }
     return unique;
   }
-  useEffect(() => {
-    fetch(petURL, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setTypes(json.results.map((d) => d.type));
-        setBreeds(json.results.map((d) => d.breed));
-        setAges(json.results.map((d) => d.age));
-        setStatuses(json.results.map((d) => d.status));
-        setPets(json.results);
-        // console.log(json.results);
-        // console.log(pets);
-      });
-  }, []);
 
-  function applyFilter(){
-    let params = {};
-    if(age !== ""){
-        params['age'] = age
-    };
-    if(type !== ""){
-        params['type'] = type
+  function convertToArr(lst) {
+    let arr = [];
+    for(let i in lst){
+      for(let j in lst[i]){
+        arr.push(lst[i][j]);
+      }
     }
-    if(breed !== ""){
-        params['breed'] = breed
-    }
-    if(status !== ""){
-        params['status'] = status
-    }
-    fetch(petURL+ '?' + new URLSearchParams(params), {
+    return arr;
+  }
+
+  useEffect(() => {
+    async function fetchPets() {
+      await fetch(petURL, {
         method: "GET",
       })
         .then((response) => response.json())
         .then((json) => {
-            //console.log(json.results)
-            setPets(json.results);
+          setPets(json.results);
+          setTotalPages(Math.ceil(json.count / 9));
+          for (let i = 1; i <= Math.ceil(json.count / 9); i++) {
+            console.log(i);
+            fetch(petURL + "?page=" + i, {
+              method: "GET",
+            })
+              .then((response) => response.json())
+              .then((json) => {
+                json.results.map((d) => setTypes(prev => [...prev, d.type]));
+                json.results.map((d) => setBreeds(prev => [...prev, d.breed]));
+                json.results.map((d) => setAges(prev => [...prev, d.age]));
+                json.results.map((d) => setSizes(prev => [...prev, d.size]));
+              });
+          }
         });
+    }
+    fetchPets();
+  }, []);
+
+  function applyFilter() {
+    let params = {};
+    if (age !== "") {
+      params["age"] = age;
+    }
+    if (type !== "") {
+      params["type"] = type;
+    }
+    if (breed !== "") {
+      params["breed"] = breed;
+    }
+    if (size !== "") {
+      params["size"] = size;
+    }
+    fetch(petURL + "?" + new URLSearchParams(params), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setPets(json.results);
+        setTotalPages(Math.ceil(json.count / 9));
+      });
   }
+
+  function applySearch() {
+    let params = {};
+    if (search !== "") {
+      params["search"] = search;
+    }
+    if (age !== "") {
+      params["age"] = age;
+    }
+    if (type !== "") {
+      params["type"] = type;
+    }
+    if (breed !== "") {
+      params["breed"] = breed;
+    }
+    if (size !== "") {
+      params["size"] = size;
+    }
+    fetch(petURL + "?" + new URLSearchParams(params), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setPets(json.results);
+        setTotalPages(Math.ceil(json.count / 9));
+      });
+  }
+
+  useEffect(() => {
+    let params = {};
+    params["page"] = curPage;
+    if (sort !== "") {
+      params["sort"] = sort;
+    }
+    if (search !== "") {
+      params["search"] = search;
+    }
+    if (age !== "") {
+      params["age"] = age;
+    }
+    if (type !== "") {
+      params["type"] = type;
+    }
+    if (breed !== "") {
+      params["breed"] = breed;
+    }
+    if (size !== "") {
+      params["size"] = size;
+    }
+    fetch(petURL + "?" + new URLSearchParams(params), {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setPets(json.results);
+      });
+  }, [curPage, sort]);
+
   return (
     <div>
       <div className="container-fluid search-container d-flex justify-content-center p-5">
         <input
           className="search-bar"
           type="text"
-          placeholder="Search a pet..."
+          placeholder="Search by keyword: name, description, etc..."
+          onChange={(event) => setSearch(event.target.value)}
         />
-        <button className="search-but" type="submit">
+        <button
+          className="search-but"
+          type="submit"
+          onClick={() => applySearch()}
+        >
           Search
         </button>
       </div>
-      <div className="row container-fluid">
+      <div className="row container-fluid ps-4">
         <div className="col-sm-2 p-5 pb-0 pt-4">
           <h1 className="filter-h1">Filter</h1>
           <label className="filter-labels">Type</label>
@@ -95,7 +184,9 @@ function Landing() {
           >
             <option value="">Select type</option>
             {getAllUnique(types).map((type, i) => (
-              <option value={type} key={i}>{type}</option>
+              <option value={type} key={i}>
+                {type}
+              </option>
             ))}
           </select>
 
@@ -107,7 +198,9 @@ function Landing() {
           >
             <option value="">Select breed</option>
             {getAllUnique(breeds).map((breed, i) => (
-              <option value={breed} key={i}>{breed}</option>
+              <option value={breed} key={i}>
+                {breed}
+              </option>
             ))}
           </select>
 
@@ -119,26 +212,74 @@ function Landing() {
           >
             <option value="">Select age</option>
             {getAllUnique(ages).map((age, i) => (
-              <option value={age} key={i}>{age}</option>
+              <option value={age} key={i}>
+                {age}
+              </option>
             ))}
           </select>
 
-          <label className="filter-labels">Status</label>
+          <label className="filter-labels">Size</label>
           <select
             className="form-select"
-            value={statusValues[status]}
-            onChange={(event) => setAge(event.target.value)}
+            value={size}
+            onChange={(event) => setSize(event.target.value)}
           >
-            <option value="">Select status</option>
-            {getAllUnique(statuses).map((status, i) => (
-              <option value={status} key={i}>{statusValues[status]}</option>
+            <option value="">Select size</option>
+            {getAllUnique(sizes).map((size, i) => (
+              <option value={size} key={i}>
+                {size}
+              </option>
             ))}
           </select>
-          <button className="search-but mt-2" type="submit" onClick={() => applyFilter()}>
+          <button
+            className="search-but mt-2"
+            type="submit"
+            onClick={() => applyFilter()}
+          >
             Filter
           </button>
         </div>
-        <PetList pets={pets}/>
+        <div className="col-sm-8 p-5 pb-0 pt-4 pe-5">
+          <div className="row">
+            <PetList pets={pets} />
+            <div className="col-1">
+              <label className="sort-h1">Sort: </label>
+              <select
+                className="sort-select"
+                onChange={(event) => setSort(event.target.value)}
+              >
+                <option value="">select sort by</option>
+                <option value="age">age ascending</option>
+                <option value="publication_date">date ascending</option>
+              </select>
+            </div>
+          </div>{" "}
+        </div>
+        <p className="text-center">
+          {curPage > 1 ? (
+            <button
+              className="page-but"
+              onClick={() => setCurPage(curPage - 1)}
+            >
+              Previous
+            </button>
+          ) : (
+            <></>
+          )}
+          {curPage < totalPages ? (
+            <button
+              className="page-but"
+              onClick={() => setCurPage(curPage + 1)}
+            >
+              Next
+            </button>
+          ) : (
+            <></>
+          )}
+        </p>
+        <p className="text-center">
+          Page {curPage} out of {totalPages}
+        </p>
       </div>
     </div>
   );
