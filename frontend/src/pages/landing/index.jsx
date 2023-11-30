@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import "./style.css";
+import PetList from "../../components/PetList";
 
 const petURL = "pet-listings/";
 
 function Landing() {
+  const [pets, setPets] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [type, setType] = useState("");
   const [types, setTypes] = useState([]);
   const [breed, setBreed] = useState("");
@@ -12,6 +15,7 @@ function Landing() {
   const [ages, setAges] = useState([]);
   const [status, setStatus] = useState("");
   const [statuses, setStatuses] = useState([]);
+
 
   const statusValues = {
     "AV": "available",
@@ -35,11 +39,13 @@ function Landing() {
     })
       .then((response) => response.json())
       .then((json) => {
-        //console.log(json.results);
         setTypes(json.results.map((d) => d.type));
         setBreeds(json.results.map((d) => d.breed));
         setAges(json.results.map((d) => d.age));
         setStatuses(json.results.map((d) => d.status));
+        setPets(json.results);
+        // console.log(json.results);
+        // console.log(pets);
       });
   }, []);
 
@@ -62,7 +68,8 @@ function Landing() {
       })
         .then((response) => response.json())
         .then((json) => {
-            console.log(json.results)
+            //console.log(json.results)
+            setPets(json.results);
         });
   }
   return (
@@ -87,8 +94,8 @@ function Landing() {
             onChange={(event) => setType(event.target.value)}
           >
             <option value="">Select type</option>
-            {getAllUnique(types).map((type) => (
-              <option value={type}>{type}</option>
+            {getAllUnique(types).map((type, i) => (
+              <option value={type} key={i}>{type}</option>
             ))}
           </select>
 
@@ -99,9 +106,8 @@ function Landing() {
             onChange={(event) => setBreed(event.target.value)}
           >
             <option value="">Select breed</option>
-            {console.log(breed)}
-            {getAllUnique(breeds).map((breed) => (
-              <option value={breed}>{breed}</option>
+            {getAllUnique(breeds).map((breed, i) => (
+              <option value={breed} key={i}>{breed}</option>
             ))}
           </select>
 
@@ -112,8 +118,8 @@ function Landing() {
             onChange={(event) => setAge(event.target.value)}
           >
             <option value="">Select age</option>
-            {getAllUnique(ages).map((age) => (
-              <option value={age}>{age}</option>
+            {getAllUnique(ages).map((age, i) => (
+              <option value={age} key={i}>{age}</option>
             ))}
           </select>
 
@@ -124,14 +130,15 @@ function Landing() {
             onChange={(event) => setAge(event.target.value)}
           >
             <option value="">Select status</option>
-            {getAllUnique(statuses).map((status) => (
-              <option value={status}>{statusValues[status]}</option>
+            {getAllUnique(statuses).map((status, i) => (
+              <option value={status} key={i}>{statusValues[status]}</option>
             ))}
           </select>
           <button className="search-but mt-2" type="submit" onClick={() => applyFilter()}>
             Filter
           </button>
         </div>
+        <PetList pets={pets}/>
       </div>
     </div>
   );

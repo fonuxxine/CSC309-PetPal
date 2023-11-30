@@ -11,7 +11,12 @@ from accounts.models import ShelterUser
 from rest_framework import permissions
 from django.db.models import Q
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
 
+class PetsResultsPagination(PageNumberPagination):
+    page_size = 9
+    page_size_query_param = 'page_size'
+    max_page_size = 9
 
 class IsShelterLoggedIn(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -32,7 +37,7 @@ class IsPetInShelter(permissions.BasePermission):
 class ShelterPetsListCreate(ListCreateAPIView):
     serializer_class = PetSerializer
     permission_classes = [permissions.IsAuthenticated, IsShelterLoggedIn]
-    pagination_class = LimitOffsetPagination
+    pagination_class = PetsResultsPagination
 
     def perform_create(self, serializer):
         shelter = get_object_or_404(ShelterUser, id=self.kwargs["shelter_id"])
@@ -117,7 +122,7 @@ class ShelterPetsRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
 
 class UserPetsList(ListAPIView):
     serializer_class = PetSerializer
-    pagination_class = LimitOffsetPagination
+    pagination_class = PetsResultsPagination
 
     def get_queryset(self):
         queryset = Pet.objects.all()
