@@ -223,7 +223,7 @@ function Landing() {
         </div>
         <div className="col-sm-8 p-5 pb-0 pt-4 pe-5">
           <div className="row">
-            <PetList pets={pets} />
+            <PetList pets={pets} shelter={false}/>
             <div className="col-1">
               <label className="sort-h1">Sort: </label>
               <select

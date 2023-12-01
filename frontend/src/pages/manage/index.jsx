@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
 import "./style.css";
 import PetList from "../../components/PetList";
 
@@ -8,7 +7,6 @@ const petURL = "/shelter-listings/" + userID + '/';
 var bearer = 'Bearer ' + localStorage.getItem('access_token');
 
 function ManagePets() {
-  const userID = localStorage.getItem('user_id');
 
   const [pets, setPets] = useState([]);
   const [curPage, setCurPage] = useState(1);
@@ -70,7 +68,7 @@ function ManagePets() {
                 json.results.map((d) => setBreeds(prev => [...prev, d.breed]));
                 json.results.map((d) => setAges(prev => [...prev, d.age]));
                 json.results.map((d) => setSizes(prev => [...prev, d.size]));
-                json.results.map((d) => setSizes(prev => [...prev, d.status]));
+                json.results.map((d) => setStatuses(prev => [...prev, d.status]));
               });
           }
         });
@@ -91,6 +89,9 @@ function ManagePets() {
     }
     if (size !== "") {
       params["size"] = size;
+    }
+    if (status !== "") {
+      params["status"] = status;
     }
     fetch(petURL + "?" + new URLSearchParams(params), {
       method: "GET",
@@ -121,6 +122,9 @@ function ManagePets() {
     }
     if (size !== "") {
       params["size"] = size;
+    }
+    if (status !== "") {
+      params["status"] = status;
     }
     fetch(petURL + "?" + new URLSearchParams(params), {
       method: "GET",
@@ -156,6 +160,9 @@ function ManagePets() {
     if (size !== "") {
       params["size"] = size;
     }
+    if (status !== "") {
+      params["status"] = status;
+    }
     fetch(petURL + "?" + new URLSearchParams(params), {
       method: "GET",
       headers: {
@@ -170,6 +177,9 @@ function ManagePets() {
 
   return (
     <div>
+      <div className="container-fluid shelter-h1-container d-flex justify-content-center p-2">
+            <h1 className="shelter-h1">Manage Pet Listings</h1>
+        </div>
       <div className="container-fluid search-container d-flex justify-content-center p-5">
         <input
           className="search-bar"
@@ -243,6 +253,21 @@ function ManagePets() {
               </option>
             ))}
           </select>
+
+          <label className="filter-labels">Status</label>
+          <select
+            className="form-select"
+            value={status}
+            onChange={(event) => setStatus(event.target.value)}
+          >
+            <option value="">Select status</option>
+            {getAllUnique(statuses).map((status, i) => (
+              <option value={status} key={i}>
+                {statusValues[status]}
+              </option>
+            ))}
+          </select>
+
           <button
             className="search-but mt-2"
             type="submit"
@@ -253,7 +278,7 @@ function ManagePets() {
         </div>
         <div className="col-sm-8 p-5 pb-0 pt-4 pe-5">
           <div className="row">
-            <PetList pets={pets} />
+            <PetList pets={pets} shelter={true}/>
             <div className="col-1">
               <label className="sort-h1">Sort: </label>
               <select

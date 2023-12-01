@@ -13,3 +13,26 @@
 .pet-description:hover {
   color: #b575bf;
 }
+
+.add-but,
+.manage-but {
+  border-radius: 100px;
+  background-color: white;
+  border-width: 1px;
+  border-color: #ede2f0;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: sans-serif;
+  height: 32px;
+}
+.manage-but {
+  color: rgb(241, 118, 118);
+}
+.add-but:hover {
+  background-color: #b575bf;
+  color: white;
+}
+.manage-but:hover {
+  background-color: rgb(241, 118, 118);
+  color: white;
+}
