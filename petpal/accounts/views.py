@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from accounts.models import ShelterUser, PetUser
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404
-from . serializers import ShelterCreateSerializer, PetUserCreateSerializer, ShelterUpdateSerializer, PetUserUpdateSerializer, ShelterGetSerializer, PetUserGetSerializer
+from accounts.models import ShelterUser, PetUser, CustomUser
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView, DestroyAPIView, RetrieveAPIView, get_object_or_404, ListAPIView
+from . serializers import ShelterCreateSerializer, PetUserCreateSerializer, ShelterUpdateSerializer, PetUserUpdateSerializer, ShelterGetSerializer, PetUserGetSerializer, AllUserSerializer
 from rest_framework import authentication, permissions
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
@@ -105,3 +105,10 @@ class PetUserDestoryUpdateView(RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return get_object_or_404(PetUser, id=self.kwargs['pet_user_id'])
+    
+
+class AllUserListView(ListAPIView):
+    serializer_class = AllUserSerializer
+    
+    def get_queryset(self):
+        return CustomUser.objects.all()

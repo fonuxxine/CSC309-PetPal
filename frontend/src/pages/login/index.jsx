@@ -1,8 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./style.css";
 
 const tokenURL = "/api/token/";
+const userURL = "/accounts/all/";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -26,15 +27,40 @@ function Login() {
           setError("Error: invalid username and password combination");
         } else {
           localStorage.clear();
+          localStorage.setItem("username", username);
           localStorage.setItem("access_token", json.access);
           localStorage.setItem("refresh_token", json.refresh);
-          window.location.href = '/'
+          findID();
         }
       })
       .catch((err) => {
         setError("Error: invalid username and password combination");
       });
   }
+
+  async function findID() {
+    await fetch(userURL, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        for (let i = 1; i <= Math.ceil(json.count / 10); i++) {
+          fetch(userURL + "?page=" + i, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((json) => {
+              for (let i = 0; i < json.results.length; i++) {
+                if (json.results[i].username === username) {
+                  localStorage.setItem("user_id", json.results[i].id);
+                  window.location.href = '/';
+                }
+              }
+            });
+        }
+      });
+  }
+
   return (
     <div className="container-fluid">
       <h1 className="login-h1 text-center p-4">Login to PetPal</h1>

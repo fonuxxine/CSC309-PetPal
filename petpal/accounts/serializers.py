@@ -53,3 +53,8 @@ class PetUserGetSerializer(ModelSerializer):
     class Meta:
         model = PetUser
         fields = ['id', 'username', 'name', 'surname', 'email', 'location', 'profile_pic']
+
+class AllUserSerializer(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
