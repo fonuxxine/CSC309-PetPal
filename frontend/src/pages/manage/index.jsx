@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import "./style.css";
 import PetList from "../../components/PetList";
 
-const petURL = "/pet-listings/";
+const userID = localStorage.getItem('user_id');
+const petURL = "/shelter-listings/" + userID + '/';
+var bearer = 'Bearer ' + localStorage.getItem('access_token');
 
-function Landing() {
+function ManagePets() {
+  const userID = localStorage.getItem('user_id');
+
   const [pets, setPets] = useState([]);
   const [curPage, setCurPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -17,9 +22,18 @@ function Landing() {
   const [ages, setAges] = useState([]);
   const [size, setSize] = useState("");
   const [sizes, setSizes] = useState([]);
+  const [status, setStatus] = useState("");
+  const [statuses, setStatuses] = useState([]);
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
+
+  const statusValues = {
+    AV: "available",
+    AD: "adopted",
+    PN: "pending",
+    WD: "withdrawn",
+  };
 
   function getAllUnique(lst) {
     let unique = [];
@@ -35,6 +49,9 @@ function Landing() {
     async function fetchPets() {
       await fetch(petURL, {
         method: "GET",
+        headers: {
+          'Authorization': bearer
+        }
       })
         .then((response) => response.json())
         .then((json) => {
@@ -43,6 +60,9 @@ function Landing() {
           for (let i = 1; i <= Math.ceil(json.count / 9); i++) {
             fetch(petURL + "?page=" + i, {
               method: "GET",
+              headers: {
+                'Authorization': bearer
+              }
             })
               .then((response) => response.json())
               .then((json) => {
@@ -50,6 +70,7 @@ function Landing() {
                 json.results.map((d) => setBreeds(prev => [...prev, d.breed]));
                 json.results.map((d) => setAges(prev => [...prev, d.age]));
                 json.results.map((d) => setSizes(prev => [...prev, d.size]));
+                json.results.map((d) => setSizes(prev => [...prev, d.status]));
               });
           }
         });
@@ -73,6 +94,9 @@ function Landing() {
     }
     fetch(petURL + "?" + new URLSearchParams(params), {
       method: "GET",
+      headers: {
+        'Authorization': bearer
+      }
     })
       .then((response) => response.json())
       .then((json) => {
@@ -100,6 +124,9 @@ function Landing() {
     }
     fetch(petURL + "?" + new URLSearchParams(params), {
       method: "GET",
+      headers: {
+        'Authorization': bearer
+      }
     })
       .then((response) => response.json())
       .then((json) => {
@@ -131,6 +158,9 @@ function Landing() {
     }
     fetch(petURL + "?" + new URLSearchParams(params), {
       method: "GET",
+      headers: {
+        'Authorization': bearer
+      }
     })
       .then((response) => response.json())
       .then((json) => {
@@ -267,4 +297,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default ManagePets;
