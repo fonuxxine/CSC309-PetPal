@@ -10,7 +10,7 @@ class ShelterCreateSerializer(ModelSerializer):
 
     class Meta:
         model = ShelterUser
-        fields = ['username', 'password', 'repeat_password', 'email', 'shelter_name', 'mission_statement', 'location', 'profile_pic']
+        fields = ['id', 'username', 'password', 'repeat_password', 'email', 'shelter_name', 'mission_statement', 'location', 'profile_pic']
 
 
 class PetUserCreateSerializer(ModelSerializer):
@@ -20,14 +20,14 @@ class PetUserCreateSerializer(ModelSerializer):
 
     class Meta:
         model = PetUser
-        fields = ['username', 'password', 'repeat_password', 'email', 'name', 'surname']
+        fields = ['id', 'username', 'password', 'repeat_password', 'email', 'name', 'surname']
 
 
 class ShelterUpdateSerializer(ModelSerializer):
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     class Meta:
         model = ShelterUser
-        fields = ['username', 'password', 'email', 'shelter_name', 'mission_statement', 'location', 'profile_pic']
+        fields = ['id', 'username', 'password', 'email', 'shelter_name', 'mission_statement', 'location', 'profile_pic']
 
     def validate_password(self, value: str) -> str:
         return make_password(value)
@@ -37,7 +37,7 @@ class PetUserUpdateSerializer(ModelSerializer):
     password = serializers.CharField(write_only=True, style={'input_type': 'password'})
     class Meta:
         model = PetUser
-        fields = ['username', 'password', 'email', 'name', 'surname', 'location', 'profile_pic']
+        fields = ['id', 'username', 'password', 'email', 'name', 'surname', 'location', 'profile_pic']
     
     def validate_password(self, value: str) -> str:
         return make_password(value)
@@ -46,10 +46,10 @@ class PetUserUpdateSerializer(ModelSerializer):
 class ShelterGetSerializer(ModelSerializer):
     class Meta:
         model = ShelterUser
-        fields = ['shelter_name', 'email', 'mission_statement', 'location', 'profile_pic']
+        fields = ['id', 'shelter_name', 'email', 'mission_statement', 'location', 'profile_pic']
 
 
 class PetUserGetSerializer(ModelSerializer):
     class Meta:
         model = PetUser
-        fields = ['username', 'name', 'surname', 'email', 'location', 'profile_pic']
+        fields = ['id', 'username', 'name', 'surname', 'email', 'location', 'profile_pic']
