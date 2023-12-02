@@ -4,6 +4,7 @@ import "./style.css";
 
 const tokenURL = "/api/token/";
 const userURL = "/accounts/all/";
+const shelterURL = "/accounts/shelter/";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -53,7 +54,28 @@ function Login() {
               for (let i = 0; i < json.results.length; i++) {
                 if (json.results[i].username === username) {
                   localStorage.setItem("user_id", json.results[i].id);
-                  window.location.href = '/';
+                  localStorage.setItem("is_shelter", false);
+                  const id = json.results[i].id;
+                  fetch(shelterURL, { method: "GET" })
+                    .then((response) => response.json())
+                    .then((json) => {
+                      for (let i = 1; i <= Math.ceil(json.count / 9); i++) {
+
+                        fetch(shelterURL + "?page=" + i, {
+                          method: "GET",
+                        })
+                          .then((response) => response.json())
+                          .then((json) => {
+                            for (let i = 0; i < json.results.length; i++) {
+                              if (json.results[i].id === id) {
+                                localStorage.setItem("is_shelter", true);
+                                window.location.href = "/";
+                              }
+                            }
+                            window.location.href = "/";
+                          });
+                      }
+                    });
                 }
               }
             });

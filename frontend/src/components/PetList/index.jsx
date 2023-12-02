@@ -36,8 +36,8 @@ function PetList({ pets, shelter }) {
 
       <div className="row p-1">
         {pets.map((pet) => (
-          <div className="col-sm-4 pets p-1">
-            <figure className="figure" key={pet.id}>
+          <div key={pet.id} className="col-sm-4 pets p-1">
+            <figure className="figure" >
               <img className="pets-img " src={pet.photo} alt={pet.name} />
               <a href="..." className="pet-description">
                 <figcaption className="figure-caption pet-description">
