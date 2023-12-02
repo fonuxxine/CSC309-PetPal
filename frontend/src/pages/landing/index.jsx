@@ -221,11 +221,11 @@ function Landing() {
             Filter
           </button>
         </div>
-        <div className="col-sm-8 p-5 pb-0 pt-4 pe-5">
+        <div className="col-sm-10 p-5 pb-0 pt-4 pe-5">
           <div className="row">
             <PetList pets={pets} shelter={false}/>
-            <div className="col-1">
-              <label className="sort-h1">Sort: </label>
+            <div className="col-2 ps-0">
+              <label className="sort-h1 pe-2">Sort: </label>
               <select
                 className="sort-select"
                 onChange={(event) => setSort(event.target.value)}
