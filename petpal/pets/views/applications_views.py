@@ -44,13 +44,27 @@ class ApplicationCreateListView(ListCreateAPIView):
     def get_queryset(self):
         shelter = ShelterUser.objects.filter(username=self.request.user.username)
         pet_listing = get_object_or_404(Pet, id=self.kwargs['pk'])
+        params = self.request.GET
+
+        query = params.getlist("status")
+
         if shelter:
-            return (Applications.objects.filter(pet_listing=pet_listing).order_by('creation_time')
-                    .order_by('last_modified'))
+            queryset = Applications.objects.all().filter(pet_listing=pet_listing)
+            if query:
+                querylist = []
+                for q in query:
+                    querylist = querylist + list(q.split(","))
+                queryset = queryset.filter(status__in=querylist)
+            return queryset.order_by('creation_time').order_by('last_modified')
         else:
             pet_seeker = PetUser.objects.filter(username=self.request.user.username)[0]
-            return (Applications.objects.filter(applicant=pet_seeker).order_by('creation_time')
-                    .order_by('last_modified'))
+            queryset = Applications.objects.all().filter(applicant=pet_seeker)
+            if query:
+                querylist = []
+                for q in query:
+                    querylist = querylist + list(q.split(","))
+                queryset = queryset.filter(status__in=querylist)
+            return queryset.order_by('creation_time').order_by('last_modified')
 
 
 class ApplicationGetUpdateView(RetrieveUpdateAPIView):
