@@ -4,6 +4,7 @@ import AuthNavBar from "./components/AuthNavBar";
 import Landing from "./pages/landing";
 import Login from "./pages/login";
 import ManagePets from "./pages/manage";
+import Application from "./pages/application";
 function App() {
   return (
       <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
             <Route index element={<Landing/>} />
             <Route path="login/" element={<Login />} />
             <Route path="/shelter/manage/" element={<ManagePets/>}/>
+            <Route path="pet-listing/:petID/applications/" element={<Application/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
