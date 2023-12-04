@@ -1,18 +1,15 @@
-
-import "./style.css";
 import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
-import Form from "./form";
+import NotiTemplate from "../notification/notiTemplate";
 
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
 
-function Applications() {
-
-    const [applications, setApplications] = useState([]);
+function Notifications () {
+    const {userID} = useParams();
+    const [notifications, setNotifications] = useState([]);
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [totalPages, setTotalPages] = useState(1);
-    const { petID } = useParams();
-    const statusList = ["pending", "accepted", "denied", "withdrawn"];
+    const statusList = ["read", "unread"];
 
     const query = useMemo(() => ({
         page: parseInt(searchParams.get("page") ?? 1),
@@ -20,21 +17,19 @@ function Applications() {
     }), [searchParams]);
 
     useEffect(() => {
-        fetch(`/pet-listing/${petID}/applications/`,
-            {
-                headers: {'Authorization': bearer},
-            })
-            .then(response => response.json())
+        fetch(`user/${userID}/notifications/`, {
+            headers: {'Authorization': bearer},
+        }).then(response => response.json())
             .then(json => {
-                setApplications(json.data);
+                setNotifications(json.data);
                 setTotalPages(Math.ceil(json.count / 9));
             })
-    }, [query, petID]);
+    }, [userID, query]);
 
     return <>
-        <div className="container-fluid p-4 return-to-bar">
-          <h1 className="text-center fw-bold">Application</h1>
-        </div>
+         <div className="container-fluid p-4 return-to-bar">
+            <h1 className="text-center fw-bold">Notifications</h1>
+          </div>
         <div className="checkbox-group">
             <p>Status: </p>
             {statusList.map(stat => <label key={stat}>{stat}
@@ -50,8 +45,8 @@ function Applications() {
                 />
             </label>)}
         </div>
-        {applications?.map(application => (
-            <Form application={application} />
+        {notifications?.map(noti => (
+            <NotiTemplate noti={noti}></NotiTemplate>
         ))}
         <p>
             {query.page < totalPages ? <button onClick={() => setSearchParams({
@@ -65,4 +60,4 @@ function Applications() {
     </>
 }
 
-export default Applications;
+export default Notifications;

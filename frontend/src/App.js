@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import ManagePets from "./pages/manage";
 import Applications from "./pages/applications";
 import Application from "./pages/application";
+import PetCreation from "./pages/petCreation";
 function App() {
   return (
       <BrowserRouter>
@@ -16,6 +17,9 @@ function App() {
             <Route path="/shelter/manage/" element={<ManagePets/>}/>
             <Route path="pet-listing/:petID/applications/" element={<Applications/>}/>
             <Route path="applications/:applicationID/" element={<Application/>}/>
+            <Route path="shelter-listings/:shelterID/" element={<PetCreation/>}/>
+            <Route path="user/:userID/notifications/" element={<Notifications/>}/>
+            <Route path="notifications/:notificationID/" element={<Notification/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

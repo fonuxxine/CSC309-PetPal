@@ -3,12 +3,18 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Form from "../applications/form";
 
+
+let bearer = 'Bearer ' + localStorage.getItem('access_token');
+
 function Application () {
     const [application, setApplication] = useState({});
     const { applicationID } = useParams();
 
     useEffect(() => {
-        fetch(`applications/${applicationID}/`)
+        fetch(`applications/${applicationID}/`,
+            {
+                headers: {'Authorization': bearer},
+            })
             .then(response => response.json())
             .then(json => {
                 setApplication(json);
