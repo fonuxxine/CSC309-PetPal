@@ -6,6 +6,8 @@ import Login from "./pages/login";
 import ManagePets from "./pages/manage";
 import Applications from "./pages/applications";
 import Application from "./pages/application";
+import Notification from "./pages/notification";
+import Notifications from "./pages/notifications";
 import PetCreation from "./pages/petCreation";
 function App() {
   return (

@@ -23,7 +23,7 @@ function PetList({ pets, shelter }) {
         <h1 className="pets-h1">All Pets</h1>
         <>
           {shelter ? (
-            <a href="pet_creation.html" className="ms-3 p-1">
+            <a href={`/shelter-listings/${userID}/`} className="ms-3 p-1">
               <button className="add-but" type="submit">
                 + New Pet
               </button>{" "}
