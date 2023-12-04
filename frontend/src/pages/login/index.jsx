@@ -15,7 +15,7 @@ function Login() {
     fetch(tokenURL, {
       method: "POST",
       headers: {
-        "Content-Type": "applications/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: username,
