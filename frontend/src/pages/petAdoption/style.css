@@ -1,0 +1,19 @@
+.return-to-bar {
+    background-color: #ede2f0;
+  }
+  
+  .search-btn {
+    background-color: #ffffff;
+  }
+  
+  .search-btn:hover {
+    background-color: black;
+  }
+
+  .form-bg {
+    background-color: #ede2f0;
+  }
+
+  .indent {
+    text-indent: 20px;
+  }
