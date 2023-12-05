@@ -2,16 +2,49 @@ import React from "react";
 import { useState } from "react";
 import "./style.css";
 
+const petUserURL = "/accounts/pet-user/";
+
 function SignUpPetSeeker() {
-    // const [username, setUsername] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [repeatPassword, setRepeatPassword] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [shelterName, setShelterName] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [error, setError] = useState("");
+
+    // need to redirect to different page??
+
+    function signup() {
+        fetch(petUserURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                repeat_password: repeatPassword,
+                email: email,
+                name: firstName,
+                surname: lastName,
+            }),
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.detail) {
+                setError("Error: There is an error with registering");
+            }
+        })
+        .catch((err) => {
+            setError("Error: There was error");
+        });
+    }
 
     return (
         <div className="container-fluid">
             <h1 className="signup-h1 text-center p-4">Create a PetPal Pet Seeker Account</h1>
+            {error !== "" ? (<h1 className="login-error text-center p-0">{error}</h1>) : (<></>)}
             <div className="d-flex justify-content-center">
                 <div className="w-75">
                     <div className="form-group p-2">
@@ -20,6 +53,7 @@ function SignUpPetSeeker() {
                             type="text"
                             className="form-control"
                             placeholder="Enter your username"
+                            onChange={(event) => setUsername(event.target.value)}
                             required
                         />
                     </div>
@@ -29,6 +63,7 @@ function SignUpPetSeeker() {
                             type="password"
                             className="form-control"
                             placeholder="Enter your password"
+                            onChange={(event) => setPassword(event.target.value)}
                             required
                         />
                     </div>
@@ -38,6 +73,7 @@ function SignUpPetSeeker() {
                             type="password"
                             className="form-control"
                             placeholder="Repeat your password"
+                            onChange={(event) => setRepeatPassword(event.target.value)}
                             required
                         />
                     </div>
@@ -47,6 +83,7 @@ function SignUpPetSeeker() {
                             type="email"
                             className="form-control"
                             placeholder="Enter your email"
+                            onChange={(event) => setEmail(event.target.value)}
                             required
                         />
                     </div>
@@ -56,6 +93,7 @@ function SignUpPetSeeker() {
                             type="text"
                             className="form-control"
                             placeholder="Enter your first name"
+                            onChange={(event) => setFirstName(event.target.value)}
                             required
                         />
                     </div>
@@ -65,10 +103,11 @@ function SignUpPetSeeker() {
                             type="text"
                             className="form-control"
                             placeholder="Enter your last name"
+                            onChange={(event) => setLastName(event.target.value)}
                             required
                         />
                     </div>
-                    <div><button className="login-but mt-2 p-2">Sign up</button></div>
+                    <div><button className="login-but mt-2 p-2" onClick={() => signup()}>Sign up</button></div>
                     
                 </div>
             </div>
