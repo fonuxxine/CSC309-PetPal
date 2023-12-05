@@ -1,0 +1,19 @@
+/* Signup Page */
+.signup-h1 {
+    font-size: 26px;
+  }
+
+/* .btn-padding {
+    padding-left: 10px;
+    padding-right: 10px;
+} */
+
+.search-btn {
+    background-color: #ffffff;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  
+  .search-btn:hover {
+    background-color: black;
+  }

@@ -9,6 +9,7 @@ import Application from "./pages/application";
 import Notification from "./pages/notification";
 import Notifications from "./pages/notifications";
 import PetCreation from "./pages/petCreation";
+import SignUp from "./pages/signup";
 function App() {
   return (
       <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
             <Route path="shelter-listings/:shelterID/" element={<PetCreation/>}/>
             <Route path="user/:userID/notifications/" element={<Notifications/>}/>
             <Route path="notifications/:notificationID/" element={<Notification/>}/>
+            <Route path="signup/" element={<SignUp />} />
           </Route>
         </Routes>
       </BrowserRouter>
