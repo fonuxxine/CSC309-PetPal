@@ -13,7 +13,7 @@ function SignUp() {
                     Create a Pet Seeker Account
                 </Link>
                 {/* Replace this link later */}
-                <Link className="btn btn-outline-dark search-btn" to="/">
+                <Link className="btn btn-outline-dark search-btn" to="/signup/shelter/">
                     Create a Shelter Account
                 </Link>
             </div>

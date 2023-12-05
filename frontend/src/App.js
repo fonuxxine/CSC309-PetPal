@@ -11,6 +11,7 @@ import Notifications from "./pages/notifications";
 import PetCreation from "./pages/petCreation";
 import SignUp from "./pages/signup";
 import SignUpPetSeeker from "./pages/petSeekerSignup";
+import SignUpShelter from "./pages/shelterSignUp";
 function App() {
   return (
       <BrowserRouter>
@@ -26,6 +27,7 @@ function App() {
             <Route path="notifications/:notificationID/" element={<Notification/>}/>
             <Route path="signup/" element={<SignUp />} />
             <Route path="signup/pet-user/" element={<SignUpPetSeeker />} />
+            <Route path="signup/shelter/" element={<SignUpShelter />} />
           </Route>
         </Routes>
       </BrowserRouter>

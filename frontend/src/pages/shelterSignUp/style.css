@@ -1,0 +1,17 @@
+.signup-h1 {
+    font-size: 26px;
+}
+
+.login-but {
+    border-radius: 100px;
+    background-color: white;
+    border-width: 1px;
+    border-color: #ede2f0;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.login-but:hover {
+    background-color: #b575bf;
+    color: white;
+}
