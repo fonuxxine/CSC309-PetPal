@@ -3,6 +3,23 @@ import { useState } from "react";
 import "./style.css";
 
 function PetDetail() {
+
+    const [name, setName] = useState("Kermit");
+    const [photo, setPhoto] = useState("https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Kermit_the_Frog.jpg/220px-Kermit_the_Frog.jpg");
+    const [breed, setBreed] = useState("Frog");
+    const [age, setAge] = useState("68");
+    const [gender, setGender] = useState("Male");
+    const [size, setSize] = useState("Small");
+    const [description, setDescription] = useState("An enthusiastic green frog");
+    const [status, setStatus] = useState("Available - AV");
+    const [publication_date, setPublicationDate] = useState("05/09/1995");
+    const [medical_history, setMedicalHistory] = useState("Has peanut allergy");
+    const [special_requirements, setSpecialRequirements] = useState("Has peanut allergy");
+    const [behaviour, setBehaviour] = useState("Energetic green frog.");
+
+    // Pet.objects.all()[1].photo.url
+    // '/media/pets/Kermit_the_Frog.jpg'
+ 
     return (
         <div>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
@@ -15,33 +32,33 @@ function PetDetail() {
                         <div className="p-3">
                             <img 
                                 className="pet-detail-img rounded img-fluid mb-3" 
-                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/RedCat_8727.jpg/1200px-RedCat_8727.jpg"
+                                src={ photo }
                             />
                         </div>
                     </div>
                     <div className="col-sm-8">
-                        <h1 className="text-left fw-bold">Pet 1 Name</h1>
+                        <h1 className="text-left fw-bold">{ name }</h1>
 
-                        <h6 className="text-left fw-bold pt-2 pb-2">Playful orange cat</h6>
+                        <h6 className="text-left fw-bold pt-2 pb-2">{ behaviour }</h6>
 
                         {/* Put this into its own component */}
                         <table className="table">
                             <tbody>
                                 <tr>
                                     <td>Breed</td>
-                                    <td>Domestic Shorthair</td>
+                                    <td>{ breed }</td>
                                 </tr>
                                 <tr>
                                     <td>Age</td>
-                                    <td>2</td>
+                                    <td>{ age } </td>
                                 </tr>
                                 <tr>
                                     <td>Status</td>
-                                    <td>Available</td>
+                                    <td>{ status }</td>
                                 </tr>
                                 <tr>
                                     <td>Publication Date</td>
-                                    <td>09/05/2023</td>
+                                    <td>{ publication_date }</td>
                                 </tr>
                                 <tr>
                                     <td>Shelter Name</td>
@@ -51,28 +68,25 @@ function PetDetail() {
                                 </tr>
                                 <tr>
                                     <td>Gender</td>
-                                    <td>Male</td>
+                                    <td>{ gender }</td>
                                 </tr>
                                 <tr>
                                     <td>Size</td>
-                                    <td>Large</td>
+                                    <td>{ size }</td>
                                 </tr>
                                 <tr>
                                     <td>Medical History</td>
-                                    <td>Tuna allergy, allergic to the sun, went to hospital for surgery yesterday</td>
+                                    <td>{ medical_history }</td>
                                 </tr>
                                 <tr>
                                     <td>Special Requirements</td>
-                                    <td>Hates dogs</td>
+                                    <td>{ special_requirements }</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div className="container">
                             <p className="text-left">
-                            Very important cat description here. Occaecat et. Eos occaecat. Aspernatur sunt or labore laudantium.
-                            Quaerat tempor illo so commodo. Corporis velit but aliquid tempora quae quisquam for laboris.
-                            Exercitationem. Quo perspiciatis yet laboris eos si. Numquam occaecat ad or amet vel yet id. Lorem in, but
-                            eum. Irure iste yet nostrud, accusantium.
+                            { description }
                             </p>
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
