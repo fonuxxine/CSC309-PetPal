@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import { Outlet, Link } from "react-router-dom";
 
 
 function SignUp() {
@@ -8,8 +9,13 @@ function SignUp() {
         <div className="container-fluid">
             <h1 className="signup-h1 text-center p-4">Create a PetPal Account</h1>
             <div className="d-flex justify-content-center">
-                <a href="signup.html" className="btn btn-outline-dark search-btn">Create a Pet Seeker Account</a>
-                <a href="signup.html" className="btn btn-outline-dark search-btn">Create a Shelter Account</a>
+                <Link className="btn btn-outline-dark search-btn" to="/signup/pet-user/">
+                    Create a Pet Seeker Account
+                </Link>
+                {/* Replace this link later */}
+                <Link className="btn btn-outline-dark search-btn" to="/">
+                    Create a Shelter Account
+                </Link>
             </div>
         </div>
     )
