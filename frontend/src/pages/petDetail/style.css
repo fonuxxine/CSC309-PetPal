@@ -1,0 +1,35 @@
+.return-to-bar {
+    background-color: #ede2f0;
+  }
+  
+  .search-btn {
+    background-color: #ffffff;
+  }
+  
+  .search-btn:hover {
+    background-color: black;
+  }
+  
+  .pet-detail-img {
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  .adoption-btn {
+    background-color: black;
+    color: #ffffff;
+  }
+  
+  .adoption-btn:hover {
+    background-color: #ffffff;
+    color: black;
+  }
+  
+  .indent {
+    text-indent: 20px;
+  }
+  
+  .adoption-link {
+    color: black;
+  }
