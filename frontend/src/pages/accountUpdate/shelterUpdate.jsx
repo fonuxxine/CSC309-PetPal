@@ -68,6 +68,12 @@ function ShelterUpdate() {
     });
   }
 
+  function logOut() {
+    localStorage.clear();
+    window.location.reload();
+    navigate("/login/");
+  }
+
   return (
     <form className="needs-validation">
       <div className="row container-fluid">
@@ -100,11 +106,18 @@ function ShelterUpdate() {
             </label>
           </div>
           <a
-            href="shelter_management.html"
+            href="/shelter/manage/"
             className="btn btn-primary btn-outline-dark my-md-5 mb-0"
           >
             Edit Pet Listings
           </a>
+          <button
+            type="button"
+            className="btn btn-primary btn-outline-dark mt-5 d-none d-md-block"
+            onClick={logOut}
+          >
+            Log Out
+          </button>
           <button
             type="button"
             className="btn btn-dark delete-account mt-5 d-none d-md-block"
@@ -231,13 +244,6 @@ function ShelterUpdate() {
               onClick={handleCancel}
             >
               Cancel
-            </button>
-            <button
-              type="button"
-              className="btn btn-dark delete-account mt-5 d-block d-md-none"
-              onClick={handleDelete}
-            >
-              Delete Account
             </button>
           </div>
         </div>
