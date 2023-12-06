@@ -31,7 +31,7 @@ function App() {
             <Route path="signup/pet-user/" element={<SignUpPetSeeker />} />
             <Route path="signup/shelter/" element={<SignUpShelter />} />
             {/* edit link later - just want to see how it looks */}
-            <Route path="pet-detail/" element={<PetDetail />} />
+            <Route name="pet-details" path="pet-listing/:petID/" element={<PetDetail />} />
             <Route path="pet-adoption/" element={<PetAdoption />} />
           </Route>
         </Routes>
