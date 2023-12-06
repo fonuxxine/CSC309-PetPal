@@ -32,7 +32,7 @@ function App() {
             <Route path="signup/shelter/" element={<SignUpShelter />} />
             {/* edit link later - just want to see how it looks */}
             <Route name="pet-details" path="pet-listing/:petID/" element={<PetDetail />} />
-            <Route path="pet-adoption/" element={<PetAdoption />} />
+            <Route path="pet-listing/:petID/adoption/" element={<PetAdoption />} />
           </Route>
         </Routes>
       </BrowserRouter>
