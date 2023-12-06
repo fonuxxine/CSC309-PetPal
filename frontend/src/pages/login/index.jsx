@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./style.css";
 
@@ -107,6 +108,7 @@ function Login() {
             <input
               className="form-control"
               placeholder="Enter your password"
+              type="password"
               onChange={(event) => setPassword(event.target.value)}
               required
             />
@@ -118,9 +120,9 @@ function Login() {
       </div>
       <p className="text-center p-2">
         Don't have an account?{" "}
-        <a className="signup-link" href="signup.html">
+        <Link to="/signup/">
           Sign up
-        </a>
+        </Link>
       </p>
     </div>
   );

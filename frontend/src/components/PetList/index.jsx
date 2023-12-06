@@ -51,9 +51,9 @@ function PetList({ pets, shelter }) {
                 {" "}
                 {shelter ? (
                   <>
-                    <a href="pet_update.html">
+                    <Link to={`/shelter/manage/${pet.id}/`}>
                       <button className="manage-but me-1 p-2">Update Pet</button>
-                    </a>
+                    </Link>
                     <button
                       className="manage-but p-2"
                       onClick={() => removePet(pet.id)}
