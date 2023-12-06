@@ -1,4 +1,5 @@
 import "./style.css";
+import { Link } from "react-router-dom";
 // change when pet detail is done, pass in id to petDetail
 const petDetailPage = "...";
 const userID = localStorage.getItem("user_id");
@@ -39,11 +40,13 @@ function PetList({ pets, shelter }) {
           <div key={pet.id} className="col-sm-4 pets p-1">
             <figure className="figure" >
               <img className="pets-img " src={pet.photo} alt={pet.name} />
-              <a href="..." className="pet-description">
+              {/* <a href="..." className="pet-description"> */}
+              <Link to={`/pet-listing/${pet.id}/`} className="pet-description">
                 <figcaption className="figure-caption pet-description">
                   {pet.name}
                 </figcaption>
-              </a>
+              {/* </a> */}
+              </Link>
               <>
                 {" "}
                 {shelter ? (
