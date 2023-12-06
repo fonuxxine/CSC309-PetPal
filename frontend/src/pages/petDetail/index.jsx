@@ -1,12 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
 import { Route, Link, useParams } from "react-router-dom";
 
-function PetDetail(props) {
 
-    const [name, setName] = useState("Kermit");
-    const [photo, setPhoto] = useState("https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Kermit_the_Frog.jpg/220px-Kermit_the_Frog.jpg");
+
+function PetDetail() {
+
+    const [name, setName] = useState("");
+    const [photo, setPhoto] = useState("");
     const [breed, setBreed] = useState("Frog");
     const [age, setAge] = useState("68");
     const [gender, setGender] = useState("Male");
@@ -21,12 +23,38 @@ function PetDetail(props) {
 
     const { petID } = useParams();
 
+    const petURL = "/pet-listings/" + petID + "/";
+
+    useEffect(() => {
+        async function fetchPet() {
+            await fetch(petURL, {
+                method: "GET"
+            })
+            .then((response) => response.json())
+            .then((json) => {
+                setName(JSON.parse(JSON.stringify(json))["name"]);
+                setPhoto(JSON.parse(JSON.stringify(json))["photo"]);
+                setBreed(JSON.parse(JSON.stringify(json))["breed"]);
+                setAge(JSON.parse(JSON.stringify(json))["age"]);
+                setGender(JSON.parse(JSON.stringify(json))["gender"]);
+                setSize(JSON.parse(JSON.stringify(json))["size"]);
+                setDescription(JSON.parse(JSON.stringify(json))["description"]);
+                setStatus(JSON.parse(JSON.stringify(json))["status"]);
+                setPublicationDate(JSON.parse(JSON.stringify(json))["publication_date"]);
+                setMedicalHistory(JSON.parse(JSON.stringify(json))["medical_history"]);
+                setSpecialRequirements(JSON.parse(JSON.stringify(json))["special_requirements"]);
+                setBehaviour(JSON.parse(JSON.stringify(json))["behaviour"]);
+            });
+        }
+        fetchPet();
+    }, []);
+
 
  
     return (
         <div>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
-                {/* Change to a link later */}
+                {/* Actually make this work */}
                 <a href="index.html" class="btn btn-outline-dark search-btn">Return to search</a>
             </div>
             <div className="container">
@@ -65,12 +93,6 @@ function PetDetail(props) {
                                     <td>{publication_date}</td>
                                 </tr>
                                 <tr>
-                                    <td>Shelter Name</td>
-                                    <td>
-                                        <a href="shelter_detail.html" class="adoption-link">Cat Adoption Center</a>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td>Gender</td>
                                     <td>{gender}</td>
                                 </tr>
@@ -95,7 +117,7 @@ function PetDetail(props) {
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
                             {/* Replace to link later */}
-                            <a href="pet_adoption.html" class="btn btn-outline-dark adoption-btn">Adoption Application</a>
+                            <a href="pet_adoption.html" className="btn btn-outline-dark adoption-btn">Adoption Application</a>
                         </div>
                     </div>
                 </div>
