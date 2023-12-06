@@ -68,6 +68,12 @@ function UserUpdate() {
     });
   }
 
+  function logOut() {
+    localStorage.clear();
+    window.location.reload();
+    navigate("/login/");
+  }
+  
   return (
     <div className="row container-fluid update-account">
       <div className="col-md-5 col-lg-4 ps-4 pe-5 pb-0 pt-5 profile h-50">
@@ -88,6 +94,13 @@ function UserUpdate() {
             Edit
           </label>
         </div>
+        <button
+          type="button"
+          className="btn btn-primary btn-outline-dark mt-5 d-none d-md-block"
+          onClick={logOut}
+        >
+          Log Out
+        </button>
         <button
           type="button"
           className="btn btn-dark delete-account mt-5"
