@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const petUserURL = "/accounts/pet-user/";
@@ -14,6 +15,7 @@ function SignUpPetSeeker() {
     const [error, setError] = useState("");
 
     // need to redirect to different page??
+    let navigate = useNavigate();
 
     function signup() {
         fetch(petUserURL, {
@@ -30,14 +32,25 @@ function SignUpPetSeeker() {
                 surname: lastName,
             }),
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) {
+                // throw new Error(response.status);
+                return response.text().then(text => { throw new Error(text) })
+            } else {
+                return response.json();
+            }
+        })
         .then((json) => {
             if (json.detail) {
                 setError("Error: There is an error with registering");
             }
+            else {
+                alert("Successfully signed up!");
+                navigate('/login/');
+            }
         })
         .catch((err) => {
-            setError("Error: There was error");
+            setError('error' + err);
         });
     }
 

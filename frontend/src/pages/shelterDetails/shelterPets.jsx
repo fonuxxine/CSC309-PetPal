@@ -41,7 +41,11 @@ function ShelterPets() {
       <h1 className="separator">List of Pets</h1>
       <div className="d-flex gap-4 pet-cards flex-wrap justify-content-center">
         {petsInfo.map((pet) => (
-          <Link key={pet.id} className="card card-pet" to={``}>
+          <Link
+            key={pet.id}
+            className="card card-pet"
+            to={`/pet-listing/${pet.id}/`}
+          >
             <img
               src="https://i.pinimg.com/736x/bb/12/03/bb12038681429c0e313c3001a973ef0f.jpg"
               className="card-img-top card-pet-img-top"

@@ -33,12 +33,11 @@ function App() {
             <Route path="signup/" element={<SignUp />} />
             <Route path="signup/pet-user/" element={<SignUpPetSeeker />} />
             <Route path="signup/shelter/" element={<SignUpShelter />} />
-            {/* edit link later - just want to see how it looks */}
-            <Route path="pet-detail/" element={<PetDetail />} />
-            <Route path="pet-adoption/" element={<PetAdoption />} />
             <Route path="update-account/:accountID" element={<UpdateAccount />} />
             <Route path="shelter/manage/:petID" element={<PetUpdate />} />
             <Route path="shelter/:shelterID" element={<ShelterDetails/>}/>
+            <Route name="pet-details" path="pet-listing/:petID/" element={<PetDetail />} />
+            <Route path="pet-listing/:petID/adoption/" element={<PetAdoption />} />
           </Route>
         </Routes>
       </BrowserRouter>
