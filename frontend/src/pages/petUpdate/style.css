@@ -1,0 +1,289 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.links {
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  padding-right: 10px;
+}
+
+.links:hover {
+  color: white;
+}
+
+.nav-link {
+  color: black;
+}
+
+.return-to-bar {
+  background-color: #ede2f0;
+}
+
+.return-to-bar button {
+  background-color: #ffffff;
+}
+
+.return-to-bar button:hover {
+  background-color: black;
+  color: white;
+}
+
+.container {
+  background-color: #ede2f0;
+  width: 100;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.application-form {
+  display: flex;
+  margin: 4rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.profile-picture {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4rem;
+  margin-top: 5rem;
+}
+
+.picture {
+  border-radius: 260px;
+  background: #ede2f0;
+  max-width: 200px;
+  max-height: 200px;
+  margin-bottom: 1rem;
+}
+
+.upload-picture {
+  border-radius: 260px;
+  background: #ede2f0;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.message button {
+  background: #b575bf;
+  /* border: none; */
+}
+
+.edit-button {
+  background: #b575bf;
+  color: black;
+}
+
+.error {
+  color: rgb(255, 0, 0);
+}
+
+.edit-button:hover {
+  background-color: black;
+  color: white;
+}
+
+.cancel button {
+  background: #000;
+  color: #fff;
+}
+
+.cancel button:hover {
+  background-color: white;
+  color: black;
+}
+
+#location-field {
+  margin-bottom: 4rem;
+}
+
+#other-field {
+  margin-bottom: 3rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  margin-bottom: 0.3rem;
+}
+
+.field input,
+.field select {
+  border-radius: 10px;
+  background: #ede2f0;
+  padding: 0.5rem;
+  border: none;
+}
+
+.field textarea {
+  border-radius: 10px;
+  background: #ede2f0;
+  padding: 0.5rem;
+  border: none;
+}
+
+.phone-number {
+  margin-bottom: 3rem;
+}
+
+.view-only {
+  border-radius: 100px;
+  background: #b575bf;
+  padding: 0.5rem 1.5rem;
+  width: 70px;
+  text-align: center;
+}
+
+.col1 {
+  margin-right: 4rem;
+}
+
+.return-btn {
+  border-radius: 100px;
+  background: #fff;
+  text-align: center;
+  width: fit-content;
+  padding: 0.5rem 1.5rem;
+}
+
+#return {
+  padding-left: 3rem;
+}
+
+.create-profile {
+  display: flex;
+}
+
+.create-profile-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-profile-title h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pet-picture {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 4rem;
+}
+
+.save-btn {
+  border-radius: 100px;
+  background: #b575bf;
+  text-align: center;
+  width: fit-content;
+  padding: 0.5rem 1.5rem;
+  min-width: 80px;
+  margin-right: 3rem;
+}
+
+.cancel-btn {
+  color: #fff;
+  border-radius: 100px;
+  background: #000;
+  text-align: center;
+  width: fit-content;
+  padding: 0.5rem 1.5rem;
+  min-width: 80px;
+}
+
+.create-btn {
+  display: flex;
+}
+
+.notification {
+  display: flex;
+  margin: 2rem 4rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.noti-picture {
+  border-radius: 260px;
+  background: #ede2f0;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  margin-right: 2rem;
+}
+
+.noti-picture img {
+  border-radius: 260px;
+  background: #ede2f0;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  margin-right: 2rem;
+}
+
+.info-and-pic {
+  display: flex;
+  align-items: center;
+}
+
+.user-pic {
+  border-radius: 260px;
+  background: #ede2f0;
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 1rem;
+}
+
+.active-chat {
+  background-color: #ede2f0;
+}
+
+.user-chat {
+  border-radius: 28px;
+  background: #ede2f0;
+  width: fit-content;
+}
+
+.text-box {
+  border-radius: 28px;
+  border: 1px solid #9c9293;
+  background: #fff;
+  width: 40vw;
+  height: 40px;
+}
+
+@media only screen and (max-width: 740px) {
+  .application-form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile-picture {
+    margin-right: 0;
+    margin-top: 0;
+  }
+  .notification {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .notification {
+    display: block;
+  }
+  .info-and-pic {
+    display: block;
+  }
+}

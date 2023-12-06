@@ -1,0 +1,131 @@
+.shelter-name-banner {
+  background-color: #ede2f0;
+  height: 20vh;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#writen-review {
+  background-color: #fff;
+}
+
+.shelter-name {
+  font-size: max(calc(1.375rem + 2vw), 2.25em);
+}
+
+.shelter-logo {
+  border-radius: 50%;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  min-height: 20px;
+  width: clamp(20px, 20vw, 150px);
+}
+
+.separator {
+  width: 100%;
+  border-bottom: solid rgb(59, 59, 59) 1px;
+}
+
+.reviewer {
+  font-size: clamp(16px, 3vw, 40px);
+  margin: 0;
+}
+
+.form-control {
+  background-color: #fff;
+}
+
+.form-control:focus {
+  background-color: #fff;
+}
+
+.star {
+  height: clamp(16px, 4vw, 40px);
+  width: clamp(16px, 4vw, 40px);
+}
+
+.selected {
+  color: #b575bf;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+.review {
+  border: solid rgb(138, 134, 134) 1px;
+  background-color: #ede2f0;
+  border-radius: 10px;
+}
+
+.reply {
+  border: none;
+  width: 90%;
+}
+
+.replies-dropdown {
+  font-weight: bold;
+}
+
+#writen-review {
+  border-radius: 10px;
+}
+
+.card-pet-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-pet {
+  width: 30rem;
+  background-color: #ede2f0;
+  border: solid black 1px;
+  text-decoration: none;
+}
+
+.card-pet:hover,
+.card-pet:focus {
+  text-decoration: none;
+  color: #000;
+  transform: scale(1.03);
+}
+
+.card-pet-body {
+  border-top: solid black 1px;
+  text-decoration: none;
+}
+
+.btn-review {
+  color: #000;
+  background-color: hsl(292, 37%, 60%);
+  border-color: #b573bf;
+  font-size: 1.5rem;
+}
+
+.btn-review:hover,
+.btn-review:focus {
+  color: #000;
+  background-color: #9f61a8;
+  border-color: #9c59a6;
+}
+
+.btn-review:focus {
+  box-shadow: 0 0 0 0.25rem rgba(194, 140, 202, 0.5);
+}
+
+.btn-review:active {
+  color: #000;
+  background-color: #9c59a6;
+  border-color: #91559b;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-review-sm {
+  font-size: 1rem;
+}

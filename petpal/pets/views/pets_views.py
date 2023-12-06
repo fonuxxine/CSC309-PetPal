@@ -13,10 +13,12 @@ from django.db.models import Q
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.pagination import PageNumberPagination
 
+
 class PetsResultsPagination(PageNumberPagination):
     page_size = 9
-    page_size_query_param = 'page_size'
+    page_size_query_param = "page_size"
     max_page_size = 9
+
 
 class IsShelterLoggedIn(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -160,6 +162,13 @@ class UserPetsList(ListAPIView):
                 for shelter in shelters:
                     shelterList.append(shelter)
             queryset = queryset.filter(shelter__in=shelterList)
+
+        query = params.getlist("shelterID")
+        if query != []:
+            querylist = []
+            for q in query:
+                querylist = querylist + list(q.split(","))
+            queryset = queryset.filter(shelter__in=querylist)
 
         query = params.getlist("type")
         if query != []:

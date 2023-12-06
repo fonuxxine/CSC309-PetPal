@@ -1,0 +1,67 @@
+.profile {
+  display: grid;
+  justify-content: center;
+}
+
+.profile-pic {
+  width: 220px;
+  border-radius: 50%;
+}
+
+.delete-account {
+  background-color: #000;
+}
+
+.sort-select {
+  display: block;
+}
+
+textarea {
+  --bs-body-bg: #ede2f0;
+  --bs-border-width: 1px;
+  --bs-border-color: #000;
+}
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  background-color: #ede2f0;
+  border-width: 1px;
+  border-color: #000;
+}
+
+.error{
+  color: rgb(255, 0, 0);
+}
+
+.btn-primary {
+  --bs-btn-color: #000;
+  --bs-btn-bg: hsl(292, 37%, 60%);
+  --bs-btn-border-color: #b573bf;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #9f61a8;
+  --bs-btn-hover-border-color: #9c59a6;
+  --bs-btn-focus-shadow-rgb: 194, 140, 202;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #9c59a6;
+  --bs-btn-active-border-color: #91559b;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #b575bf;
+  --bs-btn-disabled-border-color: #b575bf;
+}
+
+.btn-primary:hover {
+  background-color: black;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: black;
+}
+
+.cancel-btn:hover {
+  background-color: white;
+  color: black;
+}

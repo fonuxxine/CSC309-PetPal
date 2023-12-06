@@ -35,7 +35,6 @@ class ShelterListCreateView(ListCreateAPIView):
 
 class ShelterGetView(RetrieveAPIView):
     serializer_class = ShelterGetSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return get_object_or_404(ShelterUser, id=self.kwargs['shelter_id'])

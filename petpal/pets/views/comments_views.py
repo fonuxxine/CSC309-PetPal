@@ -9,14 +9,19 @@ from pets.models import *
 
 class ShelterCommentReplyCreateView(CreateAPIView):
     serializer_class = ShelterCommentResponseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_permissions(self):
+      if self.request.method == 'GET':
+          self.permission_classes = [ ]
+      else:
+          self.permission_classes = [permissions.IsAuthenticated ]
+      return super().get_permissions()
     
     def perform_create(self, serializer):
         review = get_object_or_404(ShelterComment, id=self.kwargs['pk'])
         serializer.save(review=review, user_from=self.request.user)
 
 class ShelterCommentListCreateView(ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
     pagination_class = PageNumberPagination
     
     def get_serializer_class(self):
@@ -24,6 +29,13 @@ class ShelterCommentListCreateView(ListCreateAPIView):
             return ShelterCommentCreateSerializer
         return ShelterCommentSerializer
 
+    def get_permissions(self):
+      if self.request.method == 'GET':
+          self.permission_classes = [ ]
+      else:
+          self.permission_classes = [permissions.IsAuthenticated ]
+      return super().get_permissions()
+    
     def get_queryset(self):
         return ShelterComment.objects.filter(shelter_id=self.kwargs['pk']).order_by('-time_created')
     

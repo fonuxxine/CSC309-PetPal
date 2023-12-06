@@ -3,6 +3,7 @@ import "./style.css";
 
 const isShelter = localStorage.getItem("is_shelter");
 const username = localStorage.getItem("username");
+const user_id = localStorage.getItem("user_id")
 function AuthNavBar() {
   return (
     <>
@@ -25,7 +26,7 @@ function AuthNavBar() {
                 <Link className="navbar-nav links pe-4" to="/">
                   Notifications
                 </Link>
-                <Link className="navbar-nav links" to="/">
+                <Link className="navbar-nav links" to={`/update-account/${user_id}`}>
                   Account
                 </Link>
               </div>

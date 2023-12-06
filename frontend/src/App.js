@@ -14,6 +14,9 @@ import SignUpPetSeeker from "./pages/petSeekerSignup";
 import SignUpShelter from "./pages/shelterSignUp";
 import PetDetail from "./pages/petDetail";
 import PetAdoption from "./pages/petAdoption";
+import PetUpdate from "./pages/petUpdate";
+import UpdateAccount from "./pages/accountUpdate"
+import ShelterDetails from "./pages/shelterDetails";
 function App() {
   return (
       <BrowserRouter>
@@ -33,6 +36,9 @@ function App() {
             {/* edit link later - just want to see how it looks */}
             <Route path="pet-detail/" element={<PetDetail />} />
             <Route path="pet-adoption/" element={<PetAdoption />} />
+            <Route path="update-account/:accountID" element={<UpdateAccount />} />
+            <Route path="shelter/manage/:petID" element={<PetUpdate />} />
+            <Route path="shelter/:shelterID" element={<ShelterDetails/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
