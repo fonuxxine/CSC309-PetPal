@@ -22,16 +22,16 @@ textarea {
   --bs-border-color: #000;
 }
 
-select,
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+.update-account select,
+.update-account input[type="text"],
+.update-account input[type="email"],
+.update-account input[type="password"] {
   background-color: #ede2f0;
   border-width: 1px;
   border-color: #000;
 }
 
-.error{
+.error {
   color: rgb(255, 0, 0);
 }
 
