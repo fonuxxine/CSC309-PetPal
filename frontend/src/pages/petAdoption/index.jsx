@@ -51,7 +51,14 @@ function PetAdoption() {
                 reason: reason,
             }),
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) {
+                // throw new Error(response.status);
+                return response.text().then(text => { throw new Error(text) })
+            } else {
+                return response.json();
+            }
+        })
         .then((json) => {
             if (json.detail) {
                 setError("Error: error with adoption application");
@@ -62,7 +69,7 @@ function PetAdoption() {
             }
         })
         .catch((err) => {
-            setError("error: error here");
+            setError('error:' + err);
         });
     }
 
@@ -74,6 +81,7 @@ function PetAdoption() {
             </div>
             <div className="container-fluid p-4">
                 <h1 className="text-center fw-bold">Pet Adoption Form for {petName}</h1>
+                {error !== "" ? (<h1 className="login-error text-center p-0">{error}</h1>) : (<></>)}
             </div>
             <div className="d-flex justify-content-center">
                 <form className="w-50">
