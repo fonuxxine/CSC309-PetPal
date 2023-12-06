@@ -47,7 +47,7 @@ function ShelterPets() {
             to={`/pet-listing/${pet.id}/`}
           >
             <img
-              src="https://i.pinimg.com/736x/bb/12/03/bb12038681429c0e313c3001a973ef0f.jpg"
+              src={pet.photo}
               className="card-img-top card-pet-img-top"
               alt="Pet"
             />
