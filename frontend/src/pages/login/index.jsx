@@ -96,7 +96,6 @@ function Login() {
           <div className="form-group p-2">
             <label>Username</label>
             <input
-              type="text"
               className="form-control"
               placeholder="Enter your username"
               onChange={(event) => setUsername(event.target.value)}
@@ -106,7 +105,6 @@ function Login() {
           <div className="form-group p-2">
             <label>Password</label>
             <input
-              type="password"
               className="form-control"
               placeholder="Enter your password"
               onChange={(event) => setPassword(event.target.value)}

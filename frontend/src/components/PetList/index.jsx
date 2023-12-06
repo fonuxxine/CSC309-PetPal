@@ -25,7 +25,7 @@ function PetList({ pets, shelter }) {
         <>
           {shelter ? (
             <a href={`/shelter-listings/${userID}/`} className="ms-3 p-1">
-              <button className="add-but" type="submit">
+              <button className="add-but p-2">
                 + New Pet
               </button>{" "}
             </a>
@@ -52,10 +52,10 @@ function PetList({ pets, shelter }) {
                 {shelter ? (
                   <>
                     <a href="pet_update.html">
-                      <button className="manage-but me-2">Update Pet</button>
+                      <button className="manage-but me-1 p-2">Update Pet</button>
                     </a>
                     <button
-                      className="manage-but"
+                      className="manage-but p-2"
                       onClick={() => removePet(pet.id)}
                     >
                       Remove Pet

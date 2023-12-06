@@ -183,13 +183,11 @@ function ManagePets() {
       <div className="container-fluid search-container d-flex justify-content-center p-5">
         <input
           className="search-bar"
-          type="text"
           placeholder="Search by keyword: name, description, etc..."
           onChange={(event) => setSearch(event.target.value)}
         />
         <button
-          className="search-but"
-          type="submit"
+          className="search-but p-2"
           onClick={() => applySearch()}
         >
           Search
@@ -269,8 +267,7 @@ function ManagePets() {
           </select>
 
           <button
-            className="search-but mt-2"
-            type="submit"
+            className="search-but mt-2 p-2"
             onClick={() => applyFilter()}
           >
             Filter
