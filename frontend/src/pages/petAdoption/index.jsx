@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./style.css";
 
 var bearer = 'Bearer ' + localStorage.getItem('access_token');
@@ -20,6 +20,8 @@ function PetAdoption() {
     const adoptionURL = "/pet-listing/" + petID + "/applications/";
 
     const petURL = "/pet-listings/" + petID + "/";
+
+    let navigate = useNavigate();
 
     useEffect(() => {
         async function fetchPet() {
@@ -53,6 +55,10 @@ function PetAdoption() {
         .then((json) => {
             if (json.detail) {
                 setError("Error: error with adoption application");
+            }
+            else {
+                alert("Your application has been successfully submitted!");
+                navigate(-2);
             }
         })
         .catch((err) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const shelterURL = "/accounts/shelter/";
@@ -13,6 +14,8 @@ function SignUpShelter() {
     const [shelterName, setShelterName] = useState("");
     const [missionStatement, setMissionStatement] = useState("");
     const [error, setError] = useState("");
+
+    let navigate = useNavigate();
 
     // need to redirect to a different page?
 
@@ -35,6 +38,10 @@ function SignUpShelter() {
         .then((json) => {
             if (json.detail) {
                 setError("Error: error signing up");
+            }
+            else {
+                alert("Successfully signed up!");
+                navigate('/login/');
             }
         })
         .catch((err) => {
