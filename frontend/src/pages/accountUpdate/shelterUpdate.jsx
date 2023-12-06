@@ -61,6 +61,8 @@ function ShelterUpdate() {
       },
     }).then((resp) => {
       if (resp.status === 204) {
+        localStorage.clear();
+        window.location.reload();
         navigate("/");
       } else {
         navigate("/login/");
