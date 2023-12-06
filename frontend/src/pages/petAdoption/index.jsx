@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import "./style.css";
 
 var bearer = 'Bearer ' + localStorage.getItem('access_token');
@@ -70,7 +70,7 @@ function PetAdoption() {
         <div>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
                 {/* change to link later */}
-                <a href="pet_detail.html" class="btn btn-outline-dark search-btn">Return to details</a>
+                <Link to={`/pet-listing/${petID}/`} className="btn btn-outline-dark search-btn">Return to details</Link>
             </div>
             <div className="container-fluid p-4">
                 <h1 className="text-center fw-bold">Pet Adoption Form for {petName}</h1>

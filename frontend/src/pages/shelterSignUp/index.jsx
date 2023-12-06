@@ -34,7 +34,14 @@ function SignUpShelter() {
                 mission_statement: missionStatement,
             }),
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) {
+                // throw new Error(response.status);
+                return response.text().then(text => { throw new Error(text) })
+            } else {
+                return response.json();
+            }
+        })
         .then((json) => {
             if (json.detail) {
                 setError("Error: error signing up");
@@ -45,7 +52,9 @@ function SignUpShelter() {
             }
         })
         .catch((err) => {
-            setError("Error: error here");
+            // alert(err);
+
+            setError('error:' + err);
         });
     }
 

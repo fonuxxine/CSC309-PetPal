@@ -55,7 +55,8 @@ function PetDetail() {
         <div>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
                 {/* Actually make this work */}
-                <a href="index.html" class="btn btn-outline-dark search-btn">Return to search</a>
+                {/* <a href="index.html" class="btn btn-outline-dark search-btn">Return to search</a> */}
+                <Link to="/" className="btn btn-outline-dark search-btn">Return to search</Link>
             </div>
             <div className="container">
                 <div className="row">

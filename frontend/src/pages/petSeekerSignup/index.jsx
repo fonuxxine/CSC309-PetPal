@@ -32,7 +32,14 @@ function SignUpPetSeeker() {
                 surname: lastName,
             }),
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if (!response.ok) {
+                // throw new Error(response.status);
+                return response.text().then(text => { throw new Error(text) })
+            } else {
+                return response.json();
+            }
+        })
         .then((json) => {
             if (json.detail) {
                 setError("Error: There is an error with registering");
@@ -43,7 +50,7 @@ function SignUpPetSeeker() {
             }
         })
         .catch((err) => {
-            setError("Error: There was error");
+            setError('error' + err);
         });
     }
 
