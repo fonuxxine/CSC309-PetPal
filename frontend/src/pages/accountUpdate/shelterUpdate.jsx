@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 let bearer = "Bearer " + localStorage.getItem("access_token");
 
 function ShelterUpdate() {
   const navigate = useNavigate();
-  const [prevShelterInfo, setPrevShelterInfo] = useState({});
   const [shelterInfo, setShelterInfo] = useState({});
   const [errors, setErrors] = useState({});
+  const [profilePicPreview, setProfilePicPreview] = useState(null);
   const { accountID } = useParams();
 
   useEffect(() => {
@@ -24,23 +25,45 @@ function ShelterUpdate() {
         return resp.json();
       })
       .then((json) => {
-        setPrevShelterInfo(json);
         setShelterInfo(json);
+        setProfilePicPreview(json.profilePic);
       });
   }, [accountID, navigate]);
 
   function handleCancel() {
-    setShelterInfo(prevShelterInfo);
+    fetch(`/accounts/shelter/${accountID}/`, {
+      method: "GET",
+      headers: {
+        Authorization: bearer,
+      },
+    })
+      .then((resp) => {
+        if (resp.status >= 400) {
+          navigate("/login/");
+        }
+        return resp.json();
+      })
+      .then((json) => {
+        setShelterInfo(json);
+        setProfilePicPreview(json.profilePic);
+      });
+    setErrors({});
   }
 
   async function handleSave() {
+    const formData = new FormData();
+    for (let key in shelterInfo) {
+      if (shelterInfo[key] !== null) {
+        formData.append(key, shelterInfo[key]);
+      }
+    }
+
     fetch(`/accounts/shelter/${accountID}/`, {
       method: "PATCH",
       headers: {
         Authorization: bearer,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(shelterInfo),
+      body: formData,
     })
       .then((resp) => {
         if (resp.status === 200) {
@@ -51,6 +74,26 @@ function ShelterUpdate() {
       .then((errors) => {
         setErrors(errors);
       });
+  }
+
+  function handleFileChange(event) {
+    const selectedFile = event.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+    if (!allowedTypes.includes(selectedFile?.type)) {
+      setErrors((errors) => ({
+        ...errors,
+        profile_pic: "Must be JPG, JPEG or PNG",
+      }));
+    } else {
+      setShelterInfo({ ...shelterInfo, profile_pic: selectedFile });
+      setErrors((errors) => ({ ...errors, profile_pic: "" }));
+      const file = new FileReader();
+      file.onload = function () {
+        setProfilePicPreview(file.result);
+      };
+      file.readAsDataURL(selectedFile);
+    }
   }
 
   async function handleDelete() {
@@ -83,11 +126,12 @@ function ShelterUpdate() {
           <img
             className="img-thumbnail profile-pic"
             src={
-              shelterInfo?.profile_pic ??
+              profilePicPreview ??
               "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
             }
             alt="Profile"
           />
+          <p className="error">{errors?.profile_pic ?? ""}</p>
           <label
             htmlFor="profile"
             className="btn btn-primary position-absolute bottom-0 start-0"
@@ -96,22 +140,20 @@ function ShelterUpdate() {
               type="file"
               id="profile"
               className="d-none"
-              onChange={(event) =>
-                setShelterInfo({
-                  ...shelterInfo,
-                  profile_pic: event.target.value,
-                })
-              }
+              onChange={handleFileChange}
+              onClick={(event) => {
+                event.target.value = null;
+              }}
             />
             Edit
           </label>
         </div>
-        <a
-          href="/shelter/manage/"
+        <Link
+          to="/shelter/manage/"
           className="btn btn-primary btn-outline-dark my-md-5 mb-0"
         >
           Edit Pet Listings
-        </a>
+        </Link>
         <button
           type="button"
           className="btn btn-primary btn-outline-dark mt-5 d-none d-md-block"
@@ -129,21 +171,25 @@ function ShelterUpdate() {
       </div>
       <div className="col-md-7 col-lg-6 p-5 pb-0">
         <h1 className="text-center">Update Shelter Information</h1>
-        <div class="mb-3">
-          <label htmlFor="account-username" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="account-username" className="form-label">
             Username
           </label>
           <input
-            class="form-control"
+            className="form-control"
             type="text"
             name="account-username"
             id="account-username"
-            value={shelterInfo?.username}
+            value={shelterInfo?.username ?? ""}
             onChange={(event) =>
               setShelterInfo({ ...shelterInfo, username: event.target.value })
             }
           />
-          <p className="error">{errors?.username ?? ""}</p>
+          {errors?.username !== null && errors.username !== "" ? (
+            <p className="error">{errors.username}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="shelter-name" className="form-label">
@@ -162,7 +208,11 @@ function ShelterUpdate() {
               })
             }
           />
-          <p className="error">{errors?.shelter_name ?? ""}</p>
+          {errors?.shelter_name !== null && errors.shelter_name !== "" ? (
+            <p className="error">{errors.shelter_name}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="shelter-email" className="form-label">
@@ -178,7 +228,11 @@ function ShelterUpdate() {
               setShelterInfo({ ...shelterInfo, email: event.target.value })
             }
           />
-          <p className="error">{errors?.email ?? ""}</p>
+          {errors?.email !== null && errors.email !== "" ? (
+            <p className="error">{errors.email}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="shelter-address" className="form-label">
@@ -194,7 +248,11 @@ function ShelterUpdate() {
               setShelterInfo({ ...shelterInfo, location: event.target.value })
             }
           />
-          <p className="error">{errors?.location ?? ""}</p>
+          {errors?.location !== null && errors.location !== "" ? (
+            <p className="error">{errors.location}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="shelter-mission" className="form-label">
@@ -214,7 +272,12 @@ function ShelterUpdate() {
               })
             }
           />
-          <p className="error">{errors?.mission_statement ?? ""}</p>
+          {errors?.mission_statement !== null &&
+          errors.mission_statement !== "" ? (
+            <p className="error">{errors.mission_statement}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="shelter-password" className="form-label">
@@ -229,7 +292,11 @@ function ShelterUpdate() {
               setShelterInfo({ ...shelterInfo, password: event.target.value })
             }
           />
-          <p className="error">{errors?.password ?? ""}</p>
+          {errors?.password !== null && errors.password !== "" ? (
+            <p className="error">{errors.password}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="update-btns d-grid gap-2 d-md-flex justify-content-md-evenly pb-4">
           <button

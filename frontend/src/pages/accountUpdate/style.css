@@ -16,13 +16,8 @@
   display: block;
 }
 
-textarea {
-  --bs-body-bg: #ede2f0;
-  --bs-border-width: 1px;
-  --bs-border-color: #000;
-}
-
 .update-account select,
+.update-account textarea,
 .update-account input[type="text"],
 .update-account input[type="email"],
 .update-account input[type="password"] {

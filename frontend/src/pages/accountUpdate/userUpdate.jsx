@@ -5,9 +5,9 @@ let bearer = "Bearer " + localStorage.getItem("access_token");
 
 function UserUpdate() {
   const navigate = useNavigate();
-  const [prevUserInfo, setPrevUserInfo] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [errors, setErrors] = useState({});
+  const [profilePicPreview, setProfilePicPreview] = useState(null);
   const { accountID } = useParams();
 
   useEffect(() => {
@@ -24,23 +24,45 @@ function UserUpdate() {
         return resp.json();
       })
       .then((json) => {
-        setPrevUserInfo(json);
         setUserInfo(json);
+        setProfilePicPreview(json.profilePic);
       });
   }, [accountID, navigate]);
 
   function handleCancel() {
-    setUserInfo(prevUserInfo);
+    setErrors({});
+    fetch(`/accounts/pet-user/${accountID}/`, {
+      method: "GET",
+      headers: {
+        Authorization: bearer,
+      },
+    })
+      .then((resp) => {
+        if (resp.status >= 400) {
+          navigate("/login/");
+        }
+        return resp.json();
+      })
+      .then((json) => {
+        setUserInfo(json);
+        setProfilePicPreview(json.profilePic);
+      });
   }
 
   async function handleSave() {
+    const formData = new FormData();
+    for (let key in userInfo) {
+      if (userInfo[key] !== null) {
+        formData.append(key, userInfo[key]);
+      }
+    }
+
     fetch(`/accounts/pet-user/${accountID}/`, {
       method: "PATCH",
       headers: {
         Authorization: bearer,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(userInfo),
+      body: formData,
     })
       .then((resp) => {
         if (resp.status === 200) {
@@ -70,12 +92,33 @@ function UserUpdate() {
     });
   }
 
+  function handleFileChange(event) {
+    const selectedFile = event.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+    if (!allowedTypes.includes(selectedFile?.type)) {
+      setErrors((errors) => ({
+        ...errors,
+        profile_pic: "Must be JPG, JPEG or PNG",
+      }));
+    } else {
+      console.log("here");
+      setUserInfo({ ...userInfo, profile_pic: selectedFile });
+      setErrors((errors) => ({ ...errors, profile_pic: "" }));
+      const file = new FileReader();
+      file.onload = function () {
+        setProfilePicPreview(file.result);
+      };
+      file.readAsDataURL(selectedFile);
+    }
+  }
+
   function logOut() {
     localStorage.clear();
     window.location.reload();
     navigate("/login/");
   }
-  
+
   return (
     <div className="row container-fluid update-account">
       <div className="col-md-5 col-lg-4 ps-4 pe-5 pb-0 pt-5 profile h-50">
@@ -83,16 +126,25 @@ function UserUpdate() {
           <img
             className="img-thumbnail profile-pic"
             src={
-              userInfo?.profile_pic ??
+              profilePicPreview ??
               "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
             }
             alt="Profile"
           />
+          <p className="error">{errors?.profile_pic ?? ""}</p>
           <label
             htmlFor="profile"
             className="btn btn-primary position-absolute bottom-0 start-0"
           >
-            <input type="file" id="profile" className="d-none" />
+            <input
+              type="file"
+              id="profile"
+              className="d-none"
+              onChange={handleFileChange}
+              onClick={(event) => {
+                event.target.value = null;
+              }}
+            />
             Edit
           </label>
         </div>
@@ -113,21 +165,25 @@ function UserUpdate() {
       </div>
       <div className="col-md-7 col-lg-6 p-5 pb-0">
         <h1 className="text-center">Update Account Information</h1>
-        <div class="mb-3">
-          <label htmlFor="account-username" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="account-username" className="form-label">
             Username
           </label>
           <input
-            class="form-control"
+            className="form-control"
             type="text"
             name="account-username"
             id="account-username"
-            value={userInfo.username}
+            value={userInfo.username ?? ""}
             onChange={(event) =>
               setUserInfo({ ...userInfo, username: event.target.value })
             }
           />
-          <p className="error">{errors?.username ?? ""}</p>
+          {errors?.username !== null && errors.username !== "" ? (
+            <p className="error">{errors.username}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="account-name" className="form-label">
@@ -143,7 +199,11 @@ function UserUpdate() {
               setUserInfo({ ...userInfo, name: event.target.value })
             }
           />
-          <p className="error">{errors?.name ?? ""}</p>
+          {errors?.name !== null && errors.name !== "" ? (
+            <p className="error">{errors.name}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="account-last-name" className="form-label">
@@ -159,7 +219,11 @@ function UserUpdate() {
               setUserInfo({ ...userInfo, surname: event.target.value })
             }
           />
-          <p className="error">{errors?.surname ?? ""}</p>
+          {errors?.surname !== null && errors.surname !== "" ? (
+            <p className="error">{errors.surname}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlhtmlFor="user-email" className="form-label">
@@ -175,7 +239,11 @@ function UserUpdate() {
               setUserInfo({ ...userInfo, email: event.target.value })
             }
           />
-          <p className="error">{errors?.email ?? ""}</p>
+          {errors?.email !== null && errors.email !== "" ? (
+            <p className="error">{errors.email}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlhtmlFor="user-address" className="form-label">
@@ -191,7 +259,11 @@ function UserUpdate() {
               setUserInfo({ ...userInfo, location: event.target.value })
             }
           />
-          <p className="error">{errors?.location ?? ""}</p>
+          {errors?.location !== null && errors.location !== "" ? (
+            <p className="error">{errors.location}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="mb-3">
           <label htmlhtmlFor="user-password" className="form-label">
@@ -206,7 +278,11 @@ function UserUpdate() {
               setUserInfo({ ...userInfo, password: event.target.value })
             }
           />
-          <p className="error">{errors?.password ?? ""}</p>
+          {errors?.password !== null && errors.password !== "" ? (
+            <p className="error">{errors.password}</p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="update-btns d-grid gap-2 d-md-flex justify-content-md-evenly pb-4">
           <button

@@ -27,7 +27,7 @@ function App() {
           <Route path="/" element={localStorage.getItem('access_token') === null? <NavBar/> : <AuthNavBar/>}>
             <Route index element={<Landing/>} />
             <Route path="login/" element={<Login />} />
-            <Route path="/shelter/manage/" element={<ManagePets/>}/>
+            <Route path="shelter/manage/" element={<ManagePets/>}/>
             <Route path="pet-listing/:petID/applications/" element={<Applications/>}/>
             <Route path="applications/:applicationID/" element={<Application/>}/>
             <Route path="shelter-listings/:shelterID/" element={<PetCreation/>}/>

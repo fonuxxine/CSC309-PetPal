@@ -8,9 +8,9 @@ let userID = localStorage.getItem("user_id");
 
 function PetUpdate() {
   const navigate = useNavigate();
-  const [prevPetInfo, setPrevPetInfo] = useState({});
   const [petInfo, setPetInfo] = useState({});
   const [errors, setErrors] = useState({});
+  const [photoPreview, setPhotoPreview] = useState(null);
   const { petID } = useParams();
 
   useEffect(() => {
@@ -27,23 +27,46 @@ function PetUpdate() {
         return resp.json();
       })
       .then((json) => {
-        setPrevPetInfo(json);
         setPetInfo(json);
+        setPhotoPreview(json.photo);
       });
   }, [petID, navigate]);
 
   function handleCancel() {
-    setPetInfo(prevPetInfo);
+    fetch(`/shelter-listings/${userID}/pet/${petID}/`, {
+      method: "GET",
+      headers: {
+        Authorization: bearer,
+      },
+    })
+      .then((resp) => {
+        if (resp.status >= 400) {
+          navigate("/login/");
+        }
+        return resp.json();
+      })
+      .then((json) => {
+        console.log(json);
+        setPetInfo(json);
+        setPhotoPreview(json.photo);
+      });
+    setErrors({});
   }
 
   async function handleSave() {
+    const formData = new FormData();
+    for (let key in petInfo) {
+      if (petInfo[key] !== null) {
+        formData.append(key, petInfo[key]);
+      }
+    }
+
     fetch(`/shelter-listings/${userID}/pet/${petID}/`, {
       method: "PATCH",
       headers: {
         Authorization: bearer,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(petInfo),
+      body: formData,
     })
       .then((resp) => {
         if (resp.status === 200) {
@@ -54,6 +77,23 @@ function PetUpdate() {
       .then((errors) => {
         setErrors(errors);
       });
+  }
+
+  function handleFileChange(event) {
+    const selectedFile = event.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+    if (!allowedTypes.includes(selectedFile?.type)) {
+      setErrors((errors) => ({ ...errors, photo: "Must be JPG, JPEG or PNG" }));
+    } else {
+      setPetInfo({ ...petInfo, photo: selectedFile });
+      setErrors((errors) => ({ ...errors, photo: "" }));
+      const file = new FileReader();
+      file.onload = function () {
+        setPhotoPreview(file.result);
+      };
+      file.readAsDataURL(selectedFile);
+    }
   }
 
   return (
@@ -71,21 +111,23 @@ function PetUpdate() {
         <div className="profile-picture">
           <img
             alt="Pet"
-            scr={
-              petInfo?.photo ??
+            src={
+              photoPreview ??
               "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
             }
             className="upload-picture"
-          ></img>
-          <div className="container-fluid d-flex justify-content-center p-4 message">
+          />
+          <p className="error">{errors?.photo ?? ""}</p>
+          <div className="container-fluid d-flex justify-content-center ph-4 message">
             <label htmlFor="profile" className="edit-button btn btn-primary">
               <input
                 type="file"
                 id="profile"
                 className="d-none"
-                onChange={(event) =>
-                  setPetInfo({ ...petInfo, photo: event.target.value })
-                }
+                onChange={handleFileChange}
+                onClick={(event) => {
+                  event.target.value = null;
+                }}
               />
               Edit
             </label>
@@ -127,7 +169,14 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                (errors?.name !== null && errors.name !== "") ||
+                (errors?.gender !== null && errors.gender !== "")
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-6">
                 <p className="error">{errors?.name ?? ""}</p>
               </div>
@@ -165,7 +214,14 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                (errors?.breed !== null && errors.breed !== "") ||
+                (errors?.type !== null && errors.type !== "")
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-6">
                 <p className="error">{errors?.breed ?? ""}</p>
               </div>
@@ -208,7 +264,14 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                (errors?.status !== null && errors.status !== "") ||
+                (errors?.age !== null && errors.age !== "")
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-6">
                 <p className="error">{errors?.status ?? ""}</p>
               </div>
@@ -235,9 +298,15 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                errors?.size !== null && errors.size !== ""
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-12">
-                <p className="error">{errors?.status ?? ""}</p>
+                <p className="error">{errors?.size ?? ""}</p>
               </div>
             </div>
             <div className="row">
@@ -260,7 +329,13 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                errors?.description !== null && errors.description !== ""
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-12">
                 <p className="error">{errors?.description ?? ""}</p>
               </div>
@@ -287,7 +362,14 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                errors?.special_requirements !== null &&
+                errors.special_requirements !== ""
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-12">
                 <p className="error">{errors?.special_requirements ?? ""}</p>
               </div>
@@ -312,7 +394,14 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                errors?.medical_history !== null &&
+                errors.medical_history !== ""
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-12">
                 <p className="error">{errors?.medical_history ?? ""}</p>
               </div>
@@ -334,7 +423,13 @@ function PetUpdate() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div
+              className={
+                errors?.behaviour !== null && errors.behaviour !== ""
+                  ? "row"
+                  : "row d-none"
+              }
+            >
               <div className="col-md-12">
                 <p className="error">{errors?.behaviour ?? ""}</p>
               </div>
