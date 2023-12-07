@@ -17,6 +17,7 @@ import PetAdoption from "./pages/petAdoption";
 import PetUpdate from "./pages/petUpdate";
 import UpdateAccount from "./pages/accountUpdate"
 import ShelterDetails from "./pages/shelterDetails";
+import AllShelters from "./pages/allShelters";
 function App() {
   return (
       <BrowserRouter>
@@ -38,6 +39,7 @@ function App() {
             <Route path="shelter/:shelterID" element={<ShelterDetails/>}/>
             <Route name="pet-details" path="pet-listing/:petID/" element={<PetDetail />} />
             <Route path="pet-listing/:petID/adoption/" element={<PetAdoption />} />
+            <Route path="shelter/" element={<AllShelters />} />
           </Route>
         </Routes>
       </BrowserRouter>
