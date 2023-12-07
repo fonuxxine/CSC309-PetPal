@@ -52,7 +52,7 @@ function Applications() {
                 </label>)}
             </div>
             {applications?.map(application => (
-                <Form application={application} pet_listing={petID} />
+                <Form key={application.id} application={application} pet_listing={petID} />
             ))}
             <p>
                 {query.page < totalPages ? <button onClick={() => setSearchParams({

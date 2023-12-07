@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import messageTemplate from "./messageTemplate";
+import MessageTemplate from "./messageTemplate";
 
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
 
@@ -14,6 +14,29 @@ function Message() {
 
     const [error, setError] = useState("");
 
+    const notiLink = `/applications/${appID}/`;
+
+     function sendNotification(notiMessage, link, userID) {
+        fetch(`/user/${userID}/notifications/`, {
+            method: 'POST',
+            headers: {
+                'Authorization': bearer,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message: notiMessage,
+                link: link
+            }),
+        }).then(response => response.json())
+            .then(json => {
+                if (json.detail) {
+                    setError("Error: error with sending notifications");
+                }
+            }).catch((err) => {
+                setError("Error: " + err)
+        });
+    }
+
 
     useEffect(() => {
         async function fetchMessage() {
@@ -25,12 +48,10 @@ function Message() {
             }).then(response => response.json())
                 .then(json => {
                     setMessages(json.results);
-
                     setTotalPages(Math.ceil(json.count / 9));
                 })
         }
         fetchMessage();
-        console.log(messages);
     }, [appID]);
 
     function sendMessage() {
@@ -43,13 +64,23 @@ function Message() {
             body: JSON.stringify({
                 message: message,
             }),
-        }) .then(response => response.json())
+        }) .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text) })
+            } else {
+                return response.json();
+            }
+        })
             .then(json => {
+                console.log(json);
                 if (json.detail) {
-                  setError("Error: error with sending message");
+                    alert("Error: error with sending message");
+                } else {
+                     const { userID } = message.user_to;
+                     sendNotification(message, notiLink, userID);
                 }
             }).catch((err) => {
-                setError('error:' + err);
+                setError('Error: ' + err);
               });
     }
 
@@ -73,12 +104,10 @@ function Message() {
               <button className="login-but mt-2 p-2" onClick={() => sendMessage()}>Send Message</button>
             </form>
             <h3 className="pt-5">Message history</h3>
-            {messages?.map(m => (
-                <messageTemplate m={m}></messageTemplate>
-            ))}
+            <MessageTemplate messages={messages} />
             <p>
-                {page < totalPages ? <button onClick={() => setPage(page + 1)}>Next</button> : <></>}
-                {page > 1 ? <button onClick={() => setPage(page - 1)}>Previous</button> : <></>}
+                {page < totalPages ? <button className="m-4 p-1" onClick={() => setPage(page + 1)}>Next</button> : <></>}
+                {page > 1 ? <button className="m-4 p-1" onClick={() => setPage(page - 1)}>Previous</button> : <></>}
             </p>
             <p>{page} out of {totalPages}</p>
         </div>
