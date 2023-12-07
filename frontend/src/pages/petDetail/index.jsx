@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
-import { Route, Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 
 
@@ -9,16 +9,16 @@ function PetDetail() {
 
     const [name, setName] = useState("");
     const [photo, setPhoto] = useState("");
-    const [breed, setBreed] = useState("Frog");
-    const [age, setAge] = useState("68");
-    const [gender, setGender] = useState("Male");
-    const [size, setSize] = useState("Small");
-    const [description, setDescription] = useState("An enthusiastic green frog");
-    const [status, setStatus] = useState("Available - AV");
-    const [publication_date, setPublicationDate] = useState("05/09/1995");
-    const [medical_history, setMedicalHistory] = useState("Has peanut allergy");
-    const [special_requirements, setSpecialRequirements] = useState("Has peanut allergy");
-    const [behaviour, setBehaviour] = useState("Energetic green frog.");
+    const [breed, setBreed] = useState("");
+    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("");
+    const [size, setSize] = useState("");
+    const [description, setDescription] = useState("");
+    const [status, setStatus] = useState("");
+    const [publication_date, setPublicationDate] = useState("");
+    const [medical_history, setMedicalHistory] = useState("");
+    const [special_requirements, setSpecialRequirements] = useState("");
+    const [behaviour, setBehaviour] = useState("");
 
     let navigate = useNavigate();
 

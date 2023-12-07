@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
-import { Route, Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 var bearer = 'Bearer ' + localStorage.getItem('access_token');
 
