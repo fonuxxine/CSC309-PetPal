@@ -19,6 +19,7 @@ function PetDetail() {
     const [medical_history, setMedicalHistory] = useState("");
     const [special_requirements, setSpecialRequirements] = useState("");
     const [behaviour, setBehaviour] = useState("");
+    const [shelter, setShelter] = useState("");
 
     let navigate = useNavigate();
 
@@ -52,6 +53,7 @@ function PetDetail() {
                 setMedicalHistory(JSON.parse(JSON.stringify(json))["medical_history"]);
                 setSpecialRequirements(JSON.parse(JSON.stringify(json))["special_requirements"]);
                 setBehaviour(JSON.parse(JSON.stringify(json))["behaviour"]);
+                setShelter(JSON.parse(JSON.stringify(json))["shelter"]);
             })
             .catch((err) => {
                 navigate('/*');
@@ -69,7 +71,7 @@ function PetDetail() {
                 {/* <a href="index.html" class="btn btn-outline-dark search-btn">Return to search</a> */}
                 <Link to="/" className="btn btn-outline-dark search-btn">Return to search</Link>
             </div>
-            <div className="container">
+            <div>
                 <div className="row">
                     <div className="col-sm-4">
                         <div className="p-3">
@@ -120,9 +122,13 @@ function PetDetail() {
                                     <td>Special Requirements</td>
                                     <td>{special_requirements}</td>
                                 </tr>
+                                <tr>
+                                    <td>Shelter</td>
+                                    <td><Link to={`/shelter/${shelter}`}>Shelter profile</Link></td>
+                                </tr>
                             </tbody>
                         </table>
-                        <div className="container">
+                        <div>
                             <p className="text-left">
                             {description}
                             </p>
