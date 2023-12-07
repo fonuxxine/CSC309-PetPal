@@ -101,10 +101,10 @@ function PetUpdate() {
       <div className="container-fluid return-to-bar d-flex justify-content-start p-3 return-to-app">
         <Link
           to="/shelter/manage/"
-          className="btn btn-default btn-outline-dark detail-btn"
+          className="btn btn-outline-dark search-btn"
         >
           {" "}
-          Return to Home
+          Return to pet management
         </Link>
       </div>
       <div className="application-form">
