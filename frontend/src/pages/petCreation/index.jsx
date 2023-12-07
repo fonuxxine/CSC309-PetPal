@@ -7,7 +7,7 @@ function PetCreation() {
   let navigate = useNavigate();
   const { shelterID } = useParams();
   const [name, setName] = useState("");
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState(null);
   const [breed, setBreed] = useState("");
   const [type, setType] = useState("");
   const [age, setAge] = useState(0);
