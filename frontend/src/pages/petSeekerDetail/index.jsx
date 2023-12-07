@@ -15,26 +15,33 @@ function PetSeekerDetail() {
 
     const { userID } = useParams();
 
-    const userURL = "/accounts/pet-user/" + userID + "/profile/"
-
     let navigate = useNavigate();
 
     useEffect(() => {
         async function fetchUser() {
-            await fetch(userURL, {
+            await fetch(`/accounts/pet-user/${userID}/profile/`, {
                 method: "GET",
                 headers : {
                     'Authorization': bearer
                 }
             })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error;
+                } else {
+                    return response.json();
+                }
+            })
             .then((json) => {
                 setUsername(JSON.parse(JSON.stringify(json))["username"]);
                 setName(JSON.parse(JSON.stringify(json))["name"]);
                 setSurname(JSON.parse(JSON.stringify(json))["surname"]);
                 setEmail(JSON.parse(JSON.stringify(json))["email"]);
                 setLocation(JSON.parse(JSON.stringify(json))["location"]);
-            });
+            })
+            .catch((err) => {
+                navigate('/*');
+            })
         }
         fetchUser();
     }, [])
@@ -44,12 +51,19 @@ function PetSeekerDetail() {
     }
 
     return (
-        <div className="container-fluid">
+        <>
             <div className="container-fluid return-to-bar">
-                <button className="btn btn-outline-dark search-btn" onClick={() => navBack()}>Return to application</button>
-                <h1 className="login-h1 text-center p-4 fw-bold">{name} Profile</h1>
+                <div className="row">
+                    <div className="col-sm-4 justify-content-start p-3">
+                        <button className="btn btn-outline-dark search-btn" onClick={() => navBack()}>Return to application</button>
+                    </div>
+                    <div className="col-sm-4 justify-content-center p-3">
+                        <h1 className="login-h1 text-center fw-bold">{name} Profile</h1>
+                    </div>
+                
+                </div> 
             </div>
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center pt-4">
                 <div className="w-75">
                     <div className="form-group p-2">
                         <label>Username</label>
@@ -98,7 +112,7 @@ function PetSeekerDetail() {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -1,0 +1,15 @@
+.shelter-name {
+    text-decoration: none;
+    color: black;
+}
+.shelter-name:hover {
+    color: #b573bf;
+}
+
+.shelter-btn {
+    background-color: #ffffff;
+  }
+  
+  .shelter-btn:hover {
+    background-color: black;
+  }

@@ -26,11 +26,9 @@ function PetDetail() {
 
     const { petID } = useParams();
 
-    const petURL = "/pet-listings/" + petID + "/";
-
     useEffect(() => {
         async function fetchPet() {
-            await fetch(petURL, {
+            await fetch(`/pet-listings/${petID}/`, {
                 method: "GET"
             })
             .then((response) => {
@@ -65,13 +63,11 @@ function PetDetail() {
 
  
     return (
-        <div>
+        <>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
-                {/* Actually make this work */}
-                {/* <a href="index.html" class="btn btn-outline-dark search-btn">Return to search</a> */}
                 <Link to="/" className="btn btn-outline-dark search-btn">Return to search</Link>
             </div>
-            <div>
+            <div className="container-fluid pt-3">
                 <div className="row">
                     <div className="col-sm-4">
                         <div className="p-3">
@@ -83,6 +79,7 @@ function PetDetail() {
                         </div>
                     </div>
                     <div className="col-sm-8">
+                        <div className="container-fluid p-3">
                         <h1 className="text-left fw-bold">{name}</h1>
 
                         <h6 className="text-left fw-bold pt-2 pb-2">{behaviour}</h6>
@@ -116,11 +113,12 @@ function PetDetail() {
                                 </tr>
                                 <tr>
                                     <td>Medical History</td>
-                                    <td>{medical_history}</td>
+                                    {medical_history === "" ? (<td>{medical_history}</td>) : (<td>N/A</td>)}
+                                    {/* <td>{medical_history}</td> */}
                                 </tr>
                                 <tr>
                                     <td>Special Requirements</td>
-                                    <td>{special_requirements}</td>
+                                    {special_requirements === "" ? (<td>{special_requirements}</td>) : (<td>N/A</td>)}
                                 </tr>
                                 <tr>
                                     <td>Shelter</td>
@@ -135,14 +133,16 @@ function PetDetail() {
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
                             {/* Replace to link later */}
-                            <Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>
+                            {status == "AV" ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
+                            
                              <Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>
+                        </div>
                         </div>
                     </div>
                 </div>
                 
             </div>
-        </div>
+        </>
         
     )
 }
