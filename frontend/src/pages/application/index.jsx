@@ -1,7 +1,7 @@
 import Applications from "../applications";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import Form from "../applications/form";
+import Form from "../application/form";
 
 
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
@@ -11,15 +11,18 @@ function Application () {
     const { applicationID } = useParams();
 
     useEffect(() => {
-        fetch(`applications/${applicationID}/`,
+        fetch(`/applications/${applicationID}/`,
             {
-                headers: {'Authorization': bearer},
+                headers: {
+                    'Authorization': bearer,
+                },
             })
             .then(response => response.json())
             .then(json => {
-                setApplication(json.results);
+                setApplication(json);
             });
     }, [applicationID])
+
 
     return <>
         <div className="container-fluid p-4 return-to-bar">

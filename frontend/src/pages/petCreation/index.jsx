@@ -53,8 +53,8 @@ function PetCreation() {
           setError("Error: error with pet creation");
         }
       })
-      .catch(() => {
-        setError("Error: invalid authentication");
+      .catch((err) => {
+        setError('error:' + err);
       });
   }
 
