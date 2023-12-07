@@ -26,7 +26,7 @@ function ShelterUpdate() {
       })
       .then((json) => {
         setShelterInfo(json);
-        setProfilePicPreview(json.profilePic);
+        setProfilePicPreview(json.profile_pic);
       });
   }, [accountID, navigate]);
 
@@ -105,26 +105,28 @@ function ShelterUpdate() {
     }).then((resp) => {
       if (resp.status === 204) {
         localStorage.clear();
+        alert("Your account has been deleted!");
         window.location.reload();
-        navigate("/");
+        navigate("/login/");
       } else {
         navigate("/login/");
       }
     });
   }
 
-  function logOut() {
+  function logOut() {   
     localStorage.clear();
+    alert("You've been logged out!");
     window.location.reload();
     navigate("/login/");
   }
 
   return (
-    <div className="row container-fluid update-account">
+    <div className="row container-fluid update-account ps-5">
       <div className="col-md-5 col-lg-4 ps-4 pe-5 pb-0 pt-5 profile h-50">
         <div className="position-relative row-sm-5 mb-5">
           <img
-            className="img-thumbnail profile-pic"
+            className="img-thumbnail account-profile-pic"
             src={
               profilePicPreview ??
               "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
@@ -156,14 +158,14 @@ function ShelterUpdate() {
         </Link>
         <button
           type="button"
-          className="btn btn-primary btn-outline-dark mt-5 d-none d-md-block"
+          className="btn btn-primary btn-outline-dark mt-5 "
           onClick={logOut}
         >
           Log Out
         </button>
         <button
           type="button"
-          className="btn btn-dark delete-account mt-5 d-none d-md-block"
+          className="btn btn-dark delete-account mt-5"
           onClick={handleDelete}
         >
           Delete Account

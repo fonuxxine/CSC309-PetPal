@@ -182,7 +182,7 @@ function ManagePets() {
         </div>
       <div className="container-fluid search-container d-flex justify-content-center p-5">
         <input
-          className="search-bar"
+          className="search-bar p-2"
           placeholder="Search by keyword: name, description, etc..."
           onChange={(event) => setSearch(event.target.value)}
         />
