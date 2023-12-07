@@ -118,7 +118,8 @@ function PetDetail() {
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
                             {/* Replace to link later */}
-                            <Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn">Adoption Application</Link>
+                            <Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>
+                             <Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>
                         </div>
                     </div>
                 </div>
