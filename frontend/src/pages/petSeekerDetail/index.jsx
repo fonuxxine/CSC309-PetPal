@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 var bearer = 'Bearer ' + localStorage.getItem('access_token');
 
@@ -16,6 +16,8 @@ function PetSeekerDetail() {
     const { userID } = useParams();
 
     const userURL = "/accounts/pet-user/" + userID + "/profile/"
+
+    let navigate = useNavigate();
 
     useEffect(() => {
         async function fetchUser() {
@@ -37,9 +39,14 @@ function PetSeekerDetail() {
         fetchUser();
     }, [])
 
+    function navBack() {
+        return navigate(-1);
+    }
+
     return (
         <div className="container-fluid">
             <div className="container-fluid return-to-bar">
+                <button className="btn btn-outline-dark search-btn" onClick={() => navBack()}>Return to application</button>
                 <h1 className="login-h1 text-center p-4 fw-bold">{name} Profile</h1>
             </div>
             <div className="d-flex justify-content-center">
