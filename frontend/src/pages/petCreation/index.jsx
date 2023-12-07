@@ -49,10 +49,10 @@ function PetCreation() {
       formData.append("special_requirements", specialRequirements);
       formData.append("behaviour", behaviour);
 
-    fetch(`shelter-listings/${shelterID}/`, {
+    fetch(`/shelter-listings/${shelterID}/`, {
       method: "POST",
       headers: {
-        'Authorization': bearer,
+        Authorization: bearer,
       },
       body: formData,
     })
