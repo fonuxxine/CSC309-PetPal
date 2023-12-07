@@ -19,6 +19,8 @@ import UpdateAccount from "./pages/accountUpdate"
 import ShelterDetails from "./pages/shelterDetails";
 import AllShelters from "./pages/allShelters";
 import PetSeekerDetail from "./pages/petSeekerDetail";
+import Message from "./pages/message";
+import NotFound from "./pages/notFound";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
             <Route path="pet-listing/:petID/adoption/" element={<PetAdoption />} />
             <Route path="shelter/" element={<AllShelters />} />
             <Route path="user/:userID/" element={<PetSeekerDetail />} />
+            <Route path="applications/:appID/messages/" element={<Message />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -5,6 +5,7 @@ from . serializers import ShelterCreateSerializer, PetUserCreateSerializer, Shel
 from rest_framework import authentication, permissions
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
+from rest_framework.pagination import PageNumberPagination
 
 
 class ShelterUserPermissions(permissions.BasePermission):
@@ -17,6 +18,7 @@ class ShelterUserPermissions(permissions.BasePermission):
 
 class ShelterListCreateView(ListCreateAPIView):
     serializer_class = ShelterCreateSerializer
+    pagination_class = PageNumberPagination
 
     def perform_create(self, serializer):
         p1 = serializer.validated_data.get('password')

@@ -14,7 +14,6 @@ function SignUpPetSeeker() {
     const [lastName, setLastName] = useState("");
     const [error, setError] = useState("");
 
-    // need to redirect to different page??
     let navigate = useNavigate();
 
     function signup() {

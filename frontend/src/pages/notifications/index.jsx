@@ -18,7 +18,7 @@ function Notifications () {
 
     useEffect(() => {
         async function fetchNoti() {
-            await fetch(`user/${userID}/notifications/`, {
+            await fetch(`/user/${userID}/notifications/`, {
             headers: {'Authorization': bearer},
             }).then(response => response.json())
                 .then(json => {

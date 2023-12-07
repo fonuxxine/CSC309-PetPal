@@ -9,12 +9,12 @@ function Notification() {
     const {notificationID} = useParams();
 
     useEffect(() => {
-        fetch(`notifications/${notificationID}/`, {
+        fetch(`/notifications/${notificationID}/`, {
             headers: {'Authorization': bearer},
         })
             .then(response => response.json())
             .then(json => {
-                setNotification(json);
+                setNotification(json.results);
             })
     }, [notificationID])
 
