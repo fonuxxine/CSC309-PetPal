@@ -1,7 +1,6 @@
 .checkbox-group {
     display: flex;
     column-gap: 1em;
-    padding: 2em;
 }
 
 .checkbox-group label {

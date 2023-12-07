@@ -7,7 +7,7 @@ function PetCreation() {
   let navigate = useNavigate();
   const { shelterID } = useParams();
   const [name, setName] = useState("");
-  const [photo] = useState("");
+  const [photo, setPhoto] = useState("");
   const [breed, setBreed] = useState("");
   const [type, setType] = useState("");
   const [age, setAge] = useState(0);
@@ -20,44 +20,37 @@ function PetCreation() {
   const [behaviour, setBehaviour] = useState("");
   const [error, setError] = useState("");
 
-  const statusValues = {
-    AV: "available",
-    AD: "adopted",
-    PN: "pending",
-    WD: "withdrawn",
-  };
+  const statusValues = ["available", "adopted", "pending", "withdrawn"];
 
-  const genderValues = {
-    F: "female",
-    M: "male",
-  };
+  const genderValues = ["female", "male"];
 
   function create() {
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("photo", photo);
+      formData.append("breed", breed);
+      formData.append("type", type);
+      formData.append("age", age);
+      formData.append("gender", gender);
+      formData.append("type", size);
+      formData.append("age", description);
+      formData.append("gender", status);
+      formData.append("type", medicalHistory);
+      formData.append("age", specialRequirements);
+      formData.append("gender", behaviour);
+
     fetch(`shelter-listings/${shelterID}/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: bearer,
+        'Authorization': bearer,
       },
-      body: JSON.stringify({
-        name: name,
-        photo: photo,
-        breed: breed,
-        type: type,
-        age: age,
-        gender: gender,
-        size: size,
-        description: description,
-        status: status,
-        medicalHistory: medicalHistory,
-        specialRequirements: specialRequirements,
-        behaviour: behaviour,
-      }),
+      body: formData,
     })
       .then((response) => response.json())
       .then((json) => {
         if (json.detail) {
-          setError("Error: invalid authentication");
+          setError("Error: error with pet creation");
         }
       })
       .catch(() => {
@@ -76,12 +69,15 @@ function PetCreation() {
         </button>
       </div>
       {error !== "" ? <h4 className="text-center p-4 pb-0">{error}</h4> : <></>}
-      <div className="d-flex justify-content-center">
-          <div className="w-50">
-            <h1 className="text-center fw-bold m-5">Create Pet Profile</h1>
+        <h1 className="text-center fw-bold m-5">Create Pet Profile</h1>
+      <div className="d-flex justify-content-center pb-5">
+          <form className="w-50">
               <div className="form-group p-2">
                   <label class="form-label" for="customFile">Upload pet photo</label>
-                  <input type="file" class="form-control" id="customFile" />
+                  <input type="file"
+                         class="form-control"
+                         id="customFile"
+                         onChange={(event => setPhoto(event.target.files[0]))}/>
               </div>
               <div className="form-group p-2">
                   <label>Name</label>
@@ -132,9 +128,9 @@ function PetCreation() {
                     required
                   >
                      <option value="">Select gender</option>
-                    {Object.entries(genderValues).map(([i, gender]) => (
+                    {genderValues.map((gender, i) => (
                       <option value={gender} key={i}>
-                        {genderValues[gender]}
+                        {gender}
                       </option>
                     ))}
                   </select>
@@ -163,14 +159,14 @@ function PetCreation() {
                   <label>Status</label>
                   <select
                     className="form-select"
-                    value={gender}
+                    value={status}
                     onChange={(event) => setStatus(event.target.value)}
                     required
                   >
                      <option value="">Select status</option>
-                    {Object.entries(statusValues).map(([i, status]) => (
+                    {statusValues.map((status, i) => (
                       <option value={status} key={i}>
-                        {statusValues[status]}
+                        {status}
                       </option>
                     ))}
                   </select>
@@ -203,18 +199,7 @@ function PetCreation() {
                   />
               </div>
               <div><button className="login-but mt-2 p-2" onClick={() => create()}>Save</button></div>
-          </div>
-      </div>
-      <div className="application-form">
-        {photo !== "" ? (
-          <div className="profile-picture">
-            <div className="upload-picture">
-              <img src={photo} alt="pet photo" />
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
+          </form>
       </div>
     </>
   );
