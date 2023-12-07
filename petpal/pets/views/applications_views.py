@@ -55,7 +55,7 @@ class ApplicationCreateListView(ListCreateAPIView):
                 for q in query:
                     querylist = querylist + list(q.split(","))
                 queryset = queryset.filter(status__in=querylist)
-            return queryset.order_by('creation_time').order_by('last_modified')
+            return queryset.order_by('-last_modified').order_by('creation_time')
         else:
             pet_seeker = PetUser.objects.filter(username=self.request.user.username)[0]
             queryset = Applications.objects.all().filter(applicant=pet_seeker)
@@ -64,7 +64,7 @@ class ApplicationCreateListView(ListCreateAPIView):
                 for q in query:
                     querylist = querylist + list(q.split(","))
                 queryset = queryset.filter(status__in=querylist)
-            return queryset.order_by('creation_time').order_by('last_modified')
+            return queryset.order_by('-last_modified').order_by('creation_time')
 
 
 class ApplicationGetUpdateView(RetrieveUpdateAPIView):
