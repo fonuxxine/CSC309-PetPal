@@ -18,6 +18,8 @@ import PetUpdate from "./pages/petUpdate";
 import UpdateAccount from "./pages/accountUpdate"
 import ShelterDetails from "./pages/shelterDetails";
 import AllShelters from "./pages/allShelters";
+import PetSeekerDetail from "./pages/petSeekerDetail";
+
 function App() {
   return (
       <BrowserRouter>
@@ -40,6 +42,7 @@ function App() {
             <Route name="pet-details" path="pet-listing/:petID/" element={<PetDetail />} />
             <Route path="pet-listing/:petID/adoption/" element={<PetAdoption />} />
             <Route path="shelter/" element={<AllShelters />} />
+            <Route path="user/:userID/" element={<PetSeekerDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>

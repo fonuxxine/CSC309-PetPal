@@ -32,7 +32,7 @@ function AllShelters() {
                 <div className="notification">
                     <div className="info-and-pic">
                         <div className="noti-picture mb-2">
-                            <img src="https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Fw7kk3zea9lq61.jpg" alt=""/>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/A-Cat.jpg/2560px-A-Cat.jpg" alt=""/>
                         </div>
                         <div className="info">
                             {/* add link styling to black */}
