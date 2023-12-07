@@ -27,17 +27,24 @@ function ManagePets() {
   const [sort, setSort] = useState("");
 
   const statusValues = {
-    AV: "available",
-    AD: "adopted",
-    PN: "pending",
-    WD: "withdrawn",
+    av: "available",
+    ad: "adopted",
+    pn: "pending",
+    wd: "withdrawn",
   };
 
   function getAllUnique(lst) {
     let unique = [];
     for (let i in lst) {
-      if (!unique.includes(lst[i])) {
-        unique.push(lst[i]);
+      if (typeof lst[i] === 'string'){
+        let type = lst[i].toLowerCase();
+        if (!unique.includes(type)) {
+          unique.push(type);
+        }
+      } else {
+        if (!unique.includes(lst[i])) {
+          unique.push(lst[i]);
+        }
       }
     }
     return unique;

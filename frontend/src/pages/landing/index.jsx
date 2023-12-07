@@ -24,8 +24,15 @@ function Landing() {
   function getAllUnique(lst) {
     let unique = [];
     for (let i in lst) {
-      if (!unique.includes(lst[i])) {
-        unique.push(lst[i]);
+      if (typeof lst[i] === 'string'){
+        let type = lst[i].toLowerCase();
+        if (!unique.includes(type)) {
+          unique.push(type);
+        }
+      } else if (typeof lst[i] === 'number'){
+        if (!unique.includes(lst[i])) {
+          unique.push(lst[i]);
+        }
       }
     }
     return unique;
