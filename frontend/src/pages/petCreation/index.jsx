@@ -21,8 +21,18 @@ function PetCreation() {
   const [error, setError] = useState("");
 
   const statusValues = ["available", "adopted", "pending", "withdrawn"];
+  const statusData = {
+      "available": "AV",
+      "adopted": "AD",
+      "pending": "PN",
+      "withdrawn": "WD",
+    };
 
   const genderValues = ["female", "male"];
+  const genderData = {
+      "female": "F",
+      "male": "M",
+    };
 
   function create() {
       const formData = new FormData();
@@ -31,18 +41,17 @@ function PetCreation() {
       formData.append("breed", breed);
       formData.append("type", type);
       formData.append("age", age);
-      formData.append("gender", gender);
-      formData.append("type", size);
-      formData.append("age", description);
-      formData.append("gender", status);
-      formData.append("type", medicalHistory);
-      formData.append("age", specialRequirements);
-      formData.append("gender", behaviour);
+      formData.append("gender", genderData[gender]);
+      formData.append("size", size);
+      formData.append("description", description);
+      formData.append("status", statusData[status]);
+      formData.append("medical_history", medicalHistory);
+      formData.append("special_requirements", specialRequirements);
+      formData.append("behaviour", behaviour);
 
     fetch(`shelter-listings/${shelterID}/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         'Authorization': bearer,
       },
       body: formData,
@@ -51,6 +60,9 @@ function PetCreation() {
       .then((json) => {
         if (json.detail) {
           setError("Error: error with pet creation");
+        } else {
+            alert("Successfully created pet profile!");
+            navigate("/pet-details")
         }
       })
       .catch((err) => {
@@ -96,7 +108,6 @@ function PetCreation() {
                       className="form-control"
                       placeholder="Enter breed"
                       onChange={(event) => setBreed(event.target.value)}
-                      required
                   />
               </div>
               <div className="form-group p-2">
@@ -140,6 +151,7 @@ function PetCreation() {
                   <input
                       type="text"
                       className="form-control"
+                      value={size}
                       placeholder="Enter size"
                       onChange={(event) => setSize(event.target.value)}
                       required
@@ -150,6 +162,7 @@ function PetCreation() {
                   <input
                       type="text"
                       className="form-control"
+                      value={description}
                       placeholder="Enter description"
                       onChange={(event) => setDescription(event.target.value)}
                       required
