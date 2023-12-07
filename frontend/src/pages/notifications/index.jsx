@@ -17,46 +17,51 @@ function Notifications () {
     }), [searchParams]);
 
     useEffect(() => {
-        fetch(`user/${userID}/notifications/`, {
+        async function fetchNoti() {
+            await fetch(`user/${userID}/notifications/`, {
             headers: {'Authorization': bearer},
-        }).then(response => response.json())
-            .then(json => {
-                setNotifications(json.data);
-                setTotalPages(Math.ceil(json.count / 9));
-            })
+            }).then(response => response.json())
+                .then(json => {
+                    setNotifications(json.results);
+                    setTotalPages(Math.ceil(json.count / 9));
+                })
+            }
+        fetchNoti();
     }, [userID, query]);
 
     return <>
          <div className="container-fluid p-4 return-to-bar">
             <h1 className="text-center fw-bold">Notifications</h1>
-          </div>
-        <div className="checkbox-group">
-            <p>Status: </p>
-            {statusList.map(stat => <label key={stat}>{stat}
-                <input type={"checkbox"}
-                onChange={event => {
-                    if (event.target.checked) {
-                        setSearchParams({status: [...query.status, stat], page: 1});
-                    } else {
-                        setSearchParams({status: query.status.filter(s => s !== stat), page: 1});
-                    }
-                }}
-                       checked={query.status.includes(stat)}
-                />
-            </label>)}
+         </div>
+        <div className="p-5">
+            <div className="checkbox-group">
+                <p>Status: </p>
+                {statusList.map(stat => <label key={stat}>{stat}
+                    <input type={"checkbox"}
+                    onChange={event => {
+                        if (event.target.checked) {
+                            setSearchParams({status: [...query.status, stat], page: 1});
+                        } else {
+                            setSearchParams({status: query.status.filter(s => s !== stat), page: 1});
+                        }
+                    }}
+                           checked={query.status.includes(stat)}
+                    />
+                </label>)}
+            </div>
+            {notifications?.map(noti => (
+                <NotiTemplate noti={noti}></NotiTemplate>
+            ))}
+            <p>
+                {query.page < totalPages ? <button onClick={() => setSearchParams({
+                    ...query, page: query.page + 1
+                })}>Next</button> : <></>}
+                {query.page > 1 ? <button onClick={() => setSearchParams({
+                    ...query, page: query.page - 1
+                })}>Previous</button> : <></>}
+            </p>
+            <p>Page {query.page} out of {totalPages}</p>
         </div>
-        {notifications?.map(noti => (
-            <NotiTemplate noti={noti}></NotiTemplate>
-        ))}
-        <p>
-            {query.page < totalPages ? <button onClick={() => setSearchParams({
-                ...query, page: query.page + 1
-            })}>Next</button> : <></>}
-            {query.page > 1 ? <button onClick={() => setSearchParams({
-                ...query, page: query.page - 1
-            })}>Previous</button> : <></>}
-        </p>
-        <p>Page {query.page} out of {totalPages}</p>
     </>
 }
 
