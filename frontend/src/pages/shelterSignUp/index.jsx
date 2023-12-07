@@ -13,7 +13,7 @@ function SignUpShelter() {
     const [email, setEmail] = useState("");
     const [shelterName, setShelterName] = useState("");
     const [missionStatement, setMissionStatement] = useState("");
-    const [error, setError] = useState("");
+    const [errors, setErrors] = useState("");
 
     let navigate = useNavigate();
 
@@ -35,33 +35,21 @@ function SignUpShelter() {
             }),
         })
         .then((response) => {
-            if (!response.ok) {
-                // throw new Error(response.status);
-                return response.text().then(text => { throw new Error(text) })
-            } else {
-                return response.json();
-            }
+            return response.json();
         })
         .then((json) => {
-            if (json.detail) {
-                setError("Error: error signing up");
-            }
-            else {
+            if ("id" in json) {
                 alert("Successfully signed up!");
                 navigate('/login/');
+            } else {
+                setErrors(json)
             }
-        })
-        .catch((err) => {
-            // alert(err);
-
-            setError('error:' + err);
         });
     }
 
     return (
         <div className="container-fluid">
             <h1 className="signup-h1 text-center p-4">Create a PetPal Shelter Account</h1>
-            {error !== "" ? (<h1 className="login-error text-center p-0">{error}</h1>) : (<></>)}
             <div className="d-flex justify-content-center">
                 <div className="w-75">
                     <div className="form-group p-2">
@@ -74,6 +62,7 @@ function SignUpShelter() {
                             required
                         />
                     </div>
+                    {errors.username ? (<p className="login-error p-0">{errors.username}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Password</label>
                         <input 
@@ -84,6 +73,7 @@ function SignUpShelter() {
                             required
                         />
                     </div>
+                    {errors.password ? (<p className="login-error p-0">{errors.password}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Repeat password</label>
                         <input 
@@ -94,6 +84,7 @@ function SignUpShelter() {
                             required
                         />
                     </div>
+                    {errors.repeat_password ? (<p className="login-error p-0">{errors.repeat_password}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Email</label>
                         <input 
@@ -104,6 +95,7 @@ function SignUpShelter() {
                             required
                         />
                     </div>
+                    {errors.email ? (<p className="login-error p-0">{errors.email}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Shelter Name</label>
                         <input 
@@ -114,6 +106,7 @@ function SignUpShelter() {
                             required
                         />
                     </div>
+                    {errors.shelter_name ? (<p className="login-error p-0">{errors.shelter_name}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Mission Statement</label>
                         <input 
@@ -124,6 +117,7 @@ function SignUpShelter() {
                             required
                         />
                     </div>
+                    {errors.mission_statement ? (<p className="login-error p-0">{errors.mission_statement}</p>) : (<></>)}
                     <div><button className="login-but mt-2 p-2" onClick={() => signup()}>Sign up</button></div>
                 </div>
             </div>
