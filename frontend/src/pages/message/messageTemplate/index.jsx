@@ -1,7 +1,6 @@
 import React from "react";
-import Applications from "../../applications";
 
-function messageTemplate({m}) {
+function MessageTemplate({messages}) {
     return <>
         <div className="container-fluid">
              <table className="table table-bordered">
@@ -13,15 +12,17 @@ function messageTemplate({m}) {
                 </tr>
             </thead>
             <tbody>
+            {messages.map(m => (
                 <tr key={m.id}>
                     <td>{m.user_from}</td>
                     <td>{m.user_to}</td>
                     <td>{m.message}</td>
                 </tr>
+            ))}
             </tbody>
             </table>
         </div>
     </>
 }
 
-export default messageTemplate;
+export default MessageTemplate;

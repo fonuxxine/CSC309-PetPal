@@ -1,4 +1,4 @@
-import {useParams, useSearchParams} from "react-router-dom";
+import {json, useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
 import NotiTemplate from "../notification/notiTemplate";
 
@@ -10,6 +10,8 @@ function Notifications () {
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [totalPages, setTotalPages] = useState(1);
     const statusList = ["read", "unread"];
+
+    const [error, setError] = useState("");
 
     const query = useMemo(() => ({
         page: parseInt(searchParams.get("page") ?? 1),

@@ -40,7 +40,6 @@ function Form({application}, {pet_listing}) {
                      </tbody>
                  </table>
                   <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
-                      {application.id ? <Link to={`/applications/${application.id}/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link> : <></>}
                     <Link to={`messages/`} className="btn btn-outline-dark adoption-btn m-4">Message</Link>
                     <Link to={`/user/${application.applicant}/`} className="btn btn-outline-dark adoption-btn m-4">Applicant Profile</Link>
                 </div>
