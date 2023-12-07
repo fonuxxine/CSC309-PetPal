@@ -33,7 +33,7 @@ function PetDetail() {
             })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error;
+                    throw new Error();
                 } else {
                     return response.json();
                 }
@@ -58,7 +58,7 @@ function PetDetail() {
             })
         }
         fetchPet();
-    }, []);
+    }, [petID, navigate]);
 
 
  
@@ -133,7 +133,7 @@ function PetDetail() {
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
                             {/* Replace to link later */}
-                            {status == "AV" ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
+                            {status === "AV" ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
                             
                              <Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>
                         </div>

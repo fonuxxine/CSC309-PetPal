@@ -17,15 +17,11 @@ function PetAdoption() {
 
     const { petID } = useParams();
 
-    const adoptionURL = "/pet-listing/" + petID + "/applications/";
-
-    const petURL = "/pet-listings/" + petID + "/";
-
     let navigate = useNavigate();
 
     useEffect(() => {
         async function fetchPet() {
-            await fetch(petURL, {
+            await fetch(`/pet-listings/${petID}/`, {
                 method: "GET"
             })
             .then((response) => response.json())
@@ -34,10 +30,10 @@ function PetAdoption() {
             });
         }
         fetchPet();
-    }, []);
+    }, [petID]);
 
     function submitAdoption() {
-        fetch(adoptionURL, {
+        fetch(`/pet-listing/${petID}/applications/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -52,12 +48,7 @@ function PetAdoption() {
             }),
         })
         .then((response) => {
-            if (!response.ok) {
-                // throw new Error(response.status);
-                return response.text().then(text => { throw new Error(text) })
-            } else {
-                return response.json();
-            }
+            return response.json();
         })
         .then((json) => {
             if (json.detail) {
@@ -76,7 +67,6 @@ function PetAdoption() {
     return (
         <div>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
-                {/* change to link later */}
                 <Link to={`/pet-listing/${petID}/`} className="btn btn-outline-dark search-btn">Return to details</Link>
             </div>
             <div className="container-fluid p-4">
