@@ -75,7 +75,136 @@ function PetCreation() {
           Return to Home
         </button>
       </div>
-      {error !== "" ? <h1 className="text-center p-0">{error}</h1> : <></>}
+      {error !== "" ? <h4 className="text-center p-4 pb-0">{error}</h4> : <></>}
+      <div className="d-flex justify-content-center">
+          <div className="w-50">
+            <h1 className="text-center fw-bold m-5">Create Pet Profile</h1>
+              <div className="form-group p-2">
+                  <label class="form-label" for="customFile">Upload pet photo</label>
+                  <input type="file" class="form-control" id="customFile" />
+              </div>
+              <div className="form-group p-2">
+                  <label>Name</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter name"
+                      onChange={(event) => setName(event.target.value)}
+                      required
+                  />
+              </div>
+            <div className="form-group p-2">
+                  <label>Breed</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter breed"
+                      onChange={(event) => setBreed(event.target.value)}
+                      required
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Type</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter type"
+                      onChange={(event) => setType(event.target.value)}
+                      required
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Age</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter age"
+                      onChange={(event) => setAge(parseInt(event.target.value))}
+                      required
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Gender</label>
+                  <select
+                    className="form-select"
+                    value={gender}
+                    onChange={(event) => setGender(event.target.value)}
+                    required
+                  >
+                     <option value="">Select gender</option>
+                    {Object.entries(genderValues).map(([i, gender]) => (
+                      <option value={gender} key={i}>
+                        {genderValues[gender]}
+                      </option>
+                    ))}
+                  </select>
+              </div>
+              <div className="form-group p-2">
+                  <label>Size</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter size"
+                      onChange={(event) => setSize(event.target.value)}
+                      required
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Description</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter description"
+                      onChange={(event) => setDescription(event.target.value)}
+                      required
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Status</label>
+                  <select
+                    className="form-select"
+                    value={gender}
+                    onChange={(event) => setStatus(event.target.value)}
+                    required
+                  >
+                     <option value="">Select status</option>
+                    {Object.entries(statusValues).map(([i, status]) => (
+                      <option value={status} key={i}>
+                        {statusValues[status]}
+                      </option>
+                    ))}
+                  </select>
+              </div>
+              <div className="form-group p-2">
+                  <label>Medical History</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter medical history"
+                      onChange={(event) => setMedicalHistory(event.target.value)}
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Special Requirements</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter special requirements"
+                      onChange={(event) => setSpecialRequirements(event.target.value)}
+                  />
+              </div>
+              <div className="form-group p-2">
+                  <label>Behaviour</label>
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter behaviour"
+                      onChange={(event) => setBehaviour(event.target.value)}
+                  />
+              </div>
+              <div><button className="login-but mt-2 p-2" onClick={() => create()}>Save</button></div>
+          </div>
+      </div>
       <div className="application-form">
         {photo !== "" ? (
           <div className="profile-picture">
@@ -86,149 +215,6 @@ function PetCreation() {
         ) : (
           <></>
         )}
-        <div className="container-fluid">
-          <h1 className="text-center fw-bold mb-5">Create Pet Profile</h1>
-          <div className="row">
-            <div className="col-md-6 p-2">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                onChange={(event) => setName(event.target.value)}
-                required
-              />
-            </div>
-            <div className="col-md-6 p-2">
-              <label htmlFor="breed">Breed</label>
-              <input
-                type="text"
-                id="breed"
-                name="breed"
-                onChange={(event) => setBreed(event.target.value)}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6 p-2">
-              <label htmlFor="breed">Type</label>
-              <input
-                type="text"
-                id="type"
-                name="type"
-                onChange={(event) => setType(event.target.value)}
-                required
-              />
-            </div>
-            <div className="col-md-6 p-2">
-              <label htmlFor="age">age</label>
-              <input
-                type="text"
-                id="age"
-                name="age"
-                onChange={(event) => setAge(parseInt(event.target.value))}
-                required
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6 p-2">
-              <label htmlFor="gender">Gender</label>
-              <select
-                className="form-select"
-                value={gender}
-                onChange={(event) => setGender(event.target.value)}
-                required
-              >
-                {Object.entries(genderValues).map(([i, gender]) => (
-                  <option value={gender} key={i}>
-                    {genderValues[gender]}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-md-6 p-2">
-              <label htmlFor="size">Size</label>
-              <input
-                type="text"
-                id="size"
-                name="size"
-                onChange={(event) => setSize(event.target.value)}
-                required
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6 p-2">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                onChange={(event) => setDescription(event.target.value)}
-                required
-              />
-            </div>
-            <div className="col-md-6 p-2">
-              <label htmlFor="status">Status</label>
-              <select
-                className="form-select"
-                value={status}
-                onChange={(event) => setStatus(event.target.value)}
-                required
-              >
-                {Object.entries(statusValues).map(([i, status]) => (
-                  <option value={status} key={i}>
-                    {statusValues[status]}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <label htmlFor="medical_history">Medical History</label>
-              <textarea
-                rows="4"
-                id="medical_history"
-                name="medical_history"
-                onChange={(event) => setMedicalHistory(event.target.value)}
-              ></textarea>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6">
-              <label htmlFor="special_requirements">Special Requirements</label>
-              <input
-                type="text"
-                id="special_requirements"
-                name="special_requirements"
-                onChange={(event) => setSpecialRequirements(event.target.value)}
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="behaviour">Behaviour</label>
-              <input
-                type="text"
-                id="behaviour"
-                name="behaviour"
-                onChange={(event) => setBehaviour(event.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className="d-flex">
-            <div className="container-fluid d-flex justify-content-center p-4 message">
-              <button
-                type="submit"
-                className="btn submit btn-outline-dark"
-                onClick={() => create()}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

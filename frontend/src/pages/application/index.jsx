@@ -17,7 +17,7 @@ function Application () {
             })
             .then(response => response.json())
             .then(json => {
-                setApplication(json);
+                setApplication(json.results);
             });
     }, [applicationID])
 
@@ -25,7 +25,7 @@ function Application () {
         <div className="container-fluid p-4 return-to-bar">
           <h1 className="text-center fw-bold">Application</h1>
         </div>
-        <Form application={application}/>
+        <Form application={application} />
     </>
 }
 

@@ -1,65 +1,40 @@
 import app from "../../../App";
+import React from "react";
 
-function Form({application}) {
+function Form({application}, {pet_listing}) {
     return <>
         <div className="application-form">
-            <div className="container-fluid d-flex justify-content-center p-4 message">
-                 <a href="message.html">
-                  <button type="submit" className="btn btn-outline-dark submit">Message</button>
-                 </a>
-            </div>
-            <div>
               <div className="container-fluid">
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="field">
-                      <label htmlFor="firstname">First Name</label>
-                      <input type="text" id="firstname" name="firstname" value={application.firstname}/>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="field">
-                      <label htmlFor="lastname">Last Name</label>
-                      <input type="text" id="lastname" name="lastname" value={application.lastname}/>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="field">
-                      <label htmlFor="email">Email</label>
-                      <input type="text" id="email" name="email" value={application.email}/>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="field" id="location-field">
-                      <label htmlFor="address">Location</label>
-                      <input type="text" id="address" name="address" value={application.address}/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="container-fluid">
-                <p>Adoption Preference</p>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="field">
-                      <label htmlFor="pet_listing">Pet Listing</label>
-                      <input type="text" id="pet_listing" name="pet_listing" value={application.pet_listing.name}/>
-                    </div>
-                    <div className="field">
-                      <label htmlFor="status">Status</label>
-                      <input type="text" id="status" name="status" value={application.status}/>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="field">
-                      <label htmlFor="reason">Reason</label>
-                      <textarea rows="8" id="reason" name="reason" value={application.reason}></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                 <table className="table table-bordered">
+                   <tr>
+                      <th>First Name</th>
+                      <td>{application.firstname}</td>
+                   </tr>
+                   <tr>
+                      <th>Last Name</th>
+                      <td>{application.lastname}</td>
+                   </tr>
+                   <tr>
+                      <th>Email</th>
+                      <td>{application.email}</td>
+                   </tr>
+                   <tr>
+                      <th>Address</th>
+                      <td>{application.address}</td>
+                   </tr>
+                   <tr>
+                      <th>Pet Listing</th>
+                      <td>{pet_listing}</td>
+                   </tr>
+                   <tr>
+                      <th>Status</th>
+                      <td>{application.status}</td>
+                   </tr>
+                   <tr>
+                      <th>Reason</th>
+                      <td>{application.reason}</td>
+                   </tr>
+                 </table>
               <div className="container-fluid d-flex justify-content-center p-4 message">
                 <button type="submit" className="btn btn-outline-dark submit">View only</button>
               </div>
