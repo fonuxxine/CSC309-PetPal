@@ -72,7 +72,6 @@ function Message() {
             }
         })
             .then(json => {
-                console.log(json);
                 if (json.detail) {
                     alert("Error: error with sending message");
                 } else {

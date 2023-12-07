@@ -19,8 +19,25 @@ function Applications() {
         status: searchParams.getAll("status") ?? [],
     }), [searchParams]);
 
+    function to_url_params(object) {
+        var result = [];
+        for (const key in object) {
+            if (Array.isArray(object[key])) {
+                for (const value of object[key]) {
+                    result.push(`${key}=${value}`);
+                }
+            }
+            else {
+                let value = object[key];
+                result.push(`${key}=${value}`);
+            }
+        }
+        return result.join('&');
+    }
+
     useEffect(() => {
-        fetch(`/pet-listing/${petID}/applications/`,
+        const param = to_url_params(query);
+        fetch(`/pet-listing/${petID}/applications/?${param}`,
             {
                 headers: {'Authorization': bearer},
             })

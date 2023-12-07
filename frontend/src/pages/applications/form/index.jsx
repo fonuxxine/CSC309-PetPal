@@ -36,6 +36,10 @@ function Form({application}, {pet_listing}) {
                       <th>Reason</th>
                       <td>{application.reason}</td>
                    </tr>
+                   <tr>
+                      <th>Last updated</th>
+                      <td>{application.last_modified}</td>
+                   </tr>
                      </tbody>
                  </table>
                   <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
