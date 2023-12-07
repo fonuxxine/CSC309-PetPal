@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./style.css";
-import { Route, Link, useParams } from "react-router-dom";
+import { Route, Link, useParams, useNavigate } from "react-router-dom";
 
 
 
@@ -20,6 +20,8 @@ function PetDetail() {
     const [special_requirements, setSpecialRequirements] = useState("Has peanut allergy");
     const [behaviour, setBehaviour] = useState("Energetic green frog.");
 
+    let navigate = useNavigate();
+
 
     const { petID } = useParams();
 
@@ -30,7 +32,13 @@ function PetDetail() {
             await fetch(petURL, {
                 method: "GET"
             })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error;
+                } else {
+                    return response.json();
+                }
+            })
             .then((json) => {
                 setName(JSON.parse(JSON.stringify(json))["name"]);
                 setPhoto(JSON.parse(JSON.stringify(json))["photo"]);
@@ -44,7 +52,10 @@ function PetDetail() {
                 setMedicalHistory(JSON.parse(JSON.stringify(json))["medical_history"]);
                 setSpecialRequirements(JSON.parse(JSON.stringify(json))["special_requirements"]);
                 setBehaviour(JSON.parse(JSON.stringify(json))["behaviour"]);
-            });
+            })
+            .catch((err) => {
+                navigate('/*');
+            })
         }
         fetchPet();
     }, []);
