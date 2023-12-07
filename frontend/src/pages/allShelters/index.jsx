@@ -35,7 +35,8 @@ function AllShelters() {
                             <img src="https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Fw7kk3zea9lq61.jpg" alt=""/>
                         </div>
                         <div className="info">
-                            <h3>{shelter.shelter_name}</h3>
+                            {/* add link styling to black */}
+                            <Link to={`/shelter/${shelter.id}`}><h3>{shelter.shelter_name}</h3></Link>
                             <p>{shelter.mission_statement}</p>
                         </div>
                     </div>
