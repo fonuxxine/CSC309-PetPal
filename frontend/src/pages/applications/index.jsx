@@ -26,7 +26,7 @@ function Applications() {
             })
             .then(response => response.json())
             .then(json => {
-                setApplications(json.data);
+                setApplications(json.results);
                 setTotalPages(Math.ceil(json.count / 9));
             })
     }, [query, petID]);
@@ -35,33 +35,35 @@ function Applications() {
         <div className="container-fluid p-4 return-to-bar">
           <h1 className="text-center fw-bold">Application</h1>
         </div>
-        <div className="checkbox-group">
-            <p>Status: </p>
-            {statusList.map(stat => <label key={stat}>{stat}
-                <input type={"checkbox"}
-                onChange={event => {
-                    if (event.target.checked) {
-                        setSearchParams({status: [...query.status, stat], page: 1});
-                    } else {
-                        setSearchParams({status: query.status.filter(s => s !== stat), page: 1});
-                    }
-                }}
-                       checked={query.status.includes(stat)}
-                />
-            </label>)}
+        <div className="p-5">
+             <div className="checkbox-group">
+                <p>Status: </p>
+                {statusList.map(stat => <label key={stat}>{stat}
+                    <input type={"checkbox"}
+                    onChange={event => {
+                        if (event.target.checked) {
+                            setSearchParams({status: [...query.status, stat], page: 1});
+                        } else {
+                            setSearchParams({status: query.status.filter(s => s !== stat), page: 1});
+                        }
+                    }}
+                           checked={query.status.includes(stat)}
+                    />
+                </label>)}
+            </div>
+            {applications?.map(application => (
+                <Form application={application} pet_listing={petID} />
+            ))}
+            <p>
+                {query.page < totalPages ? <button onClick={() => setSearchParams({
+                    ...query, page: query.page + 1
+                })}>Next</button> : <></>}
+                {query.page > 1 ? <button onClick={() => setSearchParams({
+                    ...query, page: query.page - 1
+                })}>Previous</button> : <></>}
+            </p>
+            <p>Page {query.page} out of {totalPages}</p>
         </div>
-        {applications?.map(application => (
-            <Form application={application} />
-        ))}
-        <p>
-            {query.page < totalPages ? <button onClick={() => setSearchParams({
-                ...query, page: query.page + 1
-            })}>Next</button> : <></>}
-            {query.page > 1 ? <button onClick={() => setSearchParams({
-                ...query, page: query.page - 1
-            })}>Previous</button> : <></>}
-        </p>
-        <p>Page {query.page} out of {totalPages}</p>
     </>
 }
 
