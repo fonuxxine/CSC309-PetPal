@@ -22,6 +22,7 @@ import PetSeekerDetail from "./pages/petSeekerDetail";
 import Message from "./pages/message";
 import NotFound from "./pages/notFound";
 import ShelterBlogs from "./pages/shelterBlogs";
+import AddBlog from "./pages/addBlog";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route path="user/:userID/" element={<PetSeekerDetail />} />
             <Route path="applications/:appID/messages/" element={<Message />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="shelter/:shelterID/blogs/new/" element={<AddBlog />} />
           </Route>
         </Routes>
       </BrowserRouter>

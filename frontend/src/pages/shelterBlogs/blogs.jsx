@@ -12,7 +12,7 @@ function Blogs({ blogs }) {
         Shelter Blogs{" "}
         {/** onclick take to create blog page */}
         {localStorage.getItem("user_id") === shelterID ? (
-          <Link to="..."><button className="add-but p-2">+ New Blog</button></Link>
+          <Link to={`/shelter/${shelterID}/blogs/new/`}><button className="add-but p-2">+ New Blog</button></Link>
         ) : (
           <></>
         )}
