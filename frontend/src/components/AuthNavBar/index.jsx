@@ -22,7 +22,7 @@ function AuthNavBar() {
                 <Link className="navbar-nav links pe-4" to={`/shelter/`}>
                   Shelters
                 </Link>
-                <Link className="navbar-nav links pe-4" to={`/user/${user_id}/notifications/`}>
+                <Link id="navbar-notification" className="navbar-nav links pe-4" to={`/user/${user_id}/notifications/`}>
                   Notifications
                 </Link>
                 <Link className="navbar-nav links" to={`/update-account/${user_id}`}>

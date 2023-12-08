@@ -2,6 +2,7 @@
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
 
 export function sendNotification(message, userID, link) {
+
         fetch(`/user/${userID}/notifications/`, {
             method: 'POST',
             headers: {
