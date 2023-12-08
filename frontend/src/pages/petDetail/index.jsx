@@ -148,7 +148,7 @@ function PetDetail() {
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
                             {status === "AV" && applicationLink ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
-                             {localStorage.getItem("user_id")?.match(shelter)? (<Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>):<></>}
+                            <Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>
                         </div>
                         </div>
                     </div>

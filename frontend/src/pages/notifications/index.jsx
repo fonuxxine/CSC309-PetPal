@@ -18,9 +18,26 @@ function Notifications () {
         status: searchParams.getAll("status") ?? [],
     }), [searchParams]);
 
+    function to_url_params(object) {
+        var result = [];
+        for (const key in object) {
+            if (Array.isArray(object[key])) {
+                for (const value of object[key]) {
+                    result.push(`${key}=${value}`);
+                }
+            }
+            else {
+                let value = object[key];
+                result.push(`${key}=${value}`);
+            }
+        }
+        return result.join('&');
+    }
+
     useEffect(() => {
+        const param = to_url_params(query);
         async function fetchNoti() {
-            await fetch(`/user/${userID}/notifications/`, {
+            await fetch(`/user/${userID}/notifications/?${param}`, {
             headers: {'Authorization': bearer},
             }).then(response => response.json())
                 .then(json => {

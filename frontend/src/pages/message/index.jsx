@@ -8,34 +8,43 @@ function Message() {
     const {appID} = useParams();
     const messageURL = `/applications/${appID}/messages/`;
     const [message, setMessage] = useState("");
-     const [prevMessage, setPrevMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
     const [error, setError] = useState("");
 
-    const notiLink = `/applications/${appID}/`;
+    const notiLink = `http://localhost:3000/applications/${appID}/`;
 
-     function sendNotification(link, userID) {
-        fetch(`/user/2/notifications/`, {
-            method: 'POST',
-            headers: {
-                'Authorization': bearer,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                message: message,
-                link: link
-            }),
-        }).then(response => response.json())
-            .then(json => {
-                if (json.detail) {
-                    setError("Error: error with sending notifications");
+     function sendNotification(mess) {
+         if (messages[0]) {
+            fetch(`/user/${messages[0].user_to}/notifications/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': bearer,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message: mess,
+                    link: notiLink
+                }),
+            }).then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { throw new Error(text) })
+                } else {
+                    return response.json();
                 }
-            }).catch((err) => {
-                setError("Error: " + err)
-        });
+            })
+                .then(json => {
+                    if (json.detail) {
+                        setError("Error: error with sending notifications");
+                    } else {
+                        return json;
+                    }
+                }).catch((err) => {
+                    setError("Error: " + err)
+            });
+         }
     }
 
 
@@ -53,7 +62,6 @@ function Message() {
                 })
         }
         fetchMessage();
-        console.log(message);
     }, [appID]);
 
     function sendMessage() {
@@ -77,14 +85,14 @@ function Message() {
                 if (json.detail) {
                     alert("Error: error with sending message");
                 } else {
-                    alert(message.user_to);
-                     const { userID } = message.user_to;
-                     sendNotification(message, notiLink, userID);
+                    alert("Message sent!");
                 }
             }).catch((err) => {
                 setError('Error: ' + err);
-              });
+        });
+        sendNotification(message);
     }
+
 
     return <>
         <div className="container-fluid p-4 return-to-bar">
@@ -99,14 +107,14 @@ function Message() {
                       className="form-control"
                       placeholder="Enter message"
                       value={message}
-                      onChange={(event) => setMessage(event.target.value)}
+                      onChange={(event) => {
+                          setMessage(event.target.value);
+                      }}
                       required
                   />
               </div>
               <button className="login-but mt-2 p-2" onClick={() => {
                   sendMessage();
-                  const { userID } = parseInt(message.user_to);
-                  sendNotification(message, notiLink, userID);
               }}>Send Message</button>
             </form>
             <h3 className="pt-5">Message history</h3>

@@ -72,11 +72,13 @@ function PetCreation() {
       },
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => {
+          return response.json();
+      })
       .then((json) => {
         if (!json.detail) {
             alert("Successfully created pet profile!");
-          return json;
+            navigate(-1);
         } else {
             setError("Error with creating pet profile")
         }
