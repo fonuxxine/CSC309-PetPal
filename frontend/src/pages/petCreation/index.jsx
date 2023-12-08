@@ -107,7 +107,7 @@ function PetCreation() {
                       type="text"
                       className="form-control"
                       placeholder="Enter breed"
-                      onChange={(event) => setBreed(event.target.value)}
+                      onChange={(event) => setBreed(event.target.value.toLowerCase())}
                   />
               </div>
               <div className="form-group p-2">
@@ -116,7 +116,7 @@ function PetCreation() {
                       type="text"
                       className="form-control"
                       placeholder="Enter type"
-                      onChange={(event) => setType(event.target.value)}
+                      onChange={(event) => setType(event.target.value.toLowerCase())}
                       required
                   />
               </div>
@@ -153,7 +153,7 @@ function PetCreation() {
                       className="form-control"
                       value={size}
                       placeholder="Enter size"
-                      onChange={(event) => setSize(event.target.value)}
+                      onChange={(event) => setSize(event.target.value.toLowerCase())}
                       required
                   />
               </div>
