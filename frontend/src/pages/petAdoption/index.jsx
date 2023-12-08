@@ -13,7 +13,7 @@ function PetAdoption() {
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [reason, setReason] = useState("");
-    const [error, setError] = useState("");
+    const [errors, setErrors] = useState({});
 
     const { petID } = useParams();
 
@@ -51,16 +51,12 @@ function PetAdoption() {
             return response.json();
         })
         .then((json) => {
-            if (json.detail) {
-                setError("Error: error with adoption application");
-            }
-            else {
+            if ("id" in json) {
                 alert("Your application has been successfully submitted!");
-                navigate(-2);
+                // navigate(-2);
+            } else {
+                setErrors(json);
             }
-        })
-        .catch((err) => {
-            setError('error:' + err);
         });
     }
 
@@ -71,7 +67,6 @@ function PetAdoption() {
             </div>
             <div className="container-fluid p-4">
                 <h1 className="text-center fw-bold">Pet Adoption Form for {petName}</h1>
-                {error !== "" ? (<h1 className="login-error text-center p-0">{error}</h1>) : (<></>)}
             </div>
             <div className="d-flex justify-content-center">
                 <form className="w-50">
@@ -85,6 +80,7 @@ function PetAdoption() {
                             required
                         />
                     </div>
+                    {errors.firstname ? (<p className="login-error p-0">{errors.firstname}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Last Name</label>
                         <input 
@@ -95,6 +91,7 @@ function PetAdoption() {
                             required
                         />
                     </div>
+                    {errors.lastname ? (<p className="login-error p-0">{errors.lastname}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Email</label>
                         <input 
@@ -105,6 +102,7 @@ function PetAdoption() {
                             required
                         />
                     </div>
+                    {errors.email ? (<p className="login-error p-0">{errors.email}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Address</label>
                         <input 
@@ -115,6 +113,7 @@ function PetAdoption() {
                             required
                         />
                     </div>
+                    {errors.address ? (<p className="login-error p-0">{errors.address}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Why do you want to adopt this pet?</label>
                         <input 
@@ -125,7 +124,7 @@ function PetAdoption() {
                             required
                         />
                     </div>
-
+                    {errors.reason ? (<p className="login-error p-0">{errors.reason}</p>) : (<></>)}
                     <div className="container-fluid d-flex justify-content-center p-4">
                     <button className="btn btn-outline-dark submit" onClick={() => submitAdoption()}>Submit</button>
                 </div>
