@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 import React from "react";
 
-function NotiTemplate({noti}) {
-    return <div className="container-fluid">
+function ViewNoti({notification}) {
+    return <div className="container-fluid w-75 mt-5">
              <table className="table table-bordered">
              <thead>
                 <tr>
@@ -13,15 +13,15 @@ function NotiTemplate({noti}) {
                 </tr>
             </thead>
             <tbody>
-                <tr key={noti.id}>
-                    <td>{noti.message}</td>
-                    <td><Link to={noti.link}>{noti.link}</Link></td>
-                    <td>{noti.time_created}</td>
-                    {noti.read ? <td>READ</td> : <td>UNREAD</td>}
+                <tr key={notification.id}>
+                    <td>{notification.message}</td>
+                    <td><Link to={notification.link}>{notification.link}</Link></td>
+                    <td>{notification.time_created}</td>
+                    {notification.read ? <td>READ</td> : <td>UNREAD</td>}
                 </tr>
             </tbody>
             </table>
         </div>
 }
 
-export default NotiTemplate;
+export default ViewNoti;

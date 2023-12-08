@@ -1,6 +1,6 @@
 import {json, useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo, useState} from "react";
-import NotiTemplate from "../notification/notiTemplate";
+import NotiTemplate from "./notiTemplate";
 
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
 
@@ -9,13 +9,13 @@ function Notifications () {
     const [notifications, setNotifications] = useState([]);
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [totalPages, setTotalPages] = useState(1);
-    const statusList = ["read", "unread"];
+    const readValues = ["True", "False"]
 
     const [error, setError] = useState("");
 
     const query = useMemo(() => ({
         page: parseInt(searchParams.get("page") ?? 1),
-        status: searchParams.getAll("status") ?? [],
+        read: searchParams.getAll("read") ?? [],
     }), [searchParams]);
 
     function to_url_params(object) {
@@ -54,23 +54,21 @@ function Notifications () {
          </div>
         <div className="p-5">
             <div className="checkbox-group">
-                <p>Status: </p>
-                {statusList.map(stat => <label key={stat}>{stat}
+                <p>Have read? </p>
+                {readValues.map(stat => <label key={stat}>{stat}
                     <input type={"checkbox"}
                     onChange={event => {
                         if (event.target.checked) {
-                            setSearchParams({status: [...query.status, stat], page: 1});
+                            setSearchParams({read: [...query.read, stat], page: 1});
                         } else {
-                            setSearchParams({status: query.status.filter(s => s !== stat), page: 1});
+                            setSearchParams({read: query.read.filter(s => s !== stat), page: 1});
                         }
                     }}
-                           checked={query.status.includes(stat)}
+                           checked={query.read.includes(stat)}
                     />
                 </label>)}
             </div>
-            {notifications?.map(noti => (
-                <NotiTemplate noti={noti}></NotiTemplate>
-            ))}
+            <NotiTemplate notifications={notifications}></NotiTemplate>
             <p>
                 {query.page < totalPages ? <button onClick={() => setSearchParams({
                     ...query, page: query.page + 1
