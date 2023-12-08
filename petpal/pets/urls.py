@@ -16,4 +16,5 @@ urlpatterns = [
     path("blog/<int:shelter_id>/", blogs_views.BlogCreateView.as_view()),
     path("blog/<int:shelter_id>/all/", blogs_views.BlogListView.as_view()),
     path("blog/shelter/<int:blog_id>/", blogs_views.BlogGetView.as_view()),
+    path("applications/<int:pet_id>/<int:user_id>/all/", applications_views.ApplicationListView.as_view()),
 ]

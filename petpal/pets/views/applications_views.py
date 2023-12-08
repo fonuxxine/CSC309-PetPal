@@ -27,6 +27,11 @@ class ApplicationListPermission(BasePermission):
             return True
         return False
 
+class ApplicationListView(ListAPIView):
+    serializer_class = ApplicationSerializer
+
+    def get_queryset(self):
+        return Applications.objects.filter(pet_listing=self.kwargs["pet_id"]).filter(applicant=self.kwargs["user_id"])
 
 class ApplicationCreateListView(ListCreateAPIView):
     serializer_class = ApplicationSerializer
