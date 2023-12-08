@@ -34,10 +34,25 @@ function PetCreation() {
       "male": "M",
     };
 
+  function handleFileChange(event) {
+    const selectedFile = event.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+    if (!allowedTypes.includes(selectedFile?.type)) {
+      setError("Must be JPG, JPEG or PNG");
+    } else {
+      setPhoto(selectedFile);
+      const file = new FileReader();
+      file.readAsDataURL(selectedFile);
+    }
+  }
+
   function create() {
       const formData = new FormData();
       formData.append("name", name);
-      formData.append("photo", photo);
+      if (photo != null) {
+          formData.append("photo", photo);
+      }
       formData.append("breed", breed);
       formData.append("type", type);
       formData.append("age", age);
@@ -49,6 +64,7 @@ function PetCreation() {
       formData.append("special_requirements", specialRequirements);
       formData.append("behaviour", behaviour);
 
+
     fetch(`/shelter-listings/${shelterID}/`, {
       method: "POST",
       headers: {
@@ -58,11 +74,11 @@ function PetCreation() {
     })
       .then((response) => response.json())
       .then((json) => {
-        if (json.detail) {
-          setError("Error: error with pet creation");
-        } else {
+        if (!json.detail) {
             alert("Successfully created pet profile!");
-            navigate("/pet-details")
+          return json;
+        } else {
+            setError("Error with creating pet profile")
         }
       })
       .catch((err) => {
@@ -85,11 +101,15 @@ function PetCreation() {
       <div className="d-flex justify-content-center pb-5">
           <form className="w-50">
               <div className="form-group p-2">
-                  <label class="form-label" for="customFile">Upload pet photo</label>
+                  <label className="form-label" htmlFor="profile">Upload pet photo</label>
                   <input type="file"
-                         class="form-control"
-                         id="customFile"
-                         onChange={(event => setPhoto(event.target.files[0]))}/>
+                         className="form-control"
+                         id="profile"
+                         onChange={handleFileChange}
+                         onClick={(event) => {
+                            event.target.value = null;
+                         }}
+                  />
               </div>
               <div className="form-group p-2">
                   <label>Name</label>

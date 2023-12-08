@@ -8,6 +8,7 @@ function Message() {
     const {appID} = useParams();
     const messageURL = `/applications/${appID}/messages/`;
     const [message, setMessage] = useState("");
+     const [prevMessage, setPrevMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -16,15 +17,15 @@ function Message() {
 
     const notiLink = `/applications/${appID}/`;
 
-     function sendNotification(notiMessage, link, userID) {
-        fetch(`/user/${userID}/notifications/`, {
+     function sendNotification(link, userID) {
+        fetch(`/user/2/notifications/`, {
             method: 'POST',
             headers: {
                 'Authorization': bearer,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                message: notiMessage,
+                message: message,
                 link: link
             }),
         }).then(response => response.json())
@@ -52,6 +53,7 @@ function Message() {
                 })
         }
         fetchMessage();
+        console.log(message);
     }, [appID]);
 
     function sendMessage() {
@@ -75,6 +77,7 @@ function Message() {
                 if (json.detail) {
                     alert("Error: error with sending message");
                 } else {
+                    alert(message.user_to);
                      const { userID } = message.user_to;
                      sendNotification(message, notiLink, userID);
                 }
@@ -100,7 +103,11 @@ function Message() {
                       required
                   />
               </div>
-              <button className="login-but mt-2 p-2" onClick={() => sendMessage()}>Send Message</button>
+              <button className="login-but mt-2 p-2" onClick={() => {
+                  sendMessage();
+                  const { userID } = parseInt(message.user_to);
+                  sendNotification(message, notiLink, userID);
+              }}>Send Message</button>
             </form>
             <h3 className="pt-5">Message history</h3>
             <MessageTemplate messages={messages} />
