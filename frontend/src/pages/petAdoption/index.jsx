@@ -32,7 +32,8 @@ function PetAdoption() {
         fetchPet();
     }, [petID]);
 
-    function submitAdoption() {
+    function submitAdoption(event) {
+        event.preventDefault()
         fetch(`/pet-listing/${petID}/applications/`, {
             method: "POST",
             headers: {
@@ -53,7 +54,7 @@ function PetAdoption() {
         .then((json) => {
             if ("id" in json) {
                 alert("Your application has been successfully submitted!");
-                // navigate(-2);
+                navigate(`/pet-listing/${petID}/`);
             } else {
                 setErrors(json);
             }
@@ -126,7 +127,7 @@ function PetAdoption() {
                     </div>
                     {errors.reason ? (<p className="login-error p-0">{errors.reason}</p>) : (<></>)}
                     <div className="container-fluid d-flex justify-content-center p-4">
-                    <button className="btn btn-outline-dark submit" onClick={() => submitAdoption()}>Submit</button>
+                    <button className="btn btn-outline-dark submit" type="submit" onClick={(event) => submitAdoption(event)}>Submit</button>
                 </div>
                 </form>
                 
