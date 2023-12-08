@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import Reply from "./reply";
 
 let bearer = "Bearer " + localStorage.getItem("access_token");
 
 function Review({ review, users, replies, setReplies }) {
   const [errors, setErrors] = useState({});
   const [reply, setReply] = useState("");
+  const [photoError, setPhotoError] = useState(false);
 
   async function handleReply() {
     fetch(`/reviews/${review.id}/replies/`, {
@@ -41,14 +43,27 @@ function Review({ review, users, replies, setReplies }) {
   return (
     <div className="row review mt-3">
       <div className="d-block col-4 col-sm-3 col-lg-2 pt-3 ps-2 ps-sm-3">
-        <img
-          className="img-thumbnail img-fluid profile-pic ms-xxl-5 ms-xl-4"
-          src={
-            users?.users?.[review.user_from]?.profile_pic ??
-            "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
-          }
-          alt="Profile"
-        />
+        <div className="profile-pic-container ms-xxl-5 ms-xl-4">
+          {photoError ? (
+            <img
+              className="img-thumbnail img-fluid profile-pic"
+              src="https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+              alt="Profile"
+            />
+          ) : (
+            <img
+              className="img-thumbnail img-fluid profile-pic"
+              src={
+                users?.users?.[review.user_from]?.profile_pic ??
+                "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+              }
+              onError={() => {
+                setPhotoError(true);
+              }}
+              alt="Profile"
+            />
+          )}
+        </div>
       </div>
       <div className="col-8 pt-3 d-flex flex-column gap-4 justify-content-center">
         <h3 className="reviewer">
@@ -98,24 +113,7 @@ function Review({ review, users, replies, setReplies }) {
           <summary className="replies-dropdown">Show Replies</summary>
           <div className="replies">
             {replies?.[review.id]?.map((reply) => (
-              <div key={reply?.id} className="row review mt-3 me-3 reply">
-                <div className="d-sm-block col-4 col-sm-2 p-3 d-none">
-                  <img
-                    className="img-thumbnail img-fluid profile-pic ms-xxl-5 ms-xl-4"
-                    src={
-                      users?.users?.[reply.user_from]?.profile_pic ??
-                      "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
-                    }
-                    alt="Profile"
-                  />
-                </div>
-                <div className="d-none col-8 py-4 d-sm-flex flex-column justify-content-center">
-                  <h3 className="reviewer">
-                    {users?.users?.[reply.user_from]?.username ?? ""}
-                  </h3>
-                </div>
-                <p className="col12 d-block">{reply?.message ?? ""}</p>
-              </div>
+              <Reply key={reply?.id} reply={reply} users={users} />
             ))}
           </div>
         </details>
