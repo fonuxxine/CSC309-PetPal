@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 function ShelterInfo() {
   const navigate = useNavigate();
@@ -41,11 +41,11 @@ function ShelterInfo() {
         </div>
       </div>
       <div className="row container-fluid text-center p-5">
-        <div className="col-sm-6">
+        <div className="col-sm-4">
           <h2>Mission Statement</h2>
           <p>{shelterInfo?.mission_statement ?? ""}</p>
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-4">
           {shelterInfo?.location === null || shelterInfo.location === "" ? (
             <></>
           ) : (
@@ -56,6 +56,9 @@ function ShelterInfo() {
           )}
           <h2>Contact Information</h2>
           <p>{shelterInfo?.email ?? ""}</p>
+        </div>
+        <div className="col-sm-4">
+        <Link to={`/shelter/${shelterID}/blogs`} className="blog-name"><h2>{shelterInfo.shelter_name} Blog</h2></Link>
         </div>
       </div>
     </>
