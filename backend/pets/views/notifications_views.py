@@ -8,8 +8,6 @@ from pets.models import *
 
 class NotificationViewPermission(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.method == 'POST':
-            return request.user.is_staff
         user = get_object_or_404(CustomUser, id=view.kwargs['pk'])
         if user.username == request.user.username:
             return True
