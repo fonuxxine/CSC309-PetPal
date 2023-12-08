@@ -60,7 +60,7 @@ function Message() {
             }).catch((err) => {
                 setError('Error: ' + err);
         });
-        sendNotification(message, messages[0].user_to, notiLink);
+        sendNotification(message, messages[0]?.user_to, notiLink);
     }
 
 
