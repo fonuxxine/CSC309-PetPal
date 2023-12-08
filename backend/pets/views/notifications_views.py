@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
 from rest_framework.pagination import PageNumberPagination
 from ..serializers.notifications_serializers import *
@@ -9,9 +9,11 @@ from pets.models import *
 class NotificationViewPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         user = get_object_or_404(CustomUser, id=view.kwargs['pk'])
-        if user.username == request.user.username:
-            return True
-        return False
+        if request.method != "POST":
+            if user.username == request.user.username:
+                return True
+            return False
+        return True
     
 class NotificationListCreateView(ListCreateAPIView):
     pagination_class = PageNumberPagination
@@ -36,8 +38,12 @@ class NotificationGetPermission(permissions.BasePermission):
             return True
         return False
     
-class NotificationGetDeleteView(RetrieveDestroyAPIView):
+class NotificationGetDeleteView(RetrieveUpdateDestroyAPIView):
     serializer_class = NotificationSerializer
     permission_classes = [NotificationGetPermission]
     def get_object(self):
         return get_object_or_404(Notification, id=self.kwargs['pk'])
+
+    def perform_update(self, serializer):
+        serializer.save(read=True)
+
