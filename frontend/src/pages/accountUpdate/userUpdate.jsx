@@ -8,6 +8,7 @@ function UserUpdate() {
   const [userInfo, setUserInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [profilePicPreview, setProfilePicPreview] = useState(null);
+  const [photoError, setPhotoError] = useState(false);
   const { accountID } = useParams();
 
   useEffect(() => {
@@ -26,6 +27,10 @@ function UserUpdate() {
       .then((json) => {
         setUserInfo(json);
         setProfilePicPreview(json.profile_pic);
+        setUserInfo((userInfo) => ({
+          ...userInfo,
+          profile_pic: null,
+        }));
       });
   }, [accountID, navigate]);
 
@@ -45,7 +50,12 @@ function UserUpdate() {
       })
       .then((json) => {
         setUserInfo(json);
-        setProfilePicPreview(json.profilePic);
+        setProfilePicPreview(json.profile_pic);
+        setUserInfo((userInfo) => ({
+          ...userInfo,
+          profile_pic: null,
+        }));
+        setPhotoError(false);
       });
   }
 
@@ -66,6 +76,7 @@ function UserUpdate() {
     })
       .then((resp) => {
         if (resp.status === 200) {
+          setPhotoError(false);
           return {};
         }
         return resp.json();
@@ -103,9 +114,9 @@ function UserUpdate() {
         profile_pic: "Must be JPG, JPEG or PNG",
       }));
     } else {
-      console.log("here");
       setUserInfo({ ...userInfo, profile_pic: selectedFile });
       setErrors((errors) => ({ ...errors, profile_pic: "" }));
+      setPhotoError(false);
       const file = new FileReader();
       file.onload = function () {
         setProfilePicPreview(file.result);
@@ -125,14 +136,27 @@ function UserUpdate() {
     <div className="row container-fluid update-account ps-5">
       <div className="col-md-5 col-lg-4 ps-4 pe-5 pb-0 pt-5 profile h-50">
         <div className="position-relative row-sm-5">
-          <img
-            className="img-thumbnail account-profile-pic"
-            src={
-              profilePicPreview ??
-              "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
-            }
-            alt="Profile"
-          />
+          <div className="account-profile-pic-container">
+            {photoError ? (
+              <img
+                className="img-thumbnail account-profile-pic"
+                src="https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                alt="Profile"
+              />
+            ) : (
+              <img
+                className="img-thumbnail account-profile-pic"
+                src={
+                  profilePicPreview ??
+                  "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                }
+                alt="Profile"
+                onError={() => {
+                  setPhotoError(true);
+                }}
+              />
+            )}
+          </div>
           <p className="error">{errors?.profile_pic ?? ""}</p>
           <label
             htmlFor="profile"

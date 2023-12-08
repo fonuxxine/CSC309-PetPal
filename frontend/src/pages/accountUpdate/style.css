@@ -3,11 +3,19 @@
   justify-content: center;
 }
 
-.account-profile-pic {
+.account-profile-pic-container {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  background: #ede2f0;
+  overflow: hidden;
+}
+
+.account-profile-pic {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 }
 
 .delete-account {

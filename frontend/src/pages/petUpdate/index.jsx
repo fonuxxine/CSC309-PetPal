@@ -11,6 +11,7 @@ function PetUpdate() {
   const [petInfo, setPetInfo] = useState({});
   const [errors, setErrors] = useState({});
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [photoError, setPhotoError] = useState(false);
   const { petID } = useParams();
 
   useEffect(() => {
@@ -29,6 +30,10 @@ function PetUpdate() {
       .then((json) => {
         setPetInfo(json);
         setPhotoPreview(json.photo);
+        setPetInfo((petInfo) => ({
+          ...petInfo,
+          photo: null,
+        }));
       });
   }, [petID, navigate]);
 
@@ -46,9 +51,13 @@ function PetUpdate() {
         return resp.json();
       })
       .then((json) => {
-        console.log(json);
         setPetInfo(json);
         setPhotoPreview(json.photo);
+        setPetInfo((petInfo) => ({
+          ...petInfo,
+          photo: null,
+        }));
+        setPhotoError(false);
       });
     setErrors({});
   }
@@ -70,6 +79,7 @@ function PetUpdate() {
     })
       .then((resp) => {
         if (resp.status === 200) {
+          setPhotoError(false);
           return {};
         }
         return resp.json();
@@ -88,6 +98,7 @@ function PetUpdate() {
     } else {
       setPetInfo({ ...petInfo, photo: selectedFile });
       setErrors((errors) => ({ ...errors, photo: "" }));
+      setPhotoError(false);
       const file = new FileReader();
       file.onload = function () {
         setPhotoPreview(file.result);
@@ -99,24 +110,34 @@ function PetUpdate() {
   return (
     <>
       <div className="container-fluid return-to-bar d-flex justify-content-start p-3 return-to-app">
-        <Link
-          to="/shelter/manage/"
-          className="btn btn-outline-dark search-btn"
-        >
+        <Link to="/shelter/manage/" className="btn btn-outline-dark search-btn">
           {" "}
           Return to pet management
         </Link>
       </div>
       <div className="application-form">
         <div className="profile-picture">
-          <img
-            alt="Pet"
-            src={
-              photoPreview ??
-              "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
-            }
-            className="upload-picture"
-          />
+          <div className="upload-picture-container">
+            {photoError ? (
+              <img
+                alt="Pet"
+                src="https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                className="upload-picture"
+              />
+            ) : (
+              <img
+                alt="Pet"
+                src={
+                  photoPreview ??
+                  "https://www.freeiconspng.com/uploads/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                }
+                onError={() => {
+                  setPhotoError(true);
+                }}
+                className="upload-picture"
+              />
+            )}
+          </div>
           <p className="error">{errors?.photo ?? ""}</p>
           <div className="container-fluid d-flex justify-content-center ph-4 message">
             <label htmlFor="profile" className="edit-button btn btn-primary">
