@@ -76,15 +76,11 @@ function PetDetail() {
         }
         fetchApplication();
     }, [petID, userID])
-
-
-    // && !applicationLink && !localStorage.getItem("is_shelter")
  
     return (
         <>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
                 <Link to="/" className="btn btn-outline-dark search-btn">Return to search</Link>
-                <h1>{applicationLink}</h1>
             </div>
             <div className="container-fluid pt-3">
                 <div className="row">
