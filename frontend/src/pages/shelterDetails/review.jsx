@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import Reply from "./reply";
+import {sendNotification} from "../notification/sendNotification";
 
 let bearer = "Bearer " + localStorage.getItem("access_token");
 

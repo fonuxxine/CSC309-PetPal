@@ -49,7 +49,7 @@ function Application () {
             .then((err) => {
                 setError("Error: " + err);
             })
-        sendNotification("Status updated: " + status, application.applicant, `http://localhost:3000/applications/${applicationID}/`)
+        sendNotification("Status updated: " + status, application.applicant, `/applications/${applicationID}/`)
     }
 
 

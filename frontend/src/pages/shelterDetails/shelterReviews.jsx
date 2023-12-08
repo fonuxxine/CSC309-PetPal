@@ -77,7 +77,7 @@ function Reviews() {
           setErrors(json);
         }
       });
-    sendNotification(review.message + " - Rating: " + review.rating.value, shelterID, `http://localhost:3000/shelter/${shelterID}`);
+    sendNotification(review.message + " - Rating: " + review.rating.value, shelterID, `/shelter/${shelterID}`);
   }
 
   useEffect(() => {

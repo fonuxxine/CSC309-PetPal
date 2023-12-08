@@ -15,7 +15,7 @@ function Message() {
 
     const [error, setError] = useState("");
 
-    const notiLink = `http://localhost:3000/applications/${appID}/`;
+    const notiLink = `/applications/${appID}/`;
 
 
     useEffect(() => {
