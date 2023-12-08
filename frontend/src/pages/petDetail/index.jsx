@@ -25,6 +25,8 @@ function PetDetail() {
 
     let navigate = useNavigate();
 
+    let shelterVal = localStorage.getItem("is_shelter").toString();
+
 
     const { petID } = useParams();
 
@@ -147,7 +149,7 @@ function PetDetail() {
                             </p>
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
-                            {status === "AV" && applicationLink ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
+                            {status === "AV" && applicationLink && shelterVal === "false" ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
                             <Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>
                         </div>
                         </div>
