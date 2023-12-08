@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./style.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-
+const userID = localStorage.getItem("user_id");
 
 function PetDetail() {
 
@@ -20,6 +20,8 @@ function PetDetail() {
     const [special_requirements, setSpecialRequirements] = useState("");
     const [behaviour, setBehaviour] = useState("");
     const [shelter, setShelter] = useState("");
+
+    const [applicationLink, setApplicationLink] = useState(true);
 
     let navigate = useNavigate();
 
@@ -60,12 +62,29 @@ function PetDetail() {
         fetchPet();
     }, [petID, navigate]);
 
+    useEffect(() => {
+        async function fetchApplication() {
+            await fetch(`/applications/${petID}/${userID}/all/`, {
+                method: "GET",
+            })
+            .then((response) => {return response.json();})
+            .then((json) => {
+                if (JSON.parse(JSON.stringify(json))["count"] !== 0) {
+                    setApplicationLink(false);
+                }
+            })
+        }
+        fetchApplication();
+    }, [petID, userID])
 
+
+    // && !applicationLink && !localStorage.getItem("is_shelter")
  
     return (
         <>
             <div className="container-fluid return-to-bar d-flex justify-content-start p-3">
                 <Link to="/" className="btn btn-outline-dark search-btn">Return to search</Link>
+                <h1>{applicationLink}</h1>
             </div>
             <div className="container-fluid pt-3">
                 <div className="row">
@@ -132,8 +151,7 @@ function PetDetail() {
                             </p>
                         </div>
                         <div className="container-fluid d-flex justify-content-start pt-4 pb-4">
-                            {/* Replace to link later */}
-                            {status === "AV" ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
+                            {status === "AV" && applicationLink ? (<Link to={`/pet-listing/${petID}/adoption/`} className="btn btn-outline-dark adoption-btn m-4">Adoption Application</Link>) : (<></>)}
                              {localStorage.getItem("user_id")?.match(shelter)? (<Link to={`applications/`} className="btn btn-outline-dark adoption-btn m-4">View Application</Link>):<></>}
                         </div>
                         </div>
