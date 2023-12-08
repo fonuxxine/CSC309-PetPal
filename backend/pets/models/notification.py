@@ -5,5 +5,5 @@ class Notification(models.Model):
     read = models.BooleanField(default=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     message = models.TextField()
-    link = models.URLField()
+    link = models.TextField()
     time_created = models.DateTimeField(auto_now=True)
