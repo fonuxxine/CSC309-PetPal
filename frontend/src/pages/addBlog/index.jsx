@@ -5,8 +5,8 @@ let bearer = "Bearer " + localStorage.getItem("access_token");
 
 function AddBlog() {
 
-    const [ blogInfo, setBlogInfo] = useState({});
-    const [ errors, setErrors] = useState("");
+    const [ blogInfo, setBlogInfo ] = useState({});
+    const [ errors, setErrors ] = useState({});
 
     const { shelterID } = useParams();
 
@@ -39,30 +39,10 @@ function AddBlog() {
                 alert("Successfully added blog post!");
                 navigate(-1);
             } else {
-                setErrors(JSON.stringify(json));
+                setErrors(json);
             }
         });
     }
-
-    // function handleFileChange(event) {
-    //     const selectedFile = event.target.files[0];
-    //     const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
-    
-    //     if (!allowedTypes.includes(selectedFile?.type)) {
-    //       setErrors((errors) => ({
-    //         ...errors,
-    //         profile_pic: "Must be JPG, JPEG or PNG",
-    //       }));
-    //     } else {
-    //         setBlogInfo({ ...blogInfo, photo: selectedFile });
-    //         setErrors((errors) => ({ ...errors, profile_pic: "" }));
-    //     //   const file = new FileReader();
-    //     //   file.onload = function () {
-    //     //     setProfilePicPreview(file.result);
-    //     //   };
-    //     //   file.readAsDataURL(selectedFile);
-    //     }
-    //   }
 
 
     return (
@@ -80,7 +60,6 @@ function AddBlog() {
             <div className="d-flex justify-content-center pt-4">
                 <div className="w-75">
                     <div className="form-group p-2">
-                    {errors ? (<p className="login-error p-0">{errors}</p>) : (<></>)}
                         <label>Title</label>
                         <input 
                             type="text"
@@ -89,16 +68,12 @@ function AddBlog() {
                             onChange={(event) =>
                                 setBlogInfo({ ...blogInfo, title: event.target.value })
                               }
-                            // onChange={(event) => setTitle(event.target.value)}
                             required
                         />
                     </div>
+                    {errors.title ? (<p className="login-error p-0">{errors.title}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Photo</label>
-                        {/* <label
-            htmlFor="profile"
-            className="btn btn-primary position-absolute bottom-0 start-0"
-          ></label> */}
                         <input 
                             type="file"
                             className="form-control"
@@ -108,6 +83,7 @@ function AddBlog() {
                             required
                         />
                     </div>
+                    {errors.photo ? (<p className="login-error p-0">{errors.photo}</p>) : (<></>)}
                     <div className="form-group p-2">
                         <label>Content</label>
                         <textarea className="form-control" onChange={(event) =>
@@ -115,7 +91,10 @@ function AddBlog() {
                               }
                             required/>
                     </div>
-                    <div><button className="login-but mt-2 p-2" onClick={() => addBlog()}>Submit</button></div>
+                    {errors.content ? (<p className="login-error p-0">{errors.content}</p>) : (<></>)}
+                    <div>
+                        <button className="login-but mt-2 p-2" onClick={() => addBlog()}>Submit</button>
+                    </div>
                 </div>
             </div>
         </>

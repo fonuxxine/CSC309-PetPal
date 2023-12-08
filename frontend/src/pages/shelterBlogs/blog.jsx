@@ -29,10 +29,6 @@ export default function BlogCard({ title, photo, date, content }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {/** like button */}
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
       </CardActions>
     </Card>
   );
