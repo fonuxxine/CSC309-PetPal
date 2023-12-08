@@ -2,6 +2,7 @@ import Applications from "../applications";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Form from "../application/form";
+import {sendNotification} from "../notification/sendNotification";
 
 
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
@@ -48,6 +49,7 @@ function Application () {
             .then((err) => {
                 setError("Error: " + err);
             })
+        sendNotification("Status updated: " + status, application.applicant, `http://localhost:3000/applications/${applicationID}/`)
     }
 
 

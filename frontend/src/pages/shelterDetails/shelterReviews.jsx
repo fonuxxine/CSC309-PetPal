@@ -2,6 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import Review from "./review";
+import {sendNotification} from "../notification/sendNotification";
 
 let bearer = "Bearer " + localStorage.getItem("access_token");
 
@@ -76,6 +77,7 @@ function Reviews() {
           setErrors(json);
         }
       });
+    sendNotification(review.message + " - Rating: " + review.rating.value, shelterID, `http://localhost:3000/shelter/${shelterID}`);
   }
 
   useEffect(() => {

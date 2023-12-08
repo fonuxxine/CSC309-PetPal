@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import MessageTemplate from "./messageTemplate";
+import {sendNotification} from "../notification/sendNotification";
 
 let bearer = 'Bearer ' + localStorage.getItem('access_token');
 
@@ -15,37 +16,6 @@ function Message() {
     const [error, setError] = useState("");
 
     const notiLink = `http://localhost:3000/applications/${appID}/`;
-
-     function sendNotification(mess) {
-         if (messages[0]) {
-            fetch(`/user/${messages[0].user_to}/notifications/`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': bearer,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    message: mess,
-                    link: notiLink
-                }),
-            }).then(response => {
-                if (!response.ok) {
-                    return response.text().then(text => { throw new Error(text) })
-                } else {
-                    return response.json();
-                }
-            })
-                .then(json => {
-                    if (json.detail) {
-                        setError("Error: error with sending notifications");
-                    } else {
-                        return json;
-                    }
-                }).catch((err) => {
-                    setError("Error: " + err)
-            });
-         }
-    }
 
 
     useEffect(() => {
@@ -90,7 +60,7 @@ function Message() {
             }).catch((err) => {
                 setError('Error: ' + err);
         });
-        sendNotification(message);
+        sendNotification(message, messages[0].user_to, notiLink);
     }
 
 
