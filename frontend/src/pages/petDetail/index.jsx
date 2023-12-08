@@ -25,9 +25,12 @@ function PetDetail() {
 
     let navigate = useNavigate();
 
-    let shelterVal = localStorage.getItem("is_shelter").toString();
+    var shelterVal;
 
-
+    if (localStorage.getItem("is_shelter") !== null) {
+        shelterVal = localStorage.getItem("is_shelter").toString();
+    }
+    
     const { petID } = useParams();
 
     useEffect(() => {
