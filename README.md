@@ -29,7 +29,7 @@ PetPal is the course project for CSC309 (Programming on the Web) at the Universi
  * **Pet Details**
      * Users can view detailed information about each pet by clicking on a listing.
      * Information should include medical history, behavior, and any special needs or requirements.
- * **Pet Seeker**
+ * **Adoption Process**
      * Users should be able to express interest in adopting a pet through an application form.
      * Shelters can review and respond to adoption requests.
        * Users should be able to reply to follow up questions from shelters about their application.
