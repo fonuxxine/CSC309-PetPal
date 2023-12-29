@@ -59,3 +59,10 @@ PetPal is the course project for CSC309 (Programming on the Web) at the Universi
    * `cd frontend  # go to the frontend folder`
    * `npm install  # install npm`
    * `npm start  # run the frontend server`
+
+## Landing Page
+<img width="1440" alt="Landing page" src="https://github.com/Kelleou/CSC309-PetPal/assets/97000424/25e04428-dbc2-4314-b4f7-3c315beb1806">
+
+## Shelter Page
+<img width="1440" alt="Shelter page" src="https://github.com/Kelleou/CSC309-PetPal/assets/97000424/3160cd6b-338c-4e4d-bbe0-44a6e48bfeaa">
+
